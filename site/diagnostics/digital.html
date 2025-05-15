@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Diagnostic Digital – Master Your Metrics</title>
+  <link rel="stylesheet" href="../assets/css/style-global.css">
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; }
+    header { background-color: #001f3f; color: white; padding: 40px 20px; text-align: center; }
+    header h1 { margin: 0; font-size: 2.5em; }
+    main { max-width: 900px; margin: 40px auto; padding: 20px; }
+
+    form { display: flex; flex-direction: column; gap: 20px; }
+    label { font-weight: bold; margin-bottom: 5px; }
+    select { padding: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #ccc; }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-top: 30px;
+    }
+
+    button:hover { background-color: #218838; }
+
+    #progressContainer {
+      width: 100%; background-color: #ddd; border-radius: 20px;
+      margin-top: 30px; display: none;
+    }
+
+    #progressBar {
+      width: 0%; height: 30px; background-color: #28a745; border-radius: 20px;
+    }
+
+    #result {
+      margin-top: 40px;
+      font-size: 1.5em;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Évaluation de la Digitalisation</h1>
+  <p>Mesurez votre degré de transformation numérique.</p>
+</header>
+
+<main>
+  <form id="digitalForm">
+    <div>
+      <label>1. Disposez-vous d’un ERP ou CRM intégré ?</label>
+      <select name="q1">
+        <option value="0">Non</option>
+        <option value="1">Partiellement</option>
+        <option value="2">Oui</option>
+      </select>
+    </div>
+    <div>
+      <label>2. Vos outils de gestion sont-ils connectés entre eux ?</label>
+      <select name="q2">
+        <option value="0">Pas du tout</option>
+        <option value="1">Partiellement</option>
+        <option value="2">Oui, interopérables</option>
+      </select>
+    </div>
+    <div>
+      <label>3. Proposez-vous une expérience digitale à vos clients ?</label>
+      <select name="q3">
+        <option value="0">Non</option>
+        <option value="1">Oui, minimale</option>
+        <option value="2">Oui, fluide et optimisée</option>
+      </select>
+    </div>
+    <div>
+      <label>4. Votre site internet permet-il des actions concrètes (devis, achat, prise de RDV) ?</label>
+      <select name="q4">
+        <option value="0">Non</option>
+        <option value="1">Oui, quelques fonctions</option>
+        <option value="2">Oui, complet</option>
+      </select>
+    </div>
+    <div>
+      <label>5. Avez-vous une stratégie de marketing digital ?</label>
+      <select name="q5">
+        <option value="0">Non</option>
+        <option value="1">Oui, informelle</option>
+        <option value="2">Oui, formalisée</option>
+      </select>
+    </div>
+    <div>
+      <label>6. Utilisez-vous régulièrement les réseaux sociaux pour votre activité ?</label>
+      <select name="q6">
+        <option value="0">Jamais</option>
+        <option value="1">Oui, sans plan</option>
+        <option value="2">Oui, avec ligne éditoriale</option>
+      </select>
+    </div>
+    <div>
+      <label>7. Avez-vous mis en place des outils d’automatisation (factures, relances, campagnes) ?</label>
+      <select name="q7">
+        <option value="0">Non</option>
+        <option value="1">Oui, basiques</option>
+        <option value="2">Oui, avancés</option>
+      </select>
+    </div>
+    <div>
+      <label>8. Vos équipes sont-elles formées aux outils numériques ?</label>
+      <select name="q8">
+        <option value="0">Non</option>
+        <option value="1">Oui, de manière informelle</option>
+        <option value="2">Oui, avec programme de formation</option>
+      </select>
+    </div>
+    <div>
+      <label>9. Disposez-vous d’indicateurs pour suivre votre performance digitale ?</label>
+      <select name="q9">
+        <option value="0">Aucun</option>
+        <option value="1">Quelques-uns</option>
+        <option value="2">Tableaux de bord complets</option>
+      </select>
+    </div>
+    <div>
+      <label>10. Votre activité a-t-elle un responsable ou référent digital identifié ?</label>
+      <select name="q10">
+        <option value="0">Non</option>
+        <option value="1">Oui, sans rôle défini</option>
+        <option value="2">Oui, rôle actif et reconnu</option>
+      </select>
+    </div>
+
+    <button type="submit">Voir mon score Digital</button>
+  </form>
+
+  <div id="progressContainer">
+    <div id="progressBar"></div>
+  </div>
+
+  <div id="result"></div>
+</main>
+
+<script>
+  document.getElementById('digitalForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    let score = 0;
+    const formData = new FormData(this);
+    for (let value of formData.values()) {
+      score += parseInt(value);
+    }
+
+    const container = document.getElementById('progressContainer');
+    const bar = document.getElementById('progressBar');
+    const result = document.getElementById('result');
+    container.style.display = 'block';
+    result.style.display = 'none';
+
+    // Stockage du score digital pour la synthèse
+    localStorage.setItem('scoreDigital', score);
+
+    let width = 0;
+    const interval = setInterval(function () {
+      if (width >= 100) {
+        clearInterval(interval);
+
+        let message = '';
+        if (score <= 7) message = '🟥 Maturité digitale faible – transformation urgente à envisager.';
+        else if (score <= 14) message = '🟧 Digitalisation partielle – bon début, à renforcer.';
+        else message = '🟩 Très bonne digitalisation – continuez à innover.';
+
+        result.innerHTML = `
+          <p>${message}</p>
+          <div class="temoignage" style="background: #fff; padding: 20px; border-left: 4px solid #0074D9; margin-top: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+            <p style="font-style: italic;">“Nous pensions être digitalisés, mais ce test nous a révélé des lacunes dans notre interconnexion d’outils et nos process clients. C’est devenu notre feuille de route.”</p>
+            <strong>— Nathalie D., Gérante d’une PME de services</strong>
+          </div>
+          <br>
+          <a href="credit.html" class="cta-button">Étape suivante : Crédit</a>
+        `;
+        result.style.display = 'block';
+
+        setTimeout(() => {
+          window.location.href = "credit.html";
+        }, 8000);
+      } else {
+        width++;
+        bar.style.width = width + '%';
+      }
+    }, 15);
+  });
+</script>
+
+
+</body>
+</html>

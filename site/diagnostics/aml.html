@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Diagnostic AML – Master Your Metrics</title>
+  <link rel="stylesheet" href="../assets/css/style-global.css">
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; }
+    header { background-color: #001f3f; color: white; padding: 40px 20px; text-align: center; }
+    header h1 { margin: 0; font-size: 2.5em; }
+    main { max-width: 900px; margin: 40px auto; padding: 20px; }
+
+    form { display: flex; flex-direction: column; gap: 20px; }
+    label { font-weight: bold; margin-bottom: 5px; }
+    select { padding: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #ccc; }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-top: 30px;
+    }
+
+    button:hover { background-color: #218838; }
+
+    #progressContainer {
+      width: 100%; background-color: #ddd; border-radius: 20px;
+      margin-top: 30px; display: none;
+    }
+
+    #progressBar {
+      width: 0%; height: 30px; background-color: #28a745; border-radius: 20px;
+    }
+
+    #result {
+      margin-top: 40px;
+      font-size: 1.5em;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Évaluation AML</h1>
+  <p>Mesurez la robustesse de votre dispositif anti-blanchiment.</p>
+</header>
+
+<main>
+  <form id="amlForm">
+    <div>
+      <label>1. Vérifiez-vous systématiquement l'identité de vos clients ?</label>
+      <select name="q1">
+        <option value="0">Non</option>
+        <option value="1">Oui, partiellement</option>
+        <option value="2">Oui, toujours</option>
+      </select>
+    </div>
+    <div>
+      <label>2. Demandez-vous la source des fonds pour les nouvelles relations ?</label>
+      <select name="q2">
+        <option value="0">Jamais</option>
+        <option value="1">Parfois</option>
+        <option value="2">Toujours</option>
+      </select>
+    </div>
+    <div>
+      <label>3. Vos clients incluent-ils des personnes politiquement exposées (PPE) ?</label>
+      <select name="q3">
+        <option value="0">Oui, sans contrôle renforcé</option>
+        <option value="1">Oui, avec contrôle partiel</option>
+        <option value="2">Oui, avec procédure complète</option>
+      </select>
+    </div>
+    <div>
+      <label>4. Avez-vous une procédure de surveillance des transactions inhabituelles ?</label>
+      <select name="q4">
+        <option value="0">Non</option>
+        <option value="1">Oui, manuelle</option>
+        <option value="2">Oui, automatisée</option>
+      </select>
+    </div>
+    <div>
+      <label>5. Tenez-vous un registre des relations clients à risque ?</label>
+      <select name="q5">
+        <option value="0">Non</option>
+        <option value="1">Partiellement</option>
+        <option value="2">Oui</option>
+      </select>
+    </div>
+    <div>
+      <label>6. Avez-vous mis en place un programme de formation AML pour vos employés ?</label>
+      <select name="q6">
+        <option value="0">Non</option>
+        <option value="1">Oui, ponctuel</option>
+        <option value="2">Oui, régulier et suivi</option>
+      </select>
+    </div>
+    <div>
+      <label>7. Avez-vous désigné une personne responsable de la conformité AML ?</label>
+      <select name="q7">
+        <option value="0">Non</option>
+        <option value="1">Oui, mais peu formée</option>
+        <option value="2">Oui, formée et active</option>
+      </select>
+    </div>
+    <div>
+      <label>8. Disposez-vous d’un reporting structuré des alertes AML ?</label>
+      <select name="q8">
+        <option value="0">Non</option>
+        <option value="1">Oui, basique</option>
+        <option value="2">Oui, documenté et suivi</option>
+      </select>
+    </div>
+    <div>
+      <label>9. Effectuez-vous une revue régulière de vos procédures AML ?</label>
+      <select name="q9">
+        <option value="0">Jamais</option>
+        <option value="1">Tous les deux ans</option>
+        <option value="2">Annuellement</option>
+      </select>
+    </div>
+    <div>
+      <label>10. Vos clients utilisent-ils fréquemment des espèces ou cryptomonnaies ?</label>
+      <select name="q10">
+        <option value="0">Oui, sans contrôle</option>
+        <option value="1">Oui, avec contrôle manuel</option>
+        <option value="2">Non ou avec contrôle automatisé</option>
+      </select>
+    </div>
+
+    <button type="submit">Voir mon score AML</button>
+  </form>
+
+  <div id="progressContainer">
+    <div id="progressBar"></div>
+  </div>
+
+  <div id="result"></div>
+</main>
+<script>
+  document.getElementById('amlForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    let score = 0;
+    const formData = new FormData(this);
+    for (let value of formData.values()) {
+      score += parseInt(value);
+    }
+
+    // Stocke le score AML pour la synthèse finale
+    localStorage.setItem('scoreAML', score);
+
+    const container = document.getElementById('progressContainer');
+    const bar = document.getElementById('progressBar');
+    const result = document.getElementById('result');
+    container.style.display = 'block';
+    result.style.display = 'none';
+
+    let width = 0;
+    const interval = setInterval(function () {
+      if (width >= 100) {
+        clearInterval(interval);
+
+        let message = '';
+        if (score <= 7) message = '🟥 Risque AML élevé – Renforcez immédiatement vos contrôles.';
+        else if (score <= 14) message = '🟧 Risque AML modéré – Des points d’amélioration sont identifiés.';
+        else message = '🟩 Conformité AML forte – Poursuivez vos efforts !';
+
+        result.innerHTML = `
+          <p>${message}</p>
+          <div class="temoignage" style="background: #fff; padding: 20px; border-left: 4px solid #0074D9; margin-top: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+            <p style="font-style: italic;">“Ce test AML m’a permis de découvrir des angles morts dans mes procédures internes. C’est rapide, pertinent et utile avant tout contrôle.”</p>
+            <strong>— Guido B., Expert-comptable à Namur</strong>
+          </div>
+        `;
+        result.style.display = 'block';
+
+        // Redirection après 4 secondes
+        setTimeout(() => {
+          window.location.href = "digital.html";
+        }, 8000);
+      } else {
+        width++;
+        bar.style.width = width + '%';
+      }
+    }, 15);
+  });
+</script>
+
+
+</body>
+</html>

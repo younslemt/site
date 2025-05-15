@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Votre Synthèse – Master Your Metrics</title>
+  <link rel="stylesheet" href="assets/css/style-global.css">
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; color: #333; }
+    header { background-color: #001f3f; color: white; text-align: center; padding: 60px 20px; }
+    header h1 { font-size: 2.8em; margin-bottom: 10px; }
+    header p { font-size: 1.2em; }
+    main { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+    .section { margin-bottom: 40px; }
+    .bar-block { margin-top: 15px; }
+    .bar-label { font-weight: bold; margin-bottom: 8px; }
+    .bar-bg { background: #ddd; border-radius: 30px; overflow: hidden; height: 28px; }
+    .bar-fill {
+      height: 28px;
+      border-radius: 30px;
+      text-align: right;
+      padding-right: 12px;
+      line-height: 28px;
+      font-weight: bold;
+      color: white;
+      width: 0;
+      transition: width 1.2s ease;
+    }
+    .cta-section {
+      text-align: center;
+      background-color: #0074D9;
+      color: white;
+      padding: 40px 20px;
+      border-radius: 10px;
+      margin: 60px 0;
+    }
+    .cta-section h2 { font-size: 2em; margin-bottom: 10px; }
+    .cta-section p { font-size: 1.1em; margin-bottom: 20px; }
+    .cta-button {
+      background-color: #28a745;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .cta-button:hover { background-color: #218838; }
+    .temoignage {
+      background: white;
+      padding: 30px;
+      border-left: 6px solid #0074D9;
+      margin-top: 40px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .temoignage p { font-style: italic; margin-bottom: 5px; }
+    .temoignage strong { display: block; margin-top: 10px; }
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Votre Diagnostic est Terminé</h1>
+  <p>Voici la synthèse de vos résultats par domaine clé.</p>
+</header>
+
+<main>
+  <div class="section">
+    <h2>Vos résultats :</h2>
+
+    <div id="generalScore" style="text-align:center; font-size:2em; margin: 20px 0;"></div>
+
+    <div class="bar-block"><div class="bar-label">🌱 ESG</div><div class="bar-bg"><div id="barESG" class="bar-fill" style="background-color:#2ECC40">0</div></div></div>
+    <div class="bar-block"><div class="bar-label">💼 AML</div><div class="bar-bg"><div id="barAML" class="bar-fill" style="background-color:#FF851B">0</div></div></div>
+    <div class="bar-block"><div class="bar-label">💻 Digitalisation</div><div class="bar-bg"><div id="barDigital" class="bar-fill" style="background-color:#7FDBFF">0</div></div></div>
+    <div class="bar-block"><div class="bar-label">📊 Crédit</div><div class="bar-bg"><div id="barCredit" class="bar-fill" style="background-color:#B10DC9">0</div></div></div>
+    <div class="bar-block"><div class="bar-label">🔐 Cybersécurité</div><div class="bar-bg"><div id="barCyber" class="bar-fill" style="background-color:#FF4136">0</div></div></div>
+  </div>
+
+<section class="roadmap-section">
+  <h2>📍 Feuille de route après votre diagnostic</h2>
+  <div class="timeline-container">
+    <div class="step done">
+      <div class="circle">1</div>
+      <p>Test réalisé</p>
+    </div>
+    <div class="step">
+      <div class="circle">2</div>
+      <p>Prise de contact</p>
+    </div>
+    <div class="step">
+      <div class="circle">3</div>
+      <p>1er rendez-vous</p>
+    </div>
+    <div class="step">
+      <div class="circle">4</div>
+      <p>Plan d’action</p>
+    </div>
+    <div class="step">
+      <div class="circle">5</div>
+      <p>Mise en place</p>
+    </div>
+    <div class="step">
+      <div class="circle">6</div>
+      <p>Auto-évaluation finale</p>
+    </div>
+  </div>
+</section>
+
+<style>
+.roadmap-section {
+  background: #f4f4f4;
+  padding: 50px 20px;
+  margin-top: 60px;
+  border-top: 4px solid #0074D9;
+}
+.roadmap-section h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #001f3f;
+}
+
+.timeline-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.step {
+  text-align: center;
+  flex: 1;
+  min-width: 100px;
+  position: relative;
+}
+
+.circle {
+  width: 50px;
+  height: 50px;
+  background-color: #0074D9;
+  color: white;
+  border-radius: 50%;
+  line-height: 50px;
+  margin: 0 auto 10px auto;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.step.done .circle {
+  background-color: #28a745;
+}
+
+.step p {
+  font-size: 0.9em;
+  margin: 0;
+}
+</style>
+
+
+  <section style="margin: 60px 0;">
+    <h2 style="text-align:center;">📌 Cas concrets</h2>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px; max-width: 1000px; margin:auto;">
+      <div style="background:white; border-left: 4px solid #0074D9; padding:20px; width:280px; box-shadow:0 0 10px rgba(0,0,0,0.05);">
+        <h4>ESG</h4>
+        <p><em>Une fiduciaire a mis en place une politique RSE après avoir découvert son score faible, améliorant sa marque employeur.</em></p>
+      </div>
+      <div style="background:white; border-left: 4px solid #FF851B; padding:20px; width:280px; box-shadow:0 0 10px rgba(0,0,0,0.05);">
+        <h4>AML</h4>
+        <p><em>Un cabinet comptable a sécurisé sa clientèle en identifiant un risque PPE non géré.</em></p>
+      </div>
+      <div style="background:white; border-left: 4px solid #2ECC40; padding:20px; width:280px; box-shadow:0 0 10px rgba(0,0,0,0.05);">
+        <h4>Digital</h4>
+        <p><em>Une PME a doublé ses leads en connectant son site à un CRM simple.</em></p>
+      </div>
+    </div>
+  </section>
+<section class="cta-section">
+  <h2>🎯 Besoin d’un plan sur mesure ?</h2>
+  <p>Nos experts traduisent vos résultats en leviers d’action. Ne laissez pas vos scores dans un tiroir !</p>
+  <a href="mailto:contact@masteryourmetrics.com" class="cta-button">📩 Contactez-nous maintenant</a>
+</section>
+
+  <div class="cta-section">
+    <h2>Prêt à agir ?</h2>
+    <p>Nous vous aidons à transformer ce diagnostic en plan d'action. Prenez contact avec notre équipe pour un échange confidentiel et personnalisé.</p>
+    <a href="mailto:contact@masteryourmetrics.com" class="cta-button">📩 Planifier un appel</a>
+  </div>
+
+  <div class="temoignage">
+    <p>“Ce diagnostic m’a vraiment ouvert les yeux sur mes failles internes. J’ai rapidement pu mettre en place des actions concrètes et améliorer mes performances.”</p>
+    <strong>— Julie M., Gérante de fiduciaire à Liège</strong>
+  </div>
+</main>
+
+<footer>
+  © 2025 Master Your Metrics. Tous droits réservés.
+</footer>
+
+<script>
+  function displayScore(id, value, max) {
+    const el = document.getElementById(id);
+    const percent = Math.min(Math.round((value / max) * 100), 100);
+    el.style.width = percent + '%';
+    el.textContent = `${value} / ${max}`;
+  }
+
+  function displayStarRating(score) {
+    const container = document.getElementById('generalScore');
+    const stars = Math.round((score / 100) * 5);
+    container.innerHTML = '⭐'.repeat(stars) + '☆'.repeat(5 - stars) +
+      `<p style="font-size: 0.9em; margin-top:10px;">Score global : ${score}/100</p>`;
+  }
+
+  const scores = {
+    barESG: parseInt(localStorage.getItem('scoreESG')) || 0,
+    barAML: parseInt(localStorage.getItem('scoreAML')) || 0,
+    barDigital: parseInt(localStorage.getItem('scoreDigital')) || 0,
+    barCredit: parseInt(localStorage.getItem('scoreCredit')) || 0,
+    barCyber: parseInt(localStorage.getItem('scoreCyber')) || 0,
+  };
+
+  displayScore('barESG', scores.barESG, 20);
+  displayScore('barAML', scores.barAML, 20);
+  displayScore('barDigital', scores.barDigital, 20);
+  displayScore('barCredit', scores.barCredit, 20);
+  displayScore('barCyber', scores.barCyber, 20);
+
+  const globalScore = (scores.barESG + scores.barAML + scores.barDigital + scores.barCredit + scores.barCyber) * 100 / (5 * 20);
+  displayStarRating(globalScore);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Évaluation ESG – Master Your Metrics</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; }
+    header { background-color: #001f3f; color: white; padding: 40px 20px; text-align: center; }
+    header h1 { margin: 0; font-size: 2.5em; }
+    main { max-width: 900px; margin: 40px auto; padding: 20px; }
+
+    form { display: flex; flex-direction: column; gap: 20px; }
+    label { font-weight: bold; margin-bottom: 5px; }
+    select { padding: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #ccc; }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-top: 30px;
+    }
+
+    button:hover { background-color: #218838; }
+
+    #progressContainer {
+      width: 100%; background-color: #ddd; border-radius: 20px;
+      margin-top: 30px; display: none;
+    }
+
+    #progressBar {
+      width: 0%; height: 30px; background-color: #28a745; border-radius: 20px;
+    }
+
+    #result {
+      margin-top: 40px;
+      font-size: 1.5em;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Évaluation Rapide ESG</h1>
+    <p>10 questions pour découvrir votre profil ESG en moins de 3 minutes.</p>
+  </header>
+
+  <main>
+    <h2>Répondez aux questions :</h2>
+    <form id="esgForm">
+      <div>
+        <label>1. Avez-vous mis en place des actions pour réduire votre consommation d’énergie ?</label>
+        <select name="q1">
+          <option value="0">Aucune action</option>
+          <option value="1">Quelques initiatives ponctuelles</option>
+          <option value="2">Plan structuré avec suivi</option>
+        </select>
+      </div>
+      <div>
+        <label>2. Utilisez-vous des sources d’énergie renouvelables ?</label>
+        <select name="q2">
+          <option value="0">Non</option>
+          <option value="1">Partiellement (moins de 50%)</option>
+          <option value="2">Majoritairement (plus de 50%)</option>
+        </select>
+      </div>
+      <div>
+        <label>3. Gérez-vous et recyclez-vous vos déchets ?</label>
+        <select name="q3">
+          <option value="0">Non</option>
+          <option value="1">Oui, partiellement</option>
+          <option value="2">Oui, avec suivi</option>
+        </select>
+      </div>
+      <div>
+        <label>4. Avez-vous une politique d'égalité des chances ?</label>
+        <select name="q4">
+          <option value="0">Aucune politique</option>
+          <option value="1">Politique limitée</option>
+          <option value="2">Politique établie</option>
+        </select>
+      </div>
+      <div>
+        <label>5. Proposez-vous des programmes de formation continue ?</label>
+        <select name="q5">
+          <option value="0">Non</option>
+          <option value="1">Quelques formations</option>
+          <option value="2">Programme structuré</option>
+        </select>
+      </div>
+      <div>
+        <label>6. Avez-vous des actions pour la santé mentale des employés ?</label>
+        <select name="q6">
+          <option value="0">Non</option>
+          <option value="1">Actions ponctuelles</option>
+          <option value="2">Programme formalisé</option>
+        </select>
+      </div>
+      <div>
+        <label>7. Disposez-vous d’un code de conduite ou d’un engagement éthique ?</label>
+        <select name="q7">
+          <option value="0">Non</option>
+          <option value="1">En cours de développement</option>
+          <option value="2">Oui, appliqué</option>
+        </select>
+      </div>
+      <div>
+        <label>8. Avez-vous un processus de gestion des risques ?</label>
+        <select name="q8">
+          <option value="0">Aucun</option>
+          <option value="1">Partiel</option>
+          <option value="2">Complet</option>
+        </select>
+      </div>
+      <div>
+        <label>9. Intégrez-vous les critères ESG dans vos décisions stratégiques ?</label>
+        <select name="q9">
+          <option value="0">Non</option>
+          <option value="1">Parfois</option>
+          <option value="2">Oui, systématiquement</option>
+        </select>
+      </div>
+      <div>
+        <label>10. Communiquez-vous publiquement sur vos engagements ESG ?</label>
+        <select name="q10">
+          <option value="0">Pas du tout</option>
+          <option value="1">Communication limitée</option>
+          <option value="2">Communication complète</option>
+        </select>
+      </div>
+      <button type="submit">Voir mon score ESG</button>
+    </form>
+
+    <div id="result" style="margin-top:40px; font-size:1.5em; text-align:center; display:none;"></div>
+
+    
+  </main>
+
+  <footer>
+    © 2025 Master Your Metrics. Tous droits réservés.
+  </footer>
+
+  <script>
+  document.getElementById('esgForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let score = 0;
+    const formData = new FormData(this);
+    for (let value of formData.values()) {
+      score += parseInt(value);
+    }
+
+    // Enregistrer le score dans le localStorage
+    localStorage.setItem('scoreESG', score);
+
+    // Déterminer le message
+    let message = '';
+    if (score <= 7) message = '🟠 ESG en construction - De nombreuses pistes d\'amélioration';
+    else if (score <= 14) message = '🟡 ESG intermédiaire - Base solide à renforcer';
+    else message = '🟢 ESG avancé - Engagement durable affirmé';
+
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerText = message;
+    resultDiv.style.display = 'block';
+       
+// essayer d 'ajouter le temoignage
+ result.innerHTML = `
+          <p>${message}</p>
+          <div class="temoignage" style="background: #fff; padding: 20px; border-left: 4px solid #0074D9; margin-top: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+            <p style="font-style: italic;">“En plus d'asumer nos responsabilité envers la socièté cela nous a permis de nous démarquer lors d 'appel d 'offre.”</p>
+            <strong>— Patrick L., Free lance dans la logistique à Anvers</strong>
+          </div>
+        `;
+        result.style.display = 'block';
+    // Redirection vers la page suivante après 3 secondes
+    setTimeout(() => {
+      window.location.href = "aml.html";
+    }, 8000);
+  });
+</script>
+
+</body>
+</html>

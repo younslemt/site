@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Diagnostic Cybersécurité – Master Your Metrics</title>
+  <link rel="stylesheet" href="../assets/css/style-global.css">
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; }
+    header { background-color: #001f3f; color: white; padding: 40px 20px; text-align: center; }
+    header h1 { margin: 0; font-size: 2.5em; }
+    main { max-width: 900px; margin: 40px auto; padding: 20px; }
+
+    form { display: flex; flex-direction: column; gap: 20px; }
+    label { font-weight: bold; margin-bottom: 5px; }
+    select { padding: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #ccc; }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-top: 30px;
+    }
+
+    button:hover { background-color: #218838; }
+
+    #progressContainer {
+      width: 100%; background-color: #ddd; border-radius: 20px;
+      margin-top: 30px; display: none;
+    }
+
+    #progressBar {
+      width: 0%; height: 30px; background-color: #28a745; border-radius: 20px;
+    }
+
+    #result {
+      margin-top: 40px;
+      font-size: 1.5em;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Évaluation Cybersécurité</h1>
+  <p>Évaluez vos pratiques de sécurité informatique et de protection des données.</p>
+</header>
+
+<main>
+  <form id="cyberForm">
+    <div>
+      <label>1. Utilisez-vous l’authentification à deux facteurs pour les accès sensibles ?</label>
+      <select name="q1">
+        <option value="0">Non</option>
+        <option value="1">Partiellement</option>
+        <option value="2">Oui, partout</option>
+      </select>
+    </div>
+    <div>
+      <label>2. Avez-vous une politique claire de gestion des mots de passe ?</label>
+      <select name="q2">
+        <option value="0">Non</option>
+        <option value="1">Oui, peu appliquée</option>
+        <option value="2">Oui, appliquée et suivie</option>
+      </select>
+    </div>
+    <div>
+      <label>3. Vos équipes sont-elles formées à la cybersécurité ?</label>
+      <select name="q3">
+        <option value="0">Non</option>
+        <option value="1">Oui, ponctuellement</option>
+        <option value="2">Oui, régulièrement</option>
+      </select>
+    </div>
+    <div>
+      <label>4. Disposez-vous d’un plan de réponse aux incidents ?</label>
+      <select name="q4">
+        <option value="0">Non</option>
+        <option value="1">En cours d'élaboration</option>
+        <option value="2">Oui, testé régulièrement</option>
+      </select>
+    </div>
+    <div>
+      <label>5. Effectuez-vous des sauvegardes automatiques de vos données ?</label>
+      <select name="q5">
+        <option value="0">Non</option>
+        <option value="1">Oui, localement</option>
+        <option value="2">Oui, dans le cloud sécurisé</option>
+      </select>
+    </div>
+    <div>
+      <label>6. Vos infrastructures sont-elles protégées par des pare-feu et antivirus à jour ?</label>
+      <select name="q6">
+        <option value="0">Non</option>
+        <option value="1">Partiellement</option>
+        <option value="2">Oui, en permanence</option>
+      </select>
+    </div>
+    <div>
+      <label>7. Avez-vous un registre des accès et activités sensibles ?</label>
+      <select name="q7">
+        <option value="0">Non</option>
+        <option value="1">Oui, incomplet</option>
+        <option value="2">Oui, complet et audité</option>
+      </select>
+    </div>
+    <div>
+      <label>8. Avez-vous déjà subi une cyberattaque ou tentative d'intrusion ?</label>
+      <select name="q8">
+        <option value="2">Oui, mais gérée efficacement</option>
+        <option value="1">Oui, impact modéré</option>
+        <option value="0">Oui, impact majeur ou pas gérée</option>
+      </select>
+    </div>
+    <div>
+      <label>9. Disposez-vous de contrats ou de SLAs avec vos prestataires IT ?</label>
+      <select name="q9">
+        <option value="0">Non</option>
+        <option value="1">Oui, mais peu clairs</option>
+        <option value="2">Oui, précis et actualisés</option>
+      </select>
+    </div>
+    <div>
+      <label>10. Avez-vous désigné un DPO ou référent RGPD ?</label>
+      <select name="q10">
+        <option value="0">Non</option>
+        <option value="1">En cours</option>
+        <option value="2">Oui</option>
+      </select>
+    </div>
+
+    <button type="submit">Voir mon score Cybersécurité</button>
+  </form>
+
+  <div id="progressContainer">
+    <div id="progressBar"></div>
+  </div>
+
+  <div id="result"></div>
+</main>
+
+<script>
+  document.getElementById('cyberForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    let score = 0;
+    const formData = new FormData(this);
+    for (let value of formData.values()) {
+      score += parseInt(value);
+    }
+
+    const container = document.getElementById('progressContainer');
+    const bar = document.getElementById('progressBar');
+    const result = document.getElementById('result');
+    container.style.display = 'block';
+    result.style.display = 'none';
+
+    let width = 0;
+    const interval = setInterval(function () {
+      if (width >= 100) {
+        clearInterval(interval);
+        localStorage.setItem('scoreCyber', score);
+
+        let message = '';
+        if (score <= 7) message = '🟥 Faible cybersécurité – des actions urgentes sont à mettre en place.';
+        else if (score <= 14) message = '🟧 Cybersécurité intermédiaire – quelques points sensibles à renforcer.';
+        else message = '🟩 Très bonne cybersécurité – continuez à rester vigilant.';
+
+        result.innerHTML = `
+          <p>${message}</p>
+          <div class="temoignage" style="background:#fff; padding:20px; margin-top:20px; border-left:4px solid #0074D9; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
+            <p style="font-style:italic;">“Nous pensions être à jour, mais ce diagnostic a révélé plusieurs angles morts dans notre sécurité. Nous avons revu nos accès et procédures, un vrai gain en sérénité.”</p>
+            <strong>— Benoît V., expert-comptable à Bruxelles</strong>
+          </div>
+          <br><a href="../synthese.html" class="cta-button">Voir mon profil complet</a>
+        `;
+        result.style.display = 'block';
+
+        setTimeout(() => {
+          window.location.href = "../synthese.html";
+        }, 8000);
+
+      } else {
+        width++;
+        bar.style.width = width + '%';
+      }
+    }, 15);
+  });
+</script>
+
+
+</body>
+</html>
