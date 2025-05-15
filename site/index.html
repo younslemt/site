@@ -1,207 +1,202 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Master Your Metrics – Diagnostic</title>
-  <link rel="stylesheet" href="assets/css/style-global.css">
   <style>
-    * { box-sizing: border-box; }
-    body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    .hero {
-      background-image: url('assets/images/hero.jpg');
-      background-size: cover;
-      background-position: center;
-      height: 100vh;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    header, footer {
+      background-color: #0b1f3a;
       color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      padding: 2rem;
       text-align: center;
-      padding: 0 20px;
     }
-    .hero h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-    .hero p {
-      font-size: 1.5em;
-      max-width: 700px;
-      margin-bottom: 40px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    section {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
     }
     .cta-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background-color: #007acc;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+    }
+    .feature {
+      flex: 1 1 45%;
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .usecase-carousel {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-top: 2rem;
+      text-align: center;
+      font-style: italic;
+    }
+    .testimonial {
+      background: white;
+      margin-top: 2rem;
+      padding: 1rem;
+      border-left: 5px solid #007acc;
+    }
+    .roadmap {
+      list-style: none;
+      padding: 0;
+      margin-top: 1rem;
+    }
+    .roadmap li {
+      margin: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .roadmap li::before {
+      content: "✔";
+      color: #28a745;
+      position: absolute;
+      left: 0;
+    }
+    .about-block {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+    }
+    .about-image {
+      flex: 1 1 30%;
+      min-width: 250px;
+      text-align: center;
+    }
+    .about-image img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    .about-text {
+      flex: 1 1 65%;
+    }
+    #scrollCTA {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
       background-color: #28a745;
       color: white;
-      padding: 15px 30px;
-      font-size: 1.2em;
-      border: none;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
+      padding: 14px 20px;
+      border-radius: 50px;
+      font-size: 1em;
       font-weight: bold;
-    }
-    .cta-button:hover {
-      background-color: #218838;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      background-color: #f4f4f4;
-      color: #666;
-    }
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2.5em; }
-      .hero p { font-size: 1.2em; }
+      text-decoration: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 999;
     }
   </style>
 </head>
 <body>
-  <div class="hero">
-    <h1>Bienvenue sur Master Your Metrics</h1>
-    <p>Évaluez la maturité de votre entreprise à travers 5 modules clés : ESG, AML, Digitalisation, Crédit et Cybersécurité.</p>
-    <a href="diagnostics/esg.html" class="cta-button">Commencer l'auto-évaluation</a>
-  </div>
-<section style="background-color: #f4f4f4; padding: 50px 20px;">
-  <h2 style="text-align:center;">Ils nous ont fait confiance</h2>
-  <div id="carousel" style="max-width:700px; margin:40px auto; position:relative;">
-    <div class="temoignage" id="temoignageText">
-      <p>“Ce diagnostic m’a vraiment ouvert les yeux sur mes failles internes. J’ai rapidement pu mettre en place des actions concrètes et améliorer mes performances.”</p>
-      <strong>— Julie M., Gérante de fiduciaire à Liège</strong>
-    </div>
 
-    <button onclick="prevTestimonial()" style="position:absolute; left:0; top:60%; transform:translateY(-50%); font-size:1.5em; background:none; border:none; cursor:pointer;">←</button>
-    <button onclick="nextTestimonial()" style="position:absolute; right:0; top:60%; transform:translateY(-50%); font-size:1.5em; background:none; border:none; cursor:pointer;">→</button>
+<header>
+  <h1>Des diagnostics actionnables pour les PME, fiduciaires et professionnels</h1>
+  <p>ESG · AML/KYC · Digitalisation · Crédit · Cybersécurité</p>
+  <a href="diagnostics/esg.html" class="cta-button">🚀 Commencer l'auto-évaluation</a>
+</header>
+
+<section id="about">
+  <h2>Qui sommes-nous ?</h2>
+  <div class="about-block">
+    <div class="about-image">
+      <img src="assets/images/portrait.jpg" alt="Photo professionnelle à insérer ici">
+    </div>
+    <div class="about-text">
+      <p>Master Your Metrics est une solution développée par des professionnels de la finance, de la conformité et du digital pour répondre aux besoins des indépendants, PME et experts du chiffre.</p>
+      <p>Nous croyons que chaque entreprise mérite un accompagnement stratégique, simple et impactant. Grâce à nos diagnostics en ligne, nos analyses ciblées et notre accompagnement opérationnel, nous vous aidons à renforcer vos fondamentaux : durabilité, conformité et efficacité digitale.</p>
+    </div>
   </div>
+</section>
+
+<section id="modules">
+  <h2>Nos 5 Modules Clés</h2>
+  <div class="features">
+    <div class="feature"><strong>🌱 ESG</strong><br/>Évaluez vos engagements durables</div>
+    <div class="feature"><strong>🔒 AML/KYC</strong><br/>Renforcez votre conformité réglementaire</div>
+    <div class="feature"><strong>💻 Digitalisation</strong><br/>Identifiez vos leviers numériques</div>
+    <div class="feature"><strong>📊 Crédit</strong><br/>Optimisez vos ratios financiers</div>
+    <div class="feature"><strong>🛡️ Cybersécurité</strong><br/>Mesurez vos protections techniques</div>
+  </div>
+</section>
+
+<section id="usecases">
+  <h2>📌 Cas d’usage – Ce qu'ils disent</h2>
+  <div class="usecase-carousel" id="usecaseDisplay">
+    “Grâce au diagnostic AML, nous avons anticipé un audit réglementaire.”<br><strong>— Karim, Responsable conformité</strong>
+  </div>
+</section>
+
+<section id="temoignages">
+  <h2>🎤 Ils témoignent</h2>
+  <div class="testimonial">“En quelques clics, j’ai compris pourquoi ma demande de crédit bloquait. On a tout restructuré grâce au diagnostic.”<br><strong>— Sophie L., Dirigeante de PME</strong></div>
+</section>
+
+<section id="plan">
+  <h2>🗺️ Feuille de route</h2>
+  <p>Voici comment nous collaborons avec vous :</p>
+  <ul class="roadmap">
+    <li>Test de diagnostic en ligne</li>
+    <li>Contact personnalisé</li>
+    <li>Premier entretien (offert)</li>
+    <li>Plan d’action personnalisé</li>
+    <li>Mise en œuvre avec notre appui</li>
+    <li>Autoévaluation annuelle</li>
+  </ul>
+</section>
+
+<section id="contact">
+  <h2>📬 Contactez-nous</h2>
+  <p>Prêt à mesurer et améliorer vos indicateurs clés ?</p>
+  <a href="mailto:contact@masteryourmetrics.com" class="cta-button">📩 Prendre contact</a>
+</section>
+
+<footer>
+  <p>&copy; 2025 Master Your Metrics – Tous droits réservés</p>
+</footer>
+
+<a id="scrollCTA" href="diagnostics/esg.html">🚀 Faites le test</a>
+
 <script>
-  const testimonials = [
-    {
-      text: "“Ce diagnostic m’a vraiment ouvert les yeux sur mes failles internes. J’ai rapidement pu mettre en place des actions concrètes et améliorer mes performances.”",
-      author: "— Julie M., Gérante de fiduciaire à Liège"
-    },
-    {
-      text: "“Grâce à l’évaluation AML, nous avons évité une mise en conformité coûteuse et réagi en amont. L’outil est rapide et très efficace.”",
-      author: "— Karim B., Compliance Officer"
-    },
-    {
-      text: "“En quelques clics, j’ai compris pourquoi ma demande de crédit bloquait. On a tout restructuré grâce au diagnostic crédit.”",
-      author: "— Sophie L., Dirigeante de PME"
-    },
-    {
-      text: "“Le diagnostic cybersécurité m’a fait prendre conscience que mon système n'était pas prêt. On a revu toutes les procédures avec mon IT.”",
-      author: "— Benoît V., expert-comptable"
-    }
+  const usecases = [
+    "“Grâce au diagnostic AML, nous avons anticipé un audit réglementaire.”<br><strong>— Karim, Responsable conformité</strong>",
+    "“L’évaluation cybersécurité a mis en lumière nos faiblesses réseau.”<br><strong>— Benoît, Expert-comptable</strong>",
+    "“Le module ESG nous a aidé à répondre à un appel d'offre public.”<br><strong>— Aline, Responsable RSE</strong>",
+    "“Nous avons pu corriger notre stratégie web grâce au diagnostic digital.”<br><strong>— David, Consultant indépendant</strong>"
   ];
+  let index = 0;
+  setInterval(() => {
+    document.getElementById('usecaseDisplay').innerHTML = usecases[index];
+    index = (index + 1) % usecases.length;
+  }, 6000);
 
-  let current = 0;
-  let intervalId;
-
-  function showTestimonial(index) {
-    const container = document.getElementById('temoignageText');
-    container.innerHTML = `
-      <p>${testimonials[index].text}</p>
-      <strong>${testimonials[index].author}</strong>
-    `;
-  }
-
-  function nextTestimonial() {
-    current = (current + 1) % testimonials.length;
-    showTestimonial(current);
-  }
-
-  function prevTestimonial() {
-    current = (current - 1 + testimonials.length) % testimonials.length;
-    showTestimonial(current);
-  }
-
-  function startCarousel() {
-    intervalId = setInterval(nextTestimonial, 7000);
-  }
-
-  function resetCarousel() {
-    clearInterval(intervalId);
-    startCarousel();
-  }
-
-  document.querySelector('button[onclick="nextTestimonial()"]').addEventListener('click', resetCarousel);
-  document.querySelector('button[onclick="prevTestimonial()"]').addEventListener('click', resetCarousel);
-
-  showTestimonial(current);
-  startCarousel();
-</script>
-
-</section>
-<section style="background-color: #f9f9f9; padding: 60px 20px; border-top: 1px solid #ddd;">
-  <h2 style="text-align:center; margin-bottom: 40px;">🧐 Dans quels cas faire appel à nous ?</h2>
-  <div style="max-width: 1000px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
-
-    <div style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
-      <h3 style="color: #0074D9;">📉 Risque réglementaire</h3>
-      <p>Vous craignez un contrôle de conformité ? Nos diagnostics AML et ESG identifient les lacunes avant qu’elles ne deviennent des sanctions.</p>
-    </div>
-
-    <div style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
-      <h3 style="color: #FF4136;">🔐 Sécurité défaillante</h3>
-      <p>Vous avez subi une attaque, ou vous doutez de votre niveau de cybersécurité ? Testez vos défenses avec notre évaluation rapide.</p>
-    </div>
-
-    <div style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
-      <h3 style="color: #B10DC9;">💰 Besoin de financement</h3>
-      <p>Votre banque demande plus de garanties ? Notre diagnostic crédit vous aide à renforcer votre dossier de manière stratégique.</p>
-    </div>
-
-    <div style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
-      <h3 style="color: #0074D9;">📊 Stratégie de modernisation</h3>
-      <p>Vous voulez digitaliser vos services, mais ne savez pas par où commencer ? Le diagnostic digital vous donne une feuille de route claire.</p>
-    </div>
-
-  </div>
-
-  <div style="text-align: center; margin-top: 60px;">
-    <a href="mailto:contact@masteryourmetrics.com" class="cta-button" style="font-size: 1.1em;">📩 Contactez-nous dès maintenant</a>
-  </div>
-</section>
-
-<section style="background-color: #001f3f; color: white; padding: 50px 20px;">
-  <h2 style="text-align: center;">📬 Nos coordonnées</h2>
-  <div style="max-width: 800px; margin: auto; text-align: center; margin-top: 30px;">
-    <p><strong>Adresse :</strong> <em>[à compléter]</em></p>
-    <p><strong>Téléphone :</strong> <em>[à compléter]</em></p>
-    <p><strong>Email :</strong> <a href="mailto:contact@masteryourmetrics.com" style="color: #7FDBFF;">contact@masteryourmetrics.com</a></p>
-    <p><strong>Suivez-nous :</strong> <em>[LinkedIn | Instagram | etc.]</em></p>
-  </div>
-</section>
-
-  <footer>© 2025 Master Your Metrics. Tous droits réservés.</footer>
-<a id="scrollCTA" href="diagnostics/esg.html" style="
-  display: none;
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background-color: #28a745;
-  color: white;
-  padding: 14px 20px;
-  border-radius: 50px;
-  font-size: 1em;
-  font-weight: bold;
-  text-decoration: none;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  z-index: 999;
-  transition: opacity 0.4s ease;
-">
-  🚀 Faites le test
-</a>
-
-</body>
-<script>
   const cta = document.getElementById('scrollCTA');
-
   window.addEventListener('scroll', () => {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = window.scrollY;
-
     if (scrolled >= scrollable - 80) {
       cta.style.display = 'block';
     } else {
@@ -210,4 +205,5 @@
   });
 </script>
 
+</body>
 </html>
