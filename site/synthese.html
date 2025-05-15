@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -34,8 +33,6 @@
       border-radius: 10px;
       margin: 60px 0;
     }
-    .cta-section h2 { font-size: 2em; margin-bottom: 10px; }
-    .cta-section p { font-size: 1.1em; margin-bottom: 20px; }
     .cta-button {
       background-color: #28a745;
       color: white;
@@ -54,11 +51,78 @@
     }
     .temoignage p { font-style: italic; margin-bottom: 5px; }
     .temoignage strong { display: block; margin-top: 10px; }
+
+    .roadmap-section {
+      background: #f4f4f4;
+      padding: 50px 20px;
+      margin-top: 60px;
+      border-top: 4px solid #0074D9;
+    }
+    .roadmap-section h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #001f3f;
+    }
+    .timeline-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .step {
+      text-align: center;
+      flex: 1;
+      min-width: 100px;
+      position: relative;
+    }
+    .circle {
+      width: 50px;
+      height: 50px;
+      background-color: #0074D9;
+      color: white;
+      border-radius: 50%;
+      line-height: 50px;
+      margin: 0 auto 10px auto;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .step.done .circle { background-color: #28a745; }
+
     footer {
       text-align: center;
       padding: 30px;
       font-size: 0.9em;
       color: #666;
+    }
+
+    #contact-form {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    #contact-form input,
+    #contact-form button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 15px;
+      font-size: 1em;
+    }
+
+    #contact-form button {
+      background-color: #0074D9;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #contact-form button:hover {
+      background-color: #005fa3;
     }
   </style>
 </head>
@@ -82,110 +146,26 @@
     <div class="bar-block"><div class="bar-label">🔐 Cybersécurité</div><div class="bar-bg"><div id="barCyber" class="bar-fill" style="background-color:#FF4136">0</div></div></div>
   </div>
 
-<section class="roadmap-section">
-  <h2>📍 Feuille de route après votre diagnostic</h2>
-  <div class="timeline-container">
-    <div class="step done">
-      <div class="circle">1</div>
-      <p>Test réalisé</p>
-    </div>
-    <div class="step">
-      <div class="circle">2</div>
-      <p>Prise de contact</p>
-    </div>
-    <div class="step">
-      <div class="circle">3</div>
-      <p>1er rendez-vous</p>
-    </div>
-    <div class="step">
-      <div class="circle">4</div>
-      <p>Plan d’action</p>
-    </div>
-    <div class="step">
-      <div class="circle">5</div>
-      <p>Mise en place</p>
-    </div>
-    <div class="step">
-      <div class="circle">6</div>
-      <p>Auto-évaluation finale</p>
-    </div>
-  </div>
-</section>
-
-<style>
-.roadmap-section {
-  background: #f4f4f4;
-  padding: 50px 20px;
-  margin-top: 60px;
-  border-top: 4px solid #0074D9;
-}
-.roadmap-section h2 {
-  text-align: center;
-  margin-bottom: 40px;
-  color: #001f3f;
-}
-
-.timeline-container {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 30px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.step {
-  text-align: center;
-  flex: 1;
-  min-width: 100px;
-  position: relative;
-}
-
-.circle {
-  width: 50px;
-  height: 50px;
-  background-color: #0074D9;
-  color: white;
-  border-radius: 50%;
-  line-height: 50px;
-  margin: 0 auto 10px auto;
-  font-weight: bold;
-  font-size: 1.2em;
-}
-
-.step.done .circle {
-  background-color: #28a745;
-}
-
-.step p {
-  font-size: 0.9em;
-  margin: 0;
-}
-</style>
-
-
-  <section style="margin: 60px 0;">
-    <h2 style="text-align:center;">📌 Cas concrets</h2>
-    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px; max-width: 1000px; margin:auto;">
-      <div style="background:white; border-left: 4px solid #0074D9; padding:20px; width:280px; box-shadow:0 0 10px rgba(0,0,0,0.05);">
-        <h4>ESG</h4>
-        <p><em>Une fiduciaire a mis en place une politique RSE après avoir découvert son score faible, améliorant sa marque employeur.</em></p>
-      </div>
-      <div style="background:white; border-left: 4px solid #FF851B; padding:20px; width:280px; box-shadow:0 0 10px rgba(0,0,0,0.05);">
-        <h4>AML</h4>
-        <p><em>Un cabinet comptable a sécurisé sa clientèle en identifiant un risque PPE non géré.</em></p>
-      </div>
-      <div style="background:white; border-left: 4px solid #2ECC40; padding:20px; width:280px; box-shadow:0 0 10px rgba(0,0,0,0.05);">
-        <h4>Digital</h4>
-        <p><em>Une PME a doublé ses leads en connectant son site à un CRM simple.</em></p>
-      </div>
+  <section class="roadmap-section">
+    <h2>📍 Feuille de route après votre diagnostic</h2>
+    <div class="timeline-container">
+      <div class="step done"><div class="circle">1</div><p>Test réalisé</p></div>
+      <div class="step"><div class="circle">2</div><p>Prise de contact</p></div>
+      <div class="step"><div class="circle">3</div><p>1er rendez-vous</p></div>
+      <div class="step"><div class="circle">4</div><p>Plan d’action</p></div>
+      <div class="step"><div class="circle">5</div><p>Mise en place</p></div>
+      <div class="step"><div class="circle">6</div><p>Auto-évaluation finale</p></div>
     </div>
   </section>
-<section class="cta-section">
-  <h2>🎯 Besoin d’un plan sur mesure ?</h2>
-  <p>Nos experts traduisent vos résultats en leviers d’action. Ne laissez pas vos scores dans un tiroir !</p>
-  <a href="mailto:contact@masteryourmetrics.com" class="cta-button">📩 Contactez-nous maintenant</a>
-</section>
+
+  <section id="contact-form">
+    <h3>📤 Recevoir votre rapport personnalisé</h3>
+    <p>Entrez votre adresse e-mail pour recevoir votre synthèse complète et vos recommandations dans votre boîte mail :</p>
+    <form onsubmit="sendMail(event)">
+      <input type="email" id="email" placeholder="Votre adresse e-mail" required />
+      <button type="submit">Envoyer mon rapport</button>
+    </form>
+  </section>
 
   <div class="cta-section">
     <h2>Prêt à agir ?</h2>
@@ -204,20 +184,6 @@
 </footer>
 
 <script>
-  function displayScore(id, value, max) {
-    const el = document.getElementById(id);
-    const percent = Math.min(Math.round((value / max) * 100), 100);
-    el.style.width = percent + '%';
-    el.textContent = `${value} / ${max}`;
-  }
-
-  function displayStarRating(score) {
-    const container = document.getElementById('generalScore');
-    const stars = Math.round((score / 100) * 5);
-    container.innerHTML = '⭐'.repeat(stars) + '☆'.repeat(5 - stars) +
-      `<p style="font-size: 0.9em; margin-top:10px;">Score global : ${score}/100</p>`;
-  }
-
   const scores = {
     barESG: parseInt(localStorage.getItem('scoreESG')) || 0,
     barAML: parseInt(localStorage.getItem('scoreAML')) || 0,
@@ -226,6 +192,13 @@
     barCyber: parseInt(localStorage.getItem('scoreCyber')) || 0,
   };
 
+  function displayScore(id, value, max) {
+    const el = document.getElementById(id);
+    const percent = Math.min(Math.round((value / max) * 100), 100);
+    el.style.width = percent + '%';
+    el.textContent = `${value} / ${max}`;
+  }
+
   displayScore('barESG', scores.barESG, 20);
   displayScore('barAML', scores.barAML, 20);
   displayScore('barDigital', scores.barDigital, 20);
@@ -233,7 +206,25 @@
   displayScore('barCyber', scores.barCyber, 20);
 
   const globalScore = (scores.barESG + scores.barAML + scores.barDigital + scores.barCredit + scores.barCyber) * 100 / (5 * 20);
-  displayStarRating(globalScore);
+  document.getElementById('generalScore').innerHTML = '⭐'.repeat(Math.round(globalScore / 20)) + '☆'.repeat(5 - Math.round(globalScore / 20)) + `<p style="font-size: 0.9em;">Score global : ${globalScore}/100</p>`;
+
+  function sendMail(e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const body = `
+Résultats de l'utilisateur :
+- ESG : ${scores.barESG}/20
+- AML : ${scores.barAML}/20
+- Digitalisation : ${scores.barDigital}/20
+- Crédit : ${scores.barCredit}/20
+- Cybersécurité : ${scores.barCyber}/20
+- Score global : ${globalScore}/100
+    `.trim();
+
+    const subject = encodeURIComponent("Vos résultats - Master Your Metrics");
+    const mailtoLink = `mailto:${email}?subject=${subject}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
+  }
 </script>
 
 </body>
