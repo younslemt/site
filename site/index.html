@@ -216,6 +216,69 @@
     }
   });
 </script>
+  <script>
+  // Affiche la popup après 20 secondes
+  setTimeout(() => {
+    document.getElementById('test-popup').style.display = 'block';
+  }, 20000);
+
+  // Ferme la popup au clic
+  document.getElementById('popup-close').addEventListener('click', () => {
+    document.getElementById('test-popup').style.display = 'none';
+  });
+</script>
+
+<!-- Boîte flottante d'incitation au test -->
+<div id="test-popup" class="test-popup">
+  <div class="popup-content">
+    <p>📊 Besoin d’un coup de pouce pour structurer votre démarche ?</p>
+    <a href="diagnostics/esg.html" class="popup-button">🚀 Lancer le diagnostic</a>
+    <span id="popup-close" class="popup-close">&times;</span>
+  </div>
+</div>
+
+<style>
+  .test-popup {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #0b1f3a;
+    color: white;
+    padding: 16px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+    display: none;
+    z-index: 10000;
+    max-width: 300px;
+    font-size: 0.95em;
+  }
+
+  .popup-content p {
+    margin: 0 0 10px;
+  }
+
+  .popup-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .popup-button:hover {
+    background-color: #218838;
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+</style>
 
 </body>
 </html>
