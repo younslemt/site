@@ -1,282 +1,352 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Votre Synthèse – Master Your Metrics</title>
-  <link rel="stylesheet" href="assets/css/style-global.css">
-  <style>
-    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; color: #333; }
-    header { background-color: #001f3f; color: white; text-align: center; padding: 60px 20px; }
-    header h1 { font-size: 2.8em; margin-bottom: 10px; }
-    header p { font-size: 1.2em; }
-    main { max-width: 900px; margin: 40px auto; padding: 0 20px; }
-    .section { margin-bottom: 40px; }
-    .bar-block { margin-top: 15px; }
-    .bar-label { font-weight: bold; margin-bottom: 8px; }
-    .bar-bg { background: #ddd; border-radius: 30px; overflow: hidden; height: 28px; }
-    .bar-fill {
-      height: 28px;
-      border-radius: 30px;
-      text-align: right;
-      padding-right: 12px;
-      line-height: 28px;
-      font-weight: bold;
-      color: white;
-      width: 0;
-      transition: width 1.2s ease;
-    }
-    .cta-section {
-      text-align: center;
-      background-color: #0074D9;
-      color: white;
-      padding: 40px 20px;
-      border-radius: 10px;
-      margin: 60px 0;
-    }
-    .cta-button {
-      background-color: #28a745;
-      color: white;
-      padding: 15px 30px;
-      font-size: 1.2em;
-      border-radius: 6px;
-      text-decoration: none;
-    }
-    .cta-button:hover { background-color: #218838; }
-    .temoignage {
-      background: white;
-      padding: 30px;
-      border-left: 6px solid #0074D9;
-      margin-top: 40px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .temoignage p { font-style: italic; margin-bottom: 5px; }
-    .temoignage strong { display: block; margin-top: 10px; }
+<meta charset="UTF-8">
+<title>Votre Synthèse – Master Your Metrics</title>
+<link rel="stylesheet" href="assets/css/style-global.css">
 
-    .roadmap-section {
-      background: #f4f4f4;
-      padding: 50px 20px;
-      margin-top: 60px;
-      border-top: 4px solid #0074D9;
-    }
-    .roadmap-section h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      color: #001f3f;
-    }
-    .timeline-container {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 30px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .step {
-      text-align: center;
-      flex: 1;
-      min-width: 100px;
-      position: relative;
-    }
-    .circle {
-      width: 50px;
-      height: 50px;
-      background-color: #0074D9;
-      color: white;
-      border-radius: 50%;
-      line-height: 50px;
-      margin: 0 auto 10px auto;
-      font-weight: bold;
-      font-size: 1.2em;
-    }
-    .step.done .circle { background-color: #28a745; }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  color: #333;
+}
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      font-size: 0.9em;
-      color: #666;
-    }
+header {
+  background: linear-gradient(135deg, #001f3f, #003a70);
+  color: white;
+  text-align: center;
+  padding: 70px 20px;
+}
 
-    #contact-form {
-      max-width: 600px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
+header h1 {
+  font-size: 2.8em;
+  margin-bottom: 10px;
+}
 
-    #contact-form input,
-    #contact-form button {
-      width: 100%;
-      padding: 15px;
-      margin-top: 15px;
-      font-size: 1em;
-    }
+header p {
+  font-size: 1.2em;
+  opacity: 0.95;
+}
 
-    #contact-form button {
-      background-color: #0074D9;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
+main {
+  max-width: 950px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
 
-    #contact-form button:hover {
-      background-color: #005fa3;
-    }
-  </style>
+.section {
+  margin-bottom: 50px;
+}
+
+.bar-block {
+  margin-top: 18px;
+}
+
+.bar-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.bar-bg {
+  background: #ddd;
+  border-radius: 30px;
+  overflow: hidden;
+  height: 28px;
+}
+
+.bar-fill {
+  height: 28px;
+  border-radius: 30px;
+  text-align: right;
+  padding-right: 12px;
+  line-height: 28px;
+  font-weight: bold;
+  color: white;
+  width: 0;
+  transition: width 1.2s ease;
+}
+
+.score-global {
+  text-align: center;
+  font-size: 2em;
+  margin: 25px 0;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 35px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.cta-section {
+  text-align: center;
+  background: linear-gradient(135deg, #0074D9, #005fa3);
+  color: white;
+  padding: 45px 25px;
+  border-radius: 14px;
+  margin: 70px 0;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #28a745;
+  color: white;
+  padding: 16px 32px;
+  font-size: 1.2em;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.cta-button:hover {
+  background-color: #218838;
+}
+
+.temoignage {
+  background: white;
+  padding: 35px;
+  border-left: 6px solid #0074D9;
+  margin-top: 50px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.temoignage p {
+  font-style: italic;
+}
+
+.roadmap-section {
+  background: #f4f6f8;
+  padding: 60px 20px;
+  margin-top: 70px;
+  border-top: 4px solid #0074D9;
+}
+
+.roadmap-section h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #001f3f;
+}
+
+.timeline-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.step {
+  text-align: center;
+  flex: 1;
+  min-width: 120px;
+}
+
+.circle {
+  width: 52px;
+  height: 52px;
+  background-color: #0074D9;
+  color: white;
+  border-radius: 50%;
+  line-height: 52px;
+  margin: 0 auto 10px auto;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.step.done .circle {
+  background-color: #28a745;
+}
+
+#contact-form {
+  max-width: 650px;
+  margin: 50px auto;
+  background: white;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#contact-form button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 15px;
+  font-size: 1em;
+  background-color: #0074D9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#contact-form button:hover {
+  background-color: #005fa3;
+}
+
+.calendar-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 14px;
+  padding: 16px;
+  font-size: 1em;
+  background-color: #28a745;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  font-size: 0.9em;
+  color: #666;
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <h1>Votre Diagnostic est Terminé</h1>
-  <p>Voici la synthèse de vos résultats par domaine clé.</p>
+<h1>Votre diagnostic est terminé</h1>
+<p>Voici la synthèse complète de votre évaluation.</p>
 </header>
 
 <main>
-  <div class="section">
-    <h2>Vos résultats :</h2>
 
-    <div id="generalScore" style="text-align:center; font-size:2em; margin: 20px 0;"></div>
+<div class="section card">
+<h2>📊 Vos résultats par domaine</h2>
 
-    <div class="bar-block"><div class="bar-label">🌱 ESG</div><div class="bar-bg"><div id="barESG" class="bar-fill" style="background-color:#2ECC40">0</div></div></div>
-    <div class="bar-block"><div class="bar-label">💼 AML</div><div class="bar-bg"><div id="barAML" class="bar-fill" style="background-color:#FF851B">0</div></div></div>
-    <div class="bar-block"><div class="bar-label">💻 Digitalisation</div><div class="bar-bg"><div id="barDigital" class="bar-fill" style="background-color:#7FDBFF">0</div></div></div>
-    <div class="bar-block"><div class="bar-label">📊 Crédit</div><div class="bar-bg"><div id="barCredit" class="bar-fill" style="background-color:#B10DC9">0</div></div></div>
-    <div class="bar-block"><div class="bar-label">🔐 Cybersécurité</div><div class="bar-bg"><div id="barCyber" class="bar-fill" style="background-color:#FF4136">0</div></div></div>
-  </div>
+<div id="generalScore" class="score-global"></div>
 
-  <section class="roadmap-section">
-    <h2>📍 Feuille de route après votre diagnostic</h2>
-    <div class="timeline-container">
-      <div class="step done"><div class="circle">1</div><p>Test réalisé</p></div>
-      <div class="step"><div class="circle">2</div><p>Prise de contact</p></div>
-      <div class="step"><div class="circle">3</div><p>1er rendez-vous</p></div>
-      <div class="step"><div class="circle">4</div><p>Plan d’action</p></div>
-      <div class="step"><div class="circle">5</div><p>Mise en place</p></div>
-      <div class="step"><div class="circle">6</div><p>Auto-évaluation finale</p></div>
-    </div>
-  </section>
+<div class="bar-block"><div class="bar-label">🌱 ESG</div><div class="bar-bg"><div id="barESG" class="bar-fill" style="background:#2ECC40">0</div></div></div>
+<div class="bar-block"><div class="bar-label">💼 AML</div><div class="bar-bg"><div id="barAML" class="bar-fill" style="background:#FF851B">0</div></div></div>
+<div class="bar-block"><div class="bar-label">💻 Digitalisation</div><div class="bar-bg"><div id="barDigital" class="bar-fill" style="background:#7FDBFF">0</div></div></div>
+<div class="bar-block"><div class="bar-label">📊 Crédit</div><div class="bar-bg"><div id="barCredit" class="bar-fill" style="background:#B10DC9">0</div></div></div>
+<div class="bar-block"><div class="bar-label">🔐 Cybersécurité</div><div class="bar-bg"><div id="barCyber" class="bar-fill" style="background:#FF4136">0</div></div></div>
+</div>
 
-<section id="contact-form" style="max-width: 600px; margin: 40px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-  <h3>📤 Partagez vos résultats avec notre équipe</h3>
-  <p>Souhaitez-vous un retour personnalisé sur vos scores ? Cliquez ci-dessous pour envoyer votre synthèse à notre expert.</p>
-  <button onclick="sendReport()" style="width: 100%; padding: 15px; font-size: 1em; background-color: #0074D9; color: white; border: none; border-radius: 5px;">📨 Envoyer ma scorecard</button>
+<section class="roadmap-section">
+<h2>📍 Prochaines étapes recommandées</h2>
+<div class="timeline-container">
+  <div class="step done"><div class="circle">1</div><p>Diagnostic réalisé</p></div>
+  <div class="step"><div class="circle">2</div><p>Prise de contact</p></div>
+  <div class="step"><div class="circle">3</div><p>Entretien gratuit</p></div>
+  <div class="step"><div class="circle">4</div><p>Plan d’action</p></div>
+  <div class="step"><div class="circle">5</div><p>Mise en œuvre</p></div>
+  <div class="step"><div class="circle">6</div><p>Suivi & amélioration</p></div>
+</div>
 </section>
 
-<script>
-  function sendReport() {
-    const scores = {
-      ESG: parseInt(localStorage.getItem('scoreESG')) || 0,
-      AML: parseInt(localStorage.getItem('scoreAML')) || 0,
-      Digital: parseInt(localStorage.getItem('scoreDigital')) || 0,
-      Credit: parseInt(localStorage.getItem('scoreCredit')) || 0,
-      Cyber: parseInt(localStorage.getItem('scoreCyber')) || 0
-    };
+<section id="contact-form">
+<h3>📤 Partagez votre scorecard</h3>
+<p>Envoyez vos résultats à notre équipe pour un retour personnalisé.</p>
+<button onclick="sendReport()">📨 Envoyer ma scorecard</button>
 
-    const total = scores.ESG + scores.AML + scores.Digital + scores.Credit + scores.Cyber;
-    const max = 100;
-    const ratio = total / max;
-    let interpretation = "";
+<a href="PASTE_YOUR_GOOGLE_APPOINTMENTS_LINK_HERE"
+   target="_blank" rel="noopener"
+   class="calendar-btn">
+📅 Réserver un entretien gratuit (30 min)
+</a>
+</section>
 
-    if (ratio < 0.4) {
-      interpretation = "🔴 Vos fondations sont à renforcer. Ce diagnostic met en lumière des risques importants à corriger rapidement.";
-    } else if (ratio < 0.7) {
-      interpretation = "🟠 Votre structure est en développement. Des opportunités concrètes d'amélioration sont à portée de main.";
-    } else {
-      interpretation = "🟢 Vous êtes bien positionné ! Il ne vous manque qu'une mise en œuvre ciblée pour consolider votre avantage.";
-    }
+<div class="cta-section">
+<h2>Prêt à passer à l’action ?</h2>
+<p>Un échange de 30 minutes suffit pour transformer ce diagnostic en plan concret.</p>
+<a href="PASTE_YOUR_GOOGLE_APPOINTMENTS_LINK_HERE"
+   target="_blank" rel="noopener"
+   class="cta-button">
+📅 Planifier mon entretien
+</a>
+</div>
 
-    const body = `
-Bonjour,
+<div class="temoignage">
+<p>“Ce diagnostic a mis en lumière des failles que nous n’avions jamais formalisées. L’échange qui a suivi a été décisif.”</p>
+<strong>— Julie M., Gérante de fiduciaire</strong>
+</div>
 
-Un utilisateur vient de compléter son diagnostic Master Your Metrics. Voici les résultats :
-
-🌱 ESG : ${scores.ESG}/20  
-💼 AML : ${scores.AML}/20  
-💻 Digitalisation : ${scores.Digital}/20  
-📊 Crédit : ${scores.Credit}/20  
-🔐 Cybersécurité : ${scores.Cyber}/20  
-⭐ Score global : ${total}/100
-
-📈 Interprétation :
-${interpretation}
-
-🎯 Recommandation :
-Nous vous invitons à prendre contact avec notre équipe pour traduire ce diagnostic en plan d'action opérationnel. Ensemble, transformons ces insights en résultats concrets.
-
-📬 Contact : masteryourmetrics@gmail.com
-
-— L'équipe Master Your Metrics
-    `.trim();
-
-    const subject = encodeURIComponent("🧭 Ma Scorecard – Master Your Metrics");
-    const mailto = `mailto:masteryourmetrics@gmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
-  }
-</script>
-
-
-  <div class="cta-section">
-    <h2>Prêt à agir ?</h2>
-    <p>Nous vous aidons à transformer ce diagnostic en plan d'action. Prenez contact avec notre équipe pour un échange confidentiel et personnalisé.</p>
-    <a href="mailto:masteryourmetrics@gmail.com" class="cta-button">📩 Planifier un appel</a>
-  </div>
-
-  <div class="temoignage">
-    <p>“Ce diagnostic m’a vraiment ouvert les yeux sur mes failles internes. J’ai rapidement pu mettre en place des actions concrètes et améliorer mes performances.”</p>
-    <strong>— Julie M., Gérante de fiduciaire à Liège</strong>
-  </div>
 </main>
 
 <footer>
-  © 2025 Master Your Metrics. Tous droits réservés.
+© 2025 Master Your Metrics — Tous droits réservés
 </footer>
 
 <script>
+function sendReport() {
   const scores = {
-    barESG: parseInt(localStorage.getItem('scoreESG')) || 0,
-    barAML: parseInt(localStorage.getItem('scoreAML')) || 0,
-    barDigital: parseInt(localStorage.getItem('scoreDigital')) || 0,
-    barCredit: parseInt(localStorage.getItem('scoreCredit')) || 0,
-    barCyber: parseInt(localStorage.getItem('scoreCyber')) || 0,
+    ESG: parseInt(localStorage.getItem('scoreESG')) || 0,
+    AML: parseInt(localStorage.getItem('scoreAML')) || 0,
+    Digital: parseInt(localStorage.getItem('scoreDigital')) || 0,
+    Credit: parseInt(localStorage.getItem('scoreCredit')) || 0,
+    Cyber: parseInt(localStorage.getItem('scoreCyber')) || 0
   };
 
-  function displayScore(id, value, max) {
-    const el = document.getElementById(id);
-    const percent = Math.min(Math.round((value / max) * 100), 100);
-    el.style.width = percent + '%';
-    el.textContent = `${value} / ${max}`;
-  }
+  const total = scores.ESG + scores.AML + scores.Digital + scores.Credit + scores.Cyber;
+  const ratio = total / 100;
 
-  displayScore('barESG', scores.barESG, 20);
-  displayScore('barAML', scores.barAML, 20);
-  displayScore('barDigital', scores.barDigital, 20);
-  displayScore('barCredit', scores.barCredit, 20);
-  displayScore('barCyber', scores.barCyber, 20);
+  let interpretation = ratio < 0.4
+    ? "🔴 Fondations à renforcer rapidement."
+    : ratio < 0.7
+    ? "🟠 Structure en développement."
+    : "🟢 Structure solide et valorisable.";
 
-  const globalScore = (scores.barESG + scores.barAML + scores.barDigital + scores.barCredit + scores.barCyber) * 100 / (5 * 20);
-  document.getElementById('generalScore').innerHTML = '⭐'.repeat(Math.round(globalScore / 20)) + '☆'.repeat(5 - Math.round(globalScore / 20)) + `<p style="font-size: 0.9em;">Score global : ${globalScore}/100</p>`;
+  const body = `
+Bonjour,
 
-  function sendMail(e) {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const body = `
-Résultats de l'utilisateur :
-- ESG : ${scores.barESG}/20
-- AML : ${scores.barAML}/20
-- Digitalisation : ${scores.barDigital}/20
-- Crédit : ${scores.barCredit}/20
-- Cybersécurité : ${scores.barCyber}/20
-- Score global : ${globalScore}/100
-    `.trim();
+Voici ma scorecard Master Your Metrics :
 
-    const subject = encodeURIComponent("Vos résultats - Master Your Metrics");
-    const mailtoLink = `mailto:${email}?subject=${subject}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink;
-  }
+🌱 ESG : ${scores.ESG}/20
+💼 AML : ${scores.AML}/20
+💻 Digitalisation : ${scores.Digital}/20
+📊 Crédit : ${scores.Credit}/20
+🔐 Cybersécurité : ${scores.Cyber}/20
+⭐ Score global : ${total}/100
+
+${interpretation}
+
+📅 Prendre rendez-vous :
+PASTE_YOUR_GOOGLE_APPOINTMENTS_LINK_HERE
+
+— Envoyé via Master Your Metrics
+`.trim();
+
+  const subject = encodeURIComponent("🧭 Ma Scorecard – Master Your Metrics");
+  window.location.href =
+    `mailto:masteryourmetrics@gmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+}
+
+const scores = {
+  barESG: parseInt(localStorage.getItem('scoreESG')) || 0,
+  barAML: parseInt(localStorage.getItem('scoreAML')) || 0,
+  barDigital: parseInt(localStorage.getItem('scoreDigital')) || 0,
+  barCredit: parseInt(localStorage.getItem('scoreCredit')) || 0,
+  barCyber: parseInt(localStorage.getItem('scoreCyber')) || 0
+};
+
+function displayScore(id, value) {
+  const el = document.getElementById(id);
+  const percent = Math.min((value / 20) * 100, 100);
+  el.style.width = percent + "%";
+  el.textContent = `${value} / 20`;
+}
+
+displayScore("barESG", scores.barESG);
+displayScore("barAML", scores.barAML);
+displayScore("barDigital", scores.barDigital);
+displayScore("barCredit", scores.barCredit);
+displayScore("barCyber", scores.barCyber);
+
+const global = (scores.barESG + scores.barAML + scores.barDigital + scores.barCredit + scores.barCyber);
+document.getElementById("generalScore").innerHTML =
+  "⭐".repeat(Math.round(global / 20)) +
+  "☆".repeat(5 - Math.round(global / 20)) +
+  `<div style="font-size:0.9em;margin-top:6px;">Score global : ${global}/100</div>`;
 </script>
 
 </body>
 </html>
-
