@@ -1,201 +1,281 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Diagnostic Digital – Master Your Metrics</title>
-  <link rel="stylesheet" href="../assets/css/style-global.css">
-  <style>
-    body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; }
-    header { background-color: #001f3f; color: white; padding: 40px 20px; text-align: center; }
-    header h1 { margin: 0; font-size: 2.5em; }
-    main { max-width: 900px; margin: 40px auto; padding: 20px; }
+<meta charset="UTF-8">
+<title>Diagnostic Digitalisation – Master Your Metrics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    form { display: flex; flex-direction: column; gap: 20px; }
-    label { font-weight: bold; margin-bottom: 5px; }
-    select { padding: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #ccc; }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #f4f6f8, #e9eef3);
+  margin: 0;
+}
 
-    button {
-      background-color: #28a745;
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 5px;
-      font-size: 1.2em;
-      cursor: pointer;
-      margin-top: 30px;
-    }
+header {
+  background-color: #001f3f;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
 
-    button:hover { background-color: #218838; }
+main {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+}
 
-    #progressContainer {
-      width: 100%; background-color: #ddd; border-radius: 20px;
-      margin-top: 30px; display: none;
-    }
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  text-align: center;
+}
 
-    #progressBar {
-      width: 0%; height: 30px; background-color: #28a745; border-radius: 20px;
-    }
+.progress {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
 
-    #result {
-      margin-top: 40px;
-      font-size: 1.5em;
-      text-align: center;
-      display: none;
-    }
-  </style>
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #00b894, #00cec9);
+  transition: width 0.4s ease;
+}
+
+.counter {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.question {
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.choice {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  margin: 12px 0;
+  border-radius: 14px;
+  border: 2px solid #eee;
+  background: #f9f9f9;
+  font-size: 1.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.choice:hover {
+  background: #e8f8f5;
+  border-color: #00b894;
+}
+
+.choice.selected {
+  background: #00b894;
+  color: white;
+  border-color: #00b894;
+}
+
+#result {
+  display: none;
+}
+
+.temoignage {
+  background: #fff;
+  padding: 20px;
+  border-left: 4px solid #00b894;
+  margin-top: 25px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-style: italic;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <h1>Évaluation de la Digitalisation</h1>
-  <p>Mesurez votre degré de transformation numérique.</p>
+<h1>Diagnostic Digitalisation</h1>
+<p>Évaluez votre maturité digitale et identifiez vos leviers de performance</p>
 </header>
 
 <main>
-  <form id="digitalForm">
-    <div>
-      <label>1. Disposez-vous d’un ERP ou CRM intégré ?</label>
-      <select name="q1">
-        <option value="0">Non</option>
-        <option value="1">Partiellement</option>
-        <option value="2">Oui</option>
-      </select>
-    </div>
-    <div>
-      <label>2. Vos outils de gestion sont-ils connectés entre eux ?</label>
-      <select name="q2">
-        <option value="0">Pas du tout</option>
-        <option value="1">Partiellement</option>
-        <option value="2">Oui, interopérables</option>
-      </select>
-    </div>
-    <div>
-      <label>3. Proposez-vous une expérience digitale à vos clients ?</label>
-      <select name="q3">
-        <option value="0">Non</option>
-        <option value="1">Oui, minimale</option>
-        <option value="2">Oui, fluide et optimisée</option>
-      </select>
-    </div>
-    <div>
-      <label>4. Votre site internet permet-il des actions concrètes (devis, achat, prise de RDV) ?</label>
-      <select name="q4">
-        <option value="0">Non</option>
-        <option value="1">Oui, quelques fonctions</option>
-        <option value="2">Oui, complet</option>
-      </select>
-    </div>
-    <div>
-      <label>5. Avez-vous une stratégie de marketing digital ?</label>
-      <select name="q5">
-        <option value="0">Non</option>
-        <option value="1">Oui, informelle</option>
-        <option value="2">Oui, formalisée</option>
-      </select>
-    </div>
-    <div>
-      <label>6. Utilisez-vous régulièrement les réseaux sociaux pour votre activité ?</label>
-      <select name="q6">
-        <option value="0">Jamais</option>
-        <option value="1">Oui, sans plan</option>
-        <option value="2">Oui, avec ligne éditoriale</option>
-      </select>
-    </div>
-    <div>
-      <label>7. Avez-vous mis en place des outils d’automatisation (factures, relances, campagnes) ?</label>
-      <select name="q7">
-        <option value="0">Non</option>
-        <option value="1">Oui, basiques</option>
-        <option value="2">Oui, avancés</option>
-      </select>
-    </div>
-    <div>
-      <label>8. Vos équipes sont-elles formées aux outils numériques ?</label>
-      <select name="q8">
-        <option value="0">Non</option>
-        <option value="1">Oui, de manière informelle</option>
-        <option value="2">Oui, avec programme de formation</option>
-      </select>
-    </div>
-    <div>
-      <label>9. Disposez-vous d’indicateurs pour suivre votre performance digitale ?</label>
-      <select name="q9">
-        <option value="0">Aucun</option>
-        <option value="1">Quelques-uns</option>
-        <option value="2">Tableaux de bord complets</option>
-      </select>
-    </div>
-    <div>
-      <label>10. Votre activité a-t-elle un responsable ou référent digital identifié ?</label>
-      <select name="q10">
-        <option value="0">Non</option>
-        <option value="1">Oui, sans rôle défini</option>
-        <option value="2">Oui, rôle actif et reconnu</option>
-      </select>
-    </div>
 
-    <button type="submit">Voir mon score Digital</button>
-  </form>
+<div class="card">
 
-  <div id="progressContainer">
-    <div id="progressBar"></div>
-  </div>
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+<div class="counter" id="counter"></div>
 
-  <div id="result"></div>
+<div class="question" id="question"></div>
+<div id="choices"></div>
+
+<div id="result"></div>
+
+</div>
+
+<footer>
+<a href="../index.html" style="display:inline-block;margin-top:20px;padding:12px 24px;background:#00b894;color:white;text-decoration:none;border-radius:10px;font-weight:bold;">← Retour à l'accueil</a>
+</footer>
+
 </main>
-<a href="../index.html" style="display:inline-block; margin-top:30px; padding:12px 24px; background-color:#0074D9; color:white; text-decoration:none; border-radius:6px; font-weight:bold;">← Retour à l'accueil</a>
 
 <script>
-  document.getElementById('digitalForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+const questions = [
+  {
+    text: "Disposez-vous d’un ERP ou CRM centralisé ?",
+    options: [
+      { label: "❌ Aucun", value: 0 },
+      { label: "⚠️ Partiellement", value: 1 },
+      { label: "✅ Oui, centralisé", value: 2 }
+    ]
+  },
+  {
+    text: "Vos outils métiers sont-ils interconnectés ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Partiellement", value: 1 },
+      { label: "✅ Oui, interopérables", value: 2 }
+    ]
+  },
+  {
+    text: "Proposez-vous une expérience digitale à vos clients ?",
+    options: [
+      { label: "❌ Aucune", value: 0 },
+      { label: "⚠️ Basique", value: 1 },
+      { label: "✅ Fluide et optimisée", value: 2 }
+    ]
+  },
+  {
+    text: "Votre site permet-il des actions concrètes (RDV, devis, paiement) ?",
+    options: [
+      { label: "❌ Informatif uniquement", value: 0 },
+      { label: "⚠️ Fonctions limitées", value: 1 },
+      { label: "✅ Complet et interactif", value: 2 }
+    ]
+  },
+  {
+    text: "Disposez-vous d’une stratégie de marketing digital ?",
+    options: [
+      { label: "❌ Aucune", value: 0 },
+      { label: "⚠️ Informelle", value: 1 },
+      { label: "✅ Formelle et suivie", value: 2 }
+    ]
+  },
+  {
+    text: "Utilisez-vous les réseaux sociaux de manière structurée ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Sans plan", value: 1 },
+      { label: "✅ Ligne éditoriale définie", value: 2 }
+    ]
+  },
+  {
+    text: "Avez-vous automatisé certaines tâches (facturation, relances, reporting) ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Automatisations basiques", value: 1 },
+      { label: "✅ Automatisation avancée", value: 2 }
+    ]
+  },
+  {
+    text: "Vos équipes sont-elles formées aux outils digitaux ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ De manière ponctuelle", value: 1 },
+      { label: "✅ Formation continue", value: 2 }
+    ]
+  },
+  {
+    text: "Suivez-vous des indicateurs de performance digitale ?",
+    options: [
+      { label: "❌ Aucun", value: 0 },
+      { label: "⚠️ Quelques indicateurs", value: 1 },
+      { label: "✅ Tableaux de bord complets", value: 2 }
+    ]
+  },
+  {
+    text: "Un responsable digital est-il clairement identifié ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Rôle peu défini", value: 1 },
+      { label: "✅ Rôle clair et actif", value: 2 }
+    ]
+  }
+];
 
-    let score = 0;
-    const formData = new FormData(this);
-    for (let value of formData.values()) {
-      score += parseInt(value);
-    }
+let index = 0;
+let score = 0;
 
-    const container = document.getElementById('progressContainer');
-    const bar = document.getElementById('progressBar');
-    const result = document.getElementById('result');
-    container.style.display = 'block';
-    result.style.display = 'none';
+const questionEl = document.getElementById("question");
+const choicesEl = document.getElementById("choices");
+const progressBar = document.getElementById("progressBar");
+const counter = document.getElementById("counter");
+const resultEl = document.getElementById("result");
 
-    // Stockage du score digital pour la synthèse
-    localStorage.setItem('scoreDigital', score);
+function loadQuestion() {
+  const q = questions[index];
+  questionEl.innerText = q.text;
+  counter.innerText = `Question ${index + 1} / ${questions.length}`;
+  progressBar.style.width = `${(index / questions.length) * 100}%`;
+  choicesEl.innerHTML = "";
 
-    let width = 0;
-    const interval = setInterval(function () {
-      if (width >= 100) {
-        clearInterval(interval);
-
-        let message = '';
-        if (score <= 7) message = '🟥 Maturité digitale faible – transformation urgente à envisager.';
-        else if (score <= 14) message = '🟧 Digitalisation partielle – bon début, à renforcer.';
-        else message = '🟩 Très bonne digitalisation – continuez à innover.';
-
-        result.innerHTML = `
-          <p>${message}</p>
-          <div class="temoignage" style="background: #fff; padding: 20px; border-left: 4px solid #0074D9; margin-top: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-            <p style="font-style: italic;">“Nous pensions être digitalisés, mais ce test nous a révélé des lacunes dans notre interconnexion d’outils et nos process clients. C’est devenu notre feuille de route.”</p>
-            <strong>— Nathalie D., Gérante d’une PME de services</strong>
-          </div>
-          <br>
-          <a href="credit.html" class="cta-button">Étape suivante : Crédit</a>
-        `;
-        result.style.display = 'block';
-
-        setTimeout(() => {
-          window.location.href = "credit.html";
-        }, 8000);
-      } else {
-        width++;
-        bar.style.width = width + '%';
-      }
-    }, 15);
+  q.options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerText = opt.label;
+    btn.onclick = () => {
+      score += opt.value;
+      index++;
+      if (index < questions.length) loadQuestion();
+      else showResult();
+    };
+    choicesEl.appendChild(btn);
   });
-</script>
+}
 
+function showResult() {
+  progressBar.style.width = "100%";
+  localStorage.setItem("scoreDigital", score);
+
+  let message = score <= 7
+    ? "🟥 Maturité digitale faible – transformation prioritaire."
+    : score <= 14
+    ? "🟧 Digitalisation intermédiaire – potentiel à exploiter."
+    : "🟩 Organisation digitalement performante.";
+
+  questionEl.style.display = "none";
+  choicesEl.style.display = "none";
+  counter.style.display = "none";
+
+  resultEl.style.display = "block";
+  resultEl.innerHTML = `
+    <h2>${message}</h2>
+    <div class="temoignage">
+      “Ce diagnostic digital nous a permis de structurer notre feuille de route et d’automatiser des tâches clés.”
+      <br><strong>— Nathalie D., Gérante de PME</strong>
+    </div>
+  `;
+
+  setTimeout(() => {
+    window.location.href = "credit.html";
+  }, 8000);
+}
+
+loadQuestion();
+</script>
 
 </body>
 </html>
+
