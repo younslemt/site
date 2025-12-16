@@ -78,16 +78,6 @@ main {
   border-color: #6c5ce7;
 }
 
-.choice.selected {
-  background: #6c5ce7;
-  color: white;
-  border-color: #6c5ce7;
-}
-
-#result {
-  display: none;
-}
-
 .temoignage {
   background: #fff;
   padding: 20px;
@@ -108,7 +98,7 @@ footer {
 
 <header>
 <h1>Diagnostic ESG</h1>
-<p>Évaluez votre maturité environnementale, sociale et de gouvernance en 3 minutes</p>
+<p>Évaluez votre maturité environnementale, sociale et de gouvernance</p>
 </header>
 
 <main>
@@ -124,6 +114,7 @@ footer {
 <div id="result"></div>
 
 </div>
+
 <div id="nextStepTimer" style="display:none; margin-top:20px; font-size:0.95em; color:#555;">
   Passage au diagnostic suivant (<strong>AML</strong>) dans <strong><span id="countdown">4</span>s</strong>…
 </div>
@@ -137,84 +128,24 @@ footer {
 <script>
 const questions = [
   {
-    text: "Avez-vous formalisé une politique ou une démarche ESG ?",
-    options: [
-      { label: "❌ Aucune démarche", value: 0 },
-      { label: "⚠️ En réflexion", value: 1 },
-      { label: "✅ Politique formalisée", value: 2 }
-    ]
+    text: "Disposez-vous d’une politique ESG formalisée et pilotée par la direction ?",
+    weight: 30
   },
   {
-    text: "Mesurez-vous votre consommation d’énergie et vos émissions ?",
-    options: [
-      { label: "❌ Pas du tout", value: 0 },
-      { label: "⚠️ Partiellement", value: 1 },
-      { label: "✅ Suivi structuré", value: 2 }
-    ]
+    text: "Mesurez-vous vos impacts environnementaux (énergie, CO₂, ressources) avec des indicateurs fiables ?",
+    weight: 25
   },
   {
-    text: "Avez-vous mis en place des actions de réduction environnementale ?",
-    options: [
-      { label: "❌ Aucune", value: 0 },
-      { label: "⚠️ Actions ponctuelles", value: 1 },
-      { label: "✅ Plan d’actions suivi", value: 2 }
-    ]
+    text: "Avez-vous mis en place des actions concrètes de réduction et un plan de suivi environnemental ?",
+    weight: 20
   },
   {
-    text: "Disposez-vous de politiques RH (diversité, bien-être, formation) ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Partielles", value: 1 },
-      { label: "✅ Formelles et suivies", value: 2 }
-    ]
+    text: "Les enjeux sociaux (RH, bien-être, risques humains) sont-ils identifiés et suivis ?",
+    weight: 15
   },
   {
-    text: "Avez-vous identifié les risques sociaux et humains de votre activité ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Partiellement", value: 1 },
-      { label: "✅ Oui, formalisés", value: 2 }
-    ]
-  },
-  {
-    text: "Disposez-vous d’un code de conduite ou d’une charte éthique ?",
-    options: [
-      { label: "❌ Aucun", value: 0 },
-      { label: "⚠️ En cours", value: 1 },
-      { label: "✅ Appliqué", value: 2 }
-    ]
-  },
-  {
-    text: "Les critères ESG sont-ils intégrés dans vos décisions stratégiques ?",
-    options: [
-      { label: "❌ Jamais", value: 0 },
-      { label: "⚠️ Occasionnellement", value: 1 },
-      { label: "✅ Systématiquement", value: 2 }
-    ]
-  },
-  {
-    text: "Avez-vous une gouvernance claire (rôles, responsabilités, suivi) ?",
-    options: [
-      { label: "❌ Non définie", value: 0 },
-      { label: "⚠️ Partiellement définie", value: 1 },
-      { label: "✅ Gouvernance structurée", value: 2 }
-    ]
-  },
-  {
-    text: "Êtes-vous en mesure de répondre à des demandes ESG (clients, banques) ?",
-    options: [
-      { label: "❌ Pas du tout", value: 0 },
-      { label: "⚠️ Avec difficulté", value: 1 },
-      { label: "✅ Oui, rapidement", value: 2 }
-    ]
-  },
-  {
-    text: "Communiquez-vous sur vos engagements ESG de manière crédible ?",
-    options: [
-      { label: "❌ Pas de communication", value: 0 },
-      { label: "⚠️ Communication limitée", value: 1 },
-      { label: "✅ Communication structurée", value: 2 }
-    ]
+    text: "Êtes-vous capable de répondre rapidement à une demande ESG d’un client, d’une banque ou d’un partenaire ?",
+    weight: 10
   }
 ];
 
@@ -234,12 +165,16 @@ function loadQuestion() {
   progressBar.style.width = `${(index / questions.length) * 100}%`;
   choicesEl.innerHTML = "";
 
-  q.options.forEach(opt => {
+  [
+    { label: "❌ Non", value: 0 },
+    { label: "⚠️ Partiellement", value: 0.5 },
+    { label: "✅ Oui, structuré", value: 1 }
+  ].forEach(opt => {
     const btn = document.createElement("button");
     btn.className = "choice";
     btn.innerText = opt.label;
     btn.onclick = () => {
-      score += opt.value;
+      score += opt.value * q.weight;
       index++;
       if (index < questions.length) loadQuestion();
       else showResult();
@@ -250,12 +185,14 @@ function loadQuestion() {
 
 function showResult() {
   progressBar.style.width = "100%";
-  localStorage.setItem("scoreESG", score);
 
-  let message = score <= 7
+  const finalScore = Math.round(score);
+  localStorage.setItem("scoreESG", finalScore);
+
+  let message = finalScore < 40
     ? "🟥 Maturité ESG faible – structuration prioritaire."
-    : score <= 14
-    ? "🟧 ESG en développement – base à renforcer."
+    : finalScore < 70
+    ? "🟧 ESG en développement – fondations à renforcer."
     : "🟩 ESG avancé – démarche crédible et valorisable.";
 
   questionEl.style.display = "none";
@@ -265,30 +202,27 @@ function showResult() {
   resultEl.style.display = "block";
   resultEl.innerHTML = `
     <h2>${message}</h2>
+    <p><strong>Score ESG :</strong> ${finalScore} / 100</p>
     <div class="temoignage">
-      “Cette évaluation ESG nous a permis de répondre plus sereinement aux demandes de nos clients et partenaires.”
-      <br><strong>— Patrick L., Indépendant logistique</strong>
+      “Cette évaluation ESG nous a permis d’anticiper les demandes clients et bancaires avant 2026.”
+      <br><strong>— Patrick L., Dirigeant PME</strong>
     </div>
   `;
+
   const timerEl = document.getElementById("nextStepTimer");
   const countdownEl = document.getElementById("countdown");
 
   timerEl.style.display = "block";
-
   let timeLeft = 4;
-  countdownEl.innerText = timeLeft;
 
   const interval = setInterval(() => {
     timeLeft--;
     countdownEl.innerText = timeLeft;
-
     if (timeLeft <= 0) {
       clearInterval(interval);
       window.location.href = "aml.html";
     }
   }, 1000);
-
-  
 }
 
 loadQuestion();
@@ -296,6 +230,3 @@ loadQuestion();
 
 </body>
 </html>
-
-
-
