@@ -124,6 +124,9 @@ footer {
 <div id="result"></div>
 
 </div>
+<div id="nextStepTimer" style="display:none; margin-top:20px; font-size:0.95em; color:#555;">
+  Passage au diagnostic suivant (<strong>Résultat</strong>) dans <strong><span id="countdown">4</span>s</strong>…
+</div>
 
 <footer>
 <a href="../index.html" style="display:inline-block;margin-top:20px;padding:12px 24px;background:#6c5ce7;color:white;text-decoration:none;border-radius:10px;font-weight:bold;">← Retour à l'accueil</a>
@@ -268,9 +271,24 @@ function showResult() {
     </div>
   `;
 
-  setTimeout(() => {
-    window.location.href = "../synthese.html";
-  }, 4000);
+  const timerEl = document.getElementById("nextStepTimer");
+  const countdownEl = document.getElementById("countdown");
+
+  timerEl.style.display = "block";
+
+  let timeLeft = 4;
+  countdownEl.innerText = timeLeft;
+
+  const interval = setInterval(() => {
+    timeLeft--;
+    countdownEl.innerText = timeLeft;
+
+    if (timeLeft <= 0) {
+      clearInterval(interval);
+      window.location.href = "synthese.html";
+    }
+  }, 1000);
+
 }
 
 loadQuestion();
@@ -278,5 +296,6 @@ loadQuestion();
 
 </body>
 </html>
+
 
 
