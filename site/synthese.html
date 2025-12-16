@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Votre Synthèse – Master Your Metrics</title>
-<link rel="stylesheet" href="assets/css/style-global.css">
 
 <style>
 body {
@@ -40,6 +39,13 @@ main {
   margin-bottom: 50px;
 }
 
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 35px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
 .bar-block {
   margin-top: 18px;
 }
@@ -74,13 +80,6 @@ main {
   margin: 25px 0;
 }
 
-.card {
-  background: white;
-  border-radius: 12px;
-  padding: 35px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-}
-
 .cta-section {
   text-align: center;
   background: linear-gradient(135deg, #0074D9, #005fa3);
@@ -102,64 +101,12 @@ main {
   margin-top: 15px;
 }
 
-.cta-button:hover {
-  background-color: #218838;
-}
-
 .temoignage {
   background: white;
   padding: 35px;
   border-left: 6px solid #0074D9;
   margin-top: 50px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.temoignage p {
-  font-style: italic;
-}
-
-.roadmap-section {
-  background: #f4f6f8;
-  padding: 60px 20px;
-  margin-top: 70px;
-  border-top: 4px solid #0074D9;
-}
-
-.roadmap-section h2 {
-  text-align: center;
-  margin-bottom: 40px;
-  color: #001f3f;
-}
-
-.timeline-container {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 30px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.step {
-  text-align: center;
-  flex: 1;
-  min-width: 120px;
-}
-
-.circle {
-  width: 52px;
-  height: 52px;
-  background-color: #0074D9;
-  color: white;
-  border-radius: 50%;
-  line-height: 52px;
-  margin: 0 auto 10px auto;
-  font-weight: bold;
-  font-size: 1.2em;
-}
-
-.step.done .circle {
-  background-color: #28a745;
 }
 
 #contact-form {
@@ -180,11 +127,6 @@ main {
   color: white;
   border: none;
   border-radius: 6px;
-  cursor: pointer;
-}
-
-#contact-form button:hover {
-  background-color: #005fa3;
 }
 
 .calendar-btn {
@@ -224,33 +166,20 @@ footer {
 
 <div id="generalScore" class="score-global"></div>
 
-<div class="bar-block"><div class="bar-label">🌱 ESG</div><div class="bar-bg"><div id="barESG" class="bar-fill" style="background:#2ECC40">0</div></div></div>
-<div class="bar-block"><div class="bar-label">💼 AML</div><div class="bar-bg"><div id="barAML" class="bar-fill" style="background:#FF851B">0</div></div></div>
-<div class="bar-block"><div class="bar-label">💻 Digitalisation</div><div class="bar-bg"><div id="barDigital" class="bar-fill" style="background:#7FDBFF">0</div></div></div>
-<div class="bar-block"><div class="bar-label">📊 Crédit</div><div class="bar-bg"><div id="barCredit" class="bar-fill" style="background:#B10DC9">0</div></div></div>
-<div class="bar-block"><div class="bar-label">🔐 Cybersécurité</div><div class="bar-bg"><div id="barCyber" class="bar-fill" style="background:#FF4136">0</div></div></div>
+<div class="bar-block"><div class="bar-label">🌱 ESG</div><div class="bar-bg"><div id="barESG" class="bar-fill" style="background:#2ECC40"></div></div></div>
+<div class="bar-block"><div class="bar-label">💼 AML</div><div class="bar-bg"><div id="barAML" class="bar-fill" style="background:#FF851B"></div></div></div>
+<div class="bar-block"><div class="bar-label">💻 Digitalisation</div><div class="bar-bg"><div id="barDigital" class="bar-fill" style="background:#7FDBFF"></div></div></div>
+<div class="bar-block"><div class="bar-label">📊 Crédit</div><div class="bar-bg"><div id="barCredit" class="bar-fill" style="background:#B10DC9"></div></div></div>
+<div class="bar-block"><div class="bar-label">🔐 Cybersécurité</div><div class="bar-bg"><div id="barCyber" class="bar-fill" style="background:#FF4136"></div></div></div>
 </div>
-
-<section class="roadmap-section">
-<h2>📍 Prochaines étapes recommandées</h2>
-<div class="timeline-container">
-  <div class="step done"><div class="circle">1</div><p>Diagnostic réalisé</p></div>
-  <div class="step"><div class="circle">2</div><p>Prise de contact</p></div>
-  <div class="step"><div class="circle">3</div><p>Entretien gratuit</p></div>
-  <div class="step"><div class="circle">4</div><p>Plan d’action</p></div>
-  <div class="step"><div class="circle">5</div><p>Mise en œuvre</p></div>
-  <div class="step"><div class="circle">6</div><p>Suivi & amélioration</p></div>
-</div>
-</section>
 
 <section id="contact-form">
 <h3>📤 Partagez votre scorecard</h3>
-<p>Envoyez vos résultats à notre équipe pour un retour personnalisé.</p>
+<p>Recevez un retour personnalisé et des recommandations concrètes.</p>
 <button onclick="sendReport()">📨 Envoyer ma scorecard</button>
 
 <a href="https://calendar.app.google/TWzExGsSew5rCkN77"
-   target="_blank" rel="noopener"
-   class="calendar-btn">
+   target="_blank" class="calendar-btn">
 📅 Réserver un entretien gratuit (30 min)
 </a>
 </section>
@@ -259,8 +188,7 @@ footer {
 <h2>Prêt à passer à l’action ?</h2>
 <p>Un échange de 30 minutes suffit pour transformer ce diagnostic en plan concret.</p>
 <a href="https://calendar.app.google/TWzExGsSew5rCkN77"
-   target="_blank" rel="noopener"
-   class="cta-button">
+   target="_blank" class="cta-button">
 📅 Planifier mon entretien
 </a>
 </div>
@@ -277,37 +205,47 @@ footer {
 </footer>
 
 <script>
+const scores = {
+  ESG: parseInt(localStorage.getItem('scoreESG')) || 0,
+  AML: parseInt(localStorage.getItem('scoreAML')) || 0,
+  Digital: parseInt(localStorage.getItem('scoreDigital')) || 0,
+  Credit: parseInt(localStorage.getItem('scoreCredit')) || 0,
+  Cyber: parseInt(localStorage.getItem('scoreCyber')) || 0
+};
+
+function displayBar(id, value) {
+  const el = document.getElementById(id);
+  el.style.width = value + "%";
+  el.textContent = value + " / 100";
+}
+
+displayBar("barESG", scores.ESG);
+displayBar("barAML", scores.AML);
+displayBar("barDigital", scores.Digital);
+displayBar("barCredit", scores.Credit);
+displayBar("barCyber", scores.Cyber);
+
+const globalScore =
+  Math.round((scores.ESG + scores.AML + scores.Digital + scores.Credit + scores.Cyber) / 5);
+
+document.getElementById("generalScore").innerHTML =
+  "⭐".repeat(Math.round(globalScore / 20)) +
+  "☆".repeat(5 - Math.round(globalScore / 20)) +
+  `<div style="font-size:0.9em;margin-top:6px;">Score global : ${globalScore} / 100</div>`;
+
 function sendReport() {
-  const scores = {
-    ESG: parseInt(localStorage.getItem('scoreESG')) || 0,
-    AML: parseInt(localStorage.getItem('scoreAML')) || 0,
-    Digital: parseInt(localStorage.getItem('scoreDigital')) || 0,
-    Credit: parseInt(localStorage.getItem('scoreCredit')) || 0,
-    Cyber: parseInt(localStorage.getItem('scoreCyber')) || 0
-  };
-
-  const total = scores.ESG + scores.AML + scores.Digital + scores.Credit + scores.Cyber;
-  const ratio = total / 100;
-
-  let interpretation = ratio < 0.4
-    ? "🔴 Fondations à renforcer rapidement."
-    : ratio < 0.7
-    ? "🟠 Structure en développement."
-    : "🟢 Structure solide et valorisable.";
-
   const body = `
 Bonjour,
 
 Voici ma scorecard Master Your Metrics :
 
-🌱 ESG : ${scores.ESG}/20
-💼 AML : ${scores.AML}/20
-💻 Digitalisation : ${scores.Digital}/20
-📊 Crédit : ${scores.Credit}/20
-🔐 Cybersécurité : ${scores.Cyber}/20
-⭐ Score global : ${total}/100
+🌱 ESG : ${scores.ESG}/100
+💼 AML : ${scores.AML}/100
+💻 Digitalisation : ${scores.Digital}/100
+📊 Crédit : ${scores.Credit}/100
+🔐 Cybersécurité : ${scores.Cyber}/100
 
-${interpretation}
+⭐ Score global : ${globalScore}/100
 
 📅 Prendre rendez-vous :
 https://calendar.app.google/TWzExGsSew5rCkN77
@@ -315,46 +253,12 @@ https://calendar.app.google/TWzExGsSew5rCkN77
 — Envoyé via Master Your Metrics
 `.trim();
 
-  const subject = encodeURIComponent("🧭 Ma Scorecard – Master Your Metrics");
   window.location.href =
-    `mailto:masteryourmetrics@gmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+    "mailto:masteryourmetrics@gmail.com?subject=" +
+    encodeURIComponent("🧭 Ma Scorecard – Master Your Metrics") +
+    "&body=" + encodeURIComponent(body);
 }
-
-const scores = {
-  barESG: parseInt(localStorage.getItem('scoreESG')) || 0,
-  barAML: parseInt(localStorage.getItem('scoreAML')) || 0,
-  barDigital: parseInt(localStorage.getItem('scoreDigital')) || 0,
-  barCredit: parseInt(localStorage.getItem('scoreCredit')) || 0,
-  barCyber: parseInt(localStorage.getItem('scoreCyber')) || 0
-};
-
-function displayScore(id, value) {
-  const el = document.getElementById(id);
-  const percent = Math.min((value / 20) * 100, 100);
-  el.style.width = percent + "%";
-  el.textContent = `${value} / 20`;
-}
-
-displayScore("barESG", scores.barESG);
-displayScore("barAML", scores.barAML);
-displayScore("barDigital", scores.barDigital);
-displayScore("barCredit", scores.barCredit);
-displayScore("barCyber", scores.barCyber);
-
-const global = (scores.barESG + scores.barAML + scores.barDigital + scores.barCredit + scores.barCyber);
-document.getElementById("generalScore").innerHTML =
-  "⭐".repeat(Math.round(global / 20)) +
-  "☆".repeat(5 - Math.round(global / 20)) +
-  `<div style="font-size:0.9em;margin-top:6px;">Score global : ${global}/100</div>`;
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
