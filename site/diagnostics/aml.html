@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Diagnostic AML – Master Your Metrics</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -77,16 +78,6 @@ main {
   border-color: #6c5ce7;
 }
 
-.choice.selected {
-  background: #6c5ce7;
-  color: white;
-  border-color: #6c5ce7;
-}
-
-#result {
-  display: none;
-}
-
 .temoignage {
   background: #fff;
   padding: 20px;
@@ -107,7 +98,7 @@ footer {
 
 <header>
 <h1>Diagnostic AML</h1>
-<p>Évaluez la solidité de votre dispositif anti-blanchiment en 3 minutes</p>
+<p>Évaluez la solidité de votre dispositif anti-blanchiment</p>
 </header>
 
 <main>
@@ -123,6 +114,7 @@ footer {
 <div id="result"></div>
 
 </div>
+
 <div id="nextStepTimer" style="display:none; margin-top:20px; font-size:0.95em; color:#555;">
   Passage au diagnostic suivant (<strong>Digital</strong>) dans <strong><span id="countdown">4</span>s</strong>…
 </div>
@@ -136,84 +128,24 @@ footer {
 <script>
 const questions = [
   {
-    text: "Vérifiez-vous systématiquement l'identité de vos clients ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Oui, partiellement", value: 1 },
-      { label: "✅ Oui, toujours", value: 2 }
-    ]
+    text: "Vérifiez-vous systématiquement l’identité et les documents de vos clients (KYC) ?",
+    weight: 25
   },
   {
-    text: "Demandez-vous la source des fonds pour les nouvelles relations ?",
-    options: [
-      { label: "❌ Jamais", value: 0 },
-      { label: "⚠️ Parfois", value: 1 },
-      { label: "✅ Toujours", value: 2 }
-    ]
+    text: "Réalisez-vous une analyse de risque client (activité, pays, structure, UBO) ?",
+    weight: 25
   },
   {
-    text: "Vos clients incluent-ils des personnes politiquement exposées (PPE) ?",
-    options: [
-      { label: "❌ Oui, sans contrôle", value: 0 },
-      { label: "⚠️ Oui, contrôle partiel", value: 1 },
-      { label: "✅ Oui, procédure complète", value: 2 }
-    ]
+    text: "Disposez-vous d’une surveillance des transactions et opérations atypiques ?",
+    weight: 20
   },
   {
-    text: "Disposez-vous d’une surveillance des transactions inhabituelles ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Oui, manuelle", value: 1 },
-      { label: "✅ Oui, automatisée", value: 2 }
-    ]
+    text: "Avez-vous un responsable AML identifié avec des procédures formalisées ?",
+    weight: 15
   },
   {
-    text: "Tenez-vous un registre des clients à risque ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Partiellement", value: 1 },
-      { label: "✅ Oui", value: 2 }
-    ]
-  },
-  {
-    text: "Vos collaborateurs sont-ils formés à l’AML ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Ponctuellement", value: 1 },
-      { label: "✅ Formation suivie", value: 2 }
-    ]
-  },
-  {
-    text: "Avez-vous un responsable AML identifié ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Peu formé", value: 1 },
-      { label: "✅ Formé et actif", value: 2 }
-    ]
-  },
-  {
-    text: "Disposez-vous d’un reporting AML structuré ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Basique", value: 1 },
-      { label: "✅ Documenté", value: 2 }
-    ]
-  },
-  {
-    text: "Revoyez-vous régulièrement vos procédures AML ?",
-    options: [
-      { label: "❌ Jamais", value: 0 },
-      { label: "⚠️ Tous les 2 ans", value: 1 },
-      { label: "✅ Annuellement", value: 2 }
-    ]
-  },
-  {
-    text: "Vos clients utilisent-ils espèces ou cryptos ?",
-    options: [
-      { label: "❌ Sans contrôle", value: 0 },
-      { label: "⚠️ Contrôle manuel", value: 1 },
-      { label: "✅ Contrôle renforcé", value: 2 }
-    ]
+    text: "Revoyez-vous régulièrement vos données clients, procédures et formations AML ?",
+    weight: 15
   }
 ];
 
@@ -233,12 +165,16 @@ function loadQuestion() {
   progressBar.style.width = `${(index / questions.length) * 100}%`;
   choicesEl.innerHTML = "";
 
-  q.options.forEach(opt => {
+  [
+    { label: "❌ Non", value: 0 },
+    { label: "⚠️ Partiellement", value: 0.5 },
+    { label: "✅ Oui, structuré", value: 1 }
+  ].forEach(opt => {
     const btn = document.createElement("button");
     btn.className = "choice";
     btn.innerText = opt.label;
     btn.onclick = () => {
-      score += opt.value;
+      score += opt.value * q.weight;
       index++;
       if (index < questions.length) loadQuestion();
       else showResult();
@@ -249,12 +185,14 @@ function loadQuestion() {
 
 function showResult() {
   progressBar.style.width = "100%";
-  localStorage.setItem("scoreAML", score);
 
-  let message = score <= 7
+  const finalScore = Math.round(score);
+  localStorage.setItem("scoreAML", finalScore);
+
+  let message = finalScore < 40
     ? "🟥 Risque AML élevé – actions urgentes requises."
-    : score <= 14
-    ? "🟧 Risque AML modéré – améliorations nécessaires."
+    : finalScore < 70
+    ? "🟧 Dispositif AML partiellement structuré – améliorations nécessaires."
     : "🟩 Dispositif AML solide – bonnes pratiques en place.";
 
   questionEl.style.display = "none";
@@ -264,30 +202,27 @@ function showResult() {
   resultEl.style.display = "block";
   resultEl.innerHTML = `
     <h2>${message}</h2>
+    <p><strong>Score AML :</strong> ${finalScore} / 100</p>
     <div class="temoignage">
-      “Ce diagnostic nous a permis d’identifier des failles avant un contrôle. Clair, rapide et très utile.”
+      “Ce diagnostic nous a permis d’identifier des failles avant un contrôle.”
       <br><strong>— Guido B., Expert-comptable</strong>
     </div>
   `;
 
-   const timerEl = document.getElementById("nextStepTimer");
+  const timerEl = document.getElementById("nextStepTimer");
   const countdownEl = document.getElementById("countdown");
 
   timerEl.style.display = "block";
-
   let timeLeft = 4;
-  countdownEl.innerText = timeLeft;
 
   const interval = setInterval(() => {
     timeLeft--;
     countdownEl.innerText = timeLeft;
-
     if (timeLeft <= 0) {
       clearInterval(interval);
       window.location.href = "digital.html";
     }
   }, 1000);
-;
 }
 
 loadQuestion();
@@ -295,8 +230,3 @@ loadQuestion();
 
 </body>
 </html>
-
-
-
-
-
