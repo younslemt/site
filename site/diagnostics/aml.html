@@ -1,200 +1,280 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Diagnostic AML – Master Your Metrics</title>
-  <link rel="stylesheet" href="../assets/css/style-global.css">
-  <style>
-    body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; }
-    header { background-color: #001f3f; color: white; padding: 40px 20px; text-align: center; }
-    header h1 { margin: 0; font-size: 2.5em; }
-    main { max-width: 900px; margin: 40px auto; padding: 20px; }
+<meta charset="UTF-8">
+<title>Diagnostic AML – Master Your Metrics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    form { display: flex; flex-direction: column; gap: 20px; }
-    label { font-weight: bold; margin-bottom: 5px; }
-    select { padding: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #ccc; }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #f4f6f8, #e9eef3);
+  margin: 0;
+}
 
-    button {
-      background-color: #28a745;
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 5px;
-      font-size: 1.2em;
-      cursor: pointer;
-      margin-top: 30px;
-    }
+header {
+  background-color: #001f3f;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
 
-    button:hover { background-color: #218838; }
+main {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+}
 
-    #progressContainer {
-      width: 100%; background-color: #ddd; border-radius: 20px;
-      margin-top: 30px; display: none;
-    }
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  text-align: center;
+}
 
-    #progressBar {
-      width: 0%; height: 30px; background-color: #28a745; border-radius: 20px;
-    }
+.progress {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
 
-    #result {
-      margin-top: 40px;
-      font-size: 1.5em;
-      text-align: center;
-      display: none;
-    }
-  </style>
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #0074D9, #00b4ff);
+  transition: width 0.4s ease;
+}
+
+.counter {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.question {
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.choice {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  margin: 12px 0;
+  border-radius: 14px;
+  border: 2px solid #eee;
+  background: #f9f9f9;
+  font-size: 1.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.choice:hover {
+  background: #eef6ff;
+  border-color: #0074D9;
+}
+
+.choice.selected {
+  background: #0074D9;
+  color: white;
+  border-color: #0074D9;
+}
+
+#result {
+  display: none;
+}
+
+.temoignage {
+  background: #fff;
+  padding: 20px;
+  border-left: 4px solid #0074D9;
+  margin-top: 25px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-style: italic;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <h1>Évaluation AML</h1>
-  <p>Mesurez la robustesse de votre dispositif anti-blanchiment.</p>
+<h1>Diagnostic AML</h1>
+<p>Évaluez la solidité de votre dispositif anti-blanchiment en 3 minutes</p>
 </header>
 
 <main>
-  <form id="amlForm">
-    <div>
-      <label>1. Vérifiez-vous systématiquement l'identité de vos clients ?</label>
-      <select name="q1">
-        <option value="0">Non</option>
-        <option value="1">Oui, partiellement</option>
-        <option value="2">Oui, toujours</option>
-      </select>
-    </div>
-    <div>
-      <label>2. Demandez-vous la source des fonds pour les nouvelles relations ?</label>
-      <select name="q2">
-        <option value="0">Jamais</option>
-        <option value="1">Parfois</option>
-        <option value="2">Toujours</option>
-      </select>
-    </div>
-    <div>
-      <label>3. Vos clients incluent-ils des personnes politiquement exposées (PPE) ?</label>
-      <select name="q3">
-        <option value="0">Oui, sans contrôle renforcé</option>
-        <option value="1">Oui, avec contrôle partiel</option>
-        <option value="2">Oui, avec procédure complète</option>
-      </select>
-    </div>
-    <div>
-      <label>4. Avez-vous une procédure de surveillance des transactions inhabituelles ?</label>
-      <select name="q4">
-        <option value="0">Non</option>
-        <option value="1">Oui, manuelle</option>
-        <option value="2">Oui, automatisée</option>
-      </select>
-    </div>
-    <div>
-      <label>5. Tenez-vous un registre des relations clients à risque ?</label>
-      <select name="q5">
-        <option value="0">Non</option>
-        <option value="1">Partiellement</option>
-        <option value="2">Oui</option>
-      </select>
-    </div>
-    <div>
-      <label>6. Avez-vous mis en place un programme de formation AML pour vos employés ?</label>
-      <select name="q6">
-        <option value="0">Non</option>
-        <option value="1">Oui, ponctuel</option>
-        <option value="2">Oui, régulier et suivi</option>
-      </select>
-    </div>
-    <div>
-      <label>7. Avez-vous désigné une personne responsable de la conformité AML ?</label>
-      <select name="q7">
-        <option value="0">Non</option>
-        <option value="1">Oui, mais peu formée</option>
-        <option value="2">Oui, formée et active</option>
-      </select>
-    </div>
-    <div>
-      <label>8. Disposez-vous d’un reporting structuré des alertes AML ?</label>
-      <select name="q8">
-        <option value="0">Non</option>
-        <option value="1">Oui, basique</option>
-        <option value="2">Oui, documenté et suivi</option>
-      </select>
-    </div>
-    <div>
-      <label>9. Effectuez-vous une revue régulière de vos procédures AML ?</label>
-      <select name="q9">
-        <option value="0">Jamais</option>
-        <option value="1">Tous les deux ans</option>
-        <option value="2">Annuellement</option>
-      </select>
-    </div>
-    <div>
-      <label>10. Vos clients utilisent-ils fréquemment des espèces ou cryptomonnaies ?</label>
-      <select name="q10">
-        <option value="0">Oui, sans contrôle</option>
-        <option value="1">Oui, avec contrôle manuel</option>
-        <option value="2">Non ou avec contrôle automatisé</option>
-      </select>
-    </div>
 
-    <button type="submit">Voir mon score AML</button>
-  </form>
+<div class="card">
 
-  <div id="progressContainer">
-    <div id="progressBar"></div>
-  </div>
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+<div class="counter" id="counter"></div>
 
-  <div id="result"></div>
+<div class="question" id="question"></div>
+<div id="choices"></div>
+
+<div id="result"></div>
+
+</div>
+
+<footer>
+<a href="../index.html" style="display:inline-block;margin-top:20px;padding:12px 24px;background:#0074D9;color:white;text-decoration:none;border-radius:10px;font-weight:bold;">← Retour à l'accueil</a>
+</footer>
+
 </main>
-  <a href="../index.html" style="display:inline-block; margin-top:30px; padding:12px 24px; background-color:#0074D9; color:white; text-decoration:none; border-radius:6px; font-weight:bold;">← Retour à l'accueil</a>
 
 <script>
-  document.getElementById('amlForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+const questions = [
+  {
+    text: "Vérifiez-vous systématiquement l'identité de vos clients ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Oui, partiellement", value: 1 },
+      { label: "✅ Oui, toujours", value: 2 }
+    ]
+  },
+  {
+    text: "Demandez-vous la source des fonds pour les nouvelles relations ?",
+    options: [
+      { label: "❌ Jamais", value: 0 },
+      { label: "⚠️ Parfois", value: 1 },
+      { label: "✅ Toujours", value: 2 }
+    ]
+  },
+  {
+    text: "Vos clients incluent-ils des personnes politiquement exposées (PPE) ?",
+    options: [
+      { label: "❌ Oui, sans contrôle", value: 0 },
+      { label: "⚠️ Oui, contrôle partiel", value: 1 },
+      { label: "✅ Oui, procédure complète", value: 2 }
+    ]
+  },
+  {
+    text: "Disposez-vous d’une surveillance des transactions inhabituelles ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Oui, manuelle", value: 1 },
+      { label: "✅ Oui, automatisée", value: 2 }
+    ]
+  },
+  {
+    text: "Tenez-vous un registre des clients à risque ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Partiellement", value: 1 },
+      { label: "✅ Oui", value: 2 }
+    ]
+  },
+  {
+    text: "Vos collaborateurs sont-ils formés à l’AML ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Ponctuellement", value: 1 },
+      { label: "✅ Formation suivie", value: 2 }
+    ]
+  },
+  {
+    text: "Avez-vous un responsable AML identifié ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Peu formé", value: 1 },
+      { label: "✅ Formé et actif", value: 2 }
+    ]
+  },
+  {
+    text: "Disposez-vous d’un reporting AML structuré ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Basique", value: 1 },
+      { label: "✅ Documenté", value: 2 }
+    ]
+  },
+  {
+    text: "Revoyez-vous régulièrement vos procédures AML ?",
+    options: [
+      { label: "❌ Jamais", value: 0 },
+      { label: "⚠️ Tous les 2 ans", value: 1 },
+      { label: "✅ Annuellement", value: 2 }
+    ]
+  },
+  {
+    text: "Vos clients utilisent-ils espèces ou cryptos ?",
+    options: [
+      { label: "❌ Sans contrôle", value: 0 },
+      { label: "⚠️ Contrôle manuel", value: 1 },
+      { label: "✅ Contrôle renforcé", value: 2 }
+    ]
+  }
+];
 
-    let score = 0;
-    const formData = new FormData(this);
-    for (let value of formData.values()) {
-      score += parseInt(value);
-    }
+let index = 0;
+let score = 0;
 
-    // Stocke le score AML pour la synthèse finale
-    localStorage.setItem('scoreAML', score);
+const questionEl = document.getElementById("question");
+const choicesEl = document.getElementById("choices");
+const progressBar = document.getElementById("progressBar");
+const counter = document.getElementById("counter");
+const resultEl = document.getElementById("result");
 
-    const container = document.getElementById('progressContainer');
-    const bar = document.getElementById('progressBar');
-    const result = document.getElementById('result');
-    container.style.display = 'block';
-    result.style.display = 'none';
+function loadQuestion() {
+  const q = questions[index];
+  questionEl.innerText = q.text;
+  counter.innerText = `Question ${index + 1} / ${questions.length}`;
+  progressBar.style.width = `${(index / questions.length) * 100}%`;
+  choicesEl.innerHTML = "";
 
-    let width = 0;
-    const interval = setInterval(function () {
-      if (width >= 100) {
-        clearInterval(interval);
-
-        let message = '';
-        if (score <= 7) message = '🟥 Risque AML élevé – Renforcez immédiatement vos contrôles.';
-        else if (score <= 14) message = '🟧 Risque AML modéré – Des points d’amélioration sont identifiés.';
-        else message = '🟩 Conformité AML forte – Poursuivez vos efforts !';
-
-        result.innerHTML = `
-          <p>${message}</p>
-          <div class="temoignage" style="background: #fff; padding: 20px; border-left: 4px solid #0074D9; margin-top: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-            <p style="font-style: italic;">“Ce test AML m’a permis de découvrir des angles morts dans mes procédures internes. C’est rapide, pertinent et utile avant tout contrôle.”</p>
-            <strong>— Guido B., Expert-comptable à Namur</strong>
-          </div>
-        `;
-        result.style.display = 'block';
-
-        // Redirection après 4 secondes
-        setTimeout(() => {
-          window.location.href = "digital.html";
-        }, 8000);
-      } else {
-        width++;
-        bar.style.width = width + '%';
-      }
-    }, 15);
+  q.options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerText = opt.label;
+    btn.onclick = () => {
+      score += opt.value;
+      index++;
+      if (index < questions.length) loadQuestion();
+      else showResult();
+    };
+    choicesEl.appendChild(btn);
   });
-</script>
+}
 
+function showResult() {
+  progressBar.style.width = "100%";
+  localStorage.setItem("scoreAML", score);
+
+  let message = score <= 7
+    ? "🟥 Risque AML élevé – actions urgentes requises."
+    : score <= 14
+    ? "🟧 Risque AML modéré – améliorations nécessaires."
+    : "🟩 Dispositif AML solide – bonnes pratiques en place.";
+
+  questionEl.style.display = "none";
+  choicesEl.style.display = "none";
+  counter.style.display = "none";
+
+  resultEl.style.display = "block";
+  resultEl.innerHTML = `
+    <h2>${message}</h2>
+    <div class="temoignage">
+      “Ce diagnostic nous a permis d’identifier des failles avant un contrôle. Clair, rapide et très utile.”
+      <br><strong>— Guido B., Expert-comptable</strong>
+    </div>
+  `;
+
+  setTimeout(() => {
+    window.location.href = "digital.html";
+  }, 8000);
+}
+
+loadQuestion();
+</script>
 
 </body>
 </html>
