@@ -1,201 +1,280 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Diagnostic Crédit – Master Your Metrics</title>
-  <link rel="stylesheet" href="../assets/css/style-global.css">
-  <style>
-    body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; }
-    header { background-color: #001f3f; color: white; padding: 40px 20px; text-align: center; }
-    header h1 { margin: 0; font-size: 2.5em; }
-    main { max-width: 900px; margin: 40px auto; padding: 20px; }
+<meta charset="UTF-8">
+<title>Diagnostic Crédit – Master Your Metrics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    form { display: flex; flex-direction: column; gap: 20px; }
-    label { font-weight: bold; margin-bottom: 5px; }
-    select { padding: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #ccc; }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #f4f6f8, #eef2f6);
+  margin: 0;
+}
 
-    button {
-      background-color: #28a745;
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 5px;
-      font-size: 1.2em;
-      cursor: pointer;
-      margin-top: 30px;
-    }
+header {
+  background-color: #34495e;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
 
-    button:hover { background-color: #218838; }
+main {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+}
 
-    #progressContainer {
-      width: 100%; background-color: #ddd; border-radius: 20px;
-      margin-top: 30px; display: none;
-    }
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  text-align: center;
+}
 
-    #progressBar {
-      width: 0%; height: 30px; background-color: #28a745; border-radius: 20px;
-    }
+.progress {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
 
-    #result {
-      margin-top: 40px;
-      font-size: 1.5em;
-      text-align: center;
-      display: none;
-    }
-  </style>
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #2980b9, #3498db);
+  transition: width 0.4s ease;
+}
+
+.counter {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.question {
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.choice {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  margin: 12px 0;
+  border-radius: 14px;
+  border: 2px solid #eee;
+  background: #f9f9f9;
+  font-size: 1.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.choice:hover {
+  background: #ebf3fb;
+  border-color: #2980b9;
+}
+
+.choice.selected {
+  background: #2980b9;
+  color: white;
+  border-color: #2980b9;
+}
+
+#result {
+  display: none;
+}
+
+.temoignage {
+  background: #fff;
+  padding: 20px;
+  border-left: 4px solid #2980b9;
+  margin-top: 25px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-style: italic;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <h1>Évaluation Financière</h1>
-  <p>Analysez vos fondamentaux financiers en vue d’un crédit ou d’une optimisation.</p>
+<h1>Diagnostic Crédit</h1>
+<p>Évaluez la solidité financière et la capacité de financement de votre entreprise</p>
 </header>
 
 <main>
-  <form id="creditForm">
-    <div>
-      <label>1. Votre chiffre d'affaires est-il en croissance ?</label>
-      <select name="q1">
-        <option value="0">Non, il baisse</option>
-        <option value="1">Stable</option>
-        <option value="2">Oui, en croissance</option>
-      </select>
-    </div>
-    <div>
-      <label>2. Disposez-vous de fonds propres supérieurs à 20% du total bilan ?</label>
-      <select name="q2">
-        <option value="0">Non</option>
-        <option value="1">Proches de 20%</option>
-        <option value="2">Oui, bien supérieurs</option>
-      </select>
-    </div>
-    <div>
-      <label>3. Vos dettes financières sont-elles maîtrisées ?</label>
-      <select name="q3">
-        <option value="0">Non</option>
-        <option value="1">Limite acceptable</option>
-        <option value="2">Oui, très bien maîtrisées</option>
-      </select>
-    </div>
-    <div>
-      <label>4. Votre entreprise génère-t-elle un bénéfice net positif ?</label>
-      <select name="q4">
-        <option value="0">Déficitaire</option>
-        <option value="1">À l'équilibre</option>
-        <option value="2">Oui, bénéficiaire</option>
-      </select>
-    </div>
-    <div>
-      <label>5. Votre rentabilité est-elle supérieure à 5% ?</label>
-      <select name="q5">
-        <option value="0">Non</option>
-        <option value="1">Oui, entre 2% et 5%</option>
-        <option value="2">Oui, supérieure à 5%</option>
-      </select>
-    </div>
-    <div>
-      <label>6. Vos clients paient-ils en temps voulu ?</label>
-      <select name="q6">
-        <option value="0">Non, régulièrement en retard</option>
-        <option value="1">Parfois en retard</option>
-        <option value="2">Oui, délais respectés</option>
-      </select>
-    </div>
-    <div>
-      <label>7. Disposez-vous de plus de 3 mois de trésorerie disponible ?</label>
-      <select name="q7">
-        <option value="0">Non</option>
-        <option value="1">Environ 3 mois</option>
-        <option value="2">Oui, plus de 3 mois</option>
-      </select>
-    </div>
-    <div>
-      <label>8. Avez-vous des lignes de crédit court terme non utilisées ?</label>
-      <select name="q8">
-        <option value="0">Aucune</option>
-        <option value="1">Oui, limitées</option>
-        <option value="2">Oui, plusieurs disponibles</option>
-      </select>
-    </div>
-    <div>
-      <label>9. Votre trésorerie est-elle suivie quotidiennement ?</label>
-      <select name="q9">
-        <option value="0">Non</option>
-        <option value="1">Hebdomadairement</option>
-        <option value="2">Oui, quotidiennement</option>
-      </select>
-    </div>
-    <div>
-      <label>10. Votre entreprise a-t-elle une politique d’investissement claire ?</label>
-      <select name="q10">
-        <option value="0">Aucune politique</option>
-        <option value="1">Oui, non formalisée</option>
-        <option value="2">Oui, bien définie</option>
-      </select>
-    </div>
 
-    <button type="submit">Voir mon score Crédit</button>
-  </form>
+<div class="card">
 
-  <div id="progressContainer">
-    <div id="progressBar"></div>
-  </div>
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+<div class="counter" id="counter"></div>
 
-  <div id="result"></div>
+<div class="question" id="question"></div>
+<div id="choices"></div>
+
+<div id="result"></div>
+
+</div>
+
+<footer>
+<a href="../index.html" style="display:inline-block;margin-top:20px;padding:12px 24px;background:#2980b9;color:white;text-decoration:none;border-radius:10px;font-weight:bold;">← Retour à l'accueil</a>
+</footer>
+
 </main>
-<a href="../index.html" style="display:inline-block; margin-top:30px; padding:12px 24px; background-color:#0074D9; color:white; text-decoration:none; border-radius:6px; font-weight:bold;">← Retour à l'accueil</a>
 
 <script>
-  document.getElementById('creditForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+const questions = [
+  {
+    text: "Votre chiffre d’affaires est-il en croissance ?",
+    options: [
+      { label: "❌ En baisse", value: 0 },
+      { label: "⚠️ Stable", value: 1 },
+      { label: "✅ En croissance", value: 2 }
+    ]
+  },
+  {
+    text: "Vos fonds propres représentent-ils au moins 20 % du total du bilan ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Proches du seuil", value: 1 },
+      { label: "✅ Oui", value: 2 }
+    ]
+  },
+  {
+    text: "Votre entreprise génère-t-elle un bénéfice net positif ?",
+    options: [
+      { label: "❌ Déficitaire", value: 0 },
+      { label: "⚠️ À l’équilibre", value: 1 },
+      { label: "✅ Bénéficiaire", value: 2 }
+    ]
+  },
+  {
+    text: "Vos dettes financières sont-elles maîtrisées ?",
+    options: [
+      { label: "❌ Non maîtrisées", value: 0 },
+      { label: "⚠️ Sous contrôle", value: 1 },
+      { label: "✅ Très bien maîtrisées", value: 2 }
+    ]
+  },
+  {
+    text: "Disposez-vous d’au moins 3 mois de trésorerie disponible ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Environ 3 mois", value: 1 },
+      { label: "✅ Plus de 3 mois", value: 2 }
+    ]
+  },
+  {
+    text: "Vos clients respectent-ils globalement les délais de paiement ?",
+    options: [
+      { label: "❌ Retards fréquents", value: 0 },
+      { label: "⚠️ Retards occasionnels", value: 1 },
+      { label: "✅ Délais respectés", value: 2 }
+    ]
+  },
+  {
+    text: "Votre trésorerie est-elle suivie régulièrement ?",
+    options: [
+      { label: "❌ Pas de suivi", value: 0 },
+      { label: "⚠️ Suivi mensuel", value: 1 },
+      { label: "✅ Suivi hebdomadaire / quotidien", value: 2 }
+    ]
+  },
+  {
+    text: "Disposez-vous de lignes de crédit non utilisées ?",
+    options: [
+      { label: "❌ Aucune", value: 0 },
+      { label: "⚠️ Limitées", value: 1 },
+      { label: "✅ Disponibles", value: 2 }
+    ]
+  },
+  {
+    text: "Votre rentabilité nette dépasse-t-elle 5 % ?",
+    options: [
+      { label: "❌ Inférieure", value: 0 },
+      { label: "⚠️ Entre 2 % et 5 %", value: 1 },
+      { label: "✅ Supérieure à 5 %", value: 2 }
+    ]
+  },
+  {
+    text: "Disposez-vous d’une politique d’investissement claire ?",
+    options: [
+      { label: "❌ Aucune", value: 0 },
+      { label: "⚠️ Non formalisée", value: 1 },
+      { label: "✅ Claire et formalisée", value: 2 }
+    ]
+  }
+];
 
-    let score = 0;
-    const formData = new FormData(this);
-    for (let value of formData.values()) {
-      score += parseInt(value);
-    }
+let index = 0;
+let score = 0;
 
-    const container = document.getElementById('progressContainer');
-    const bar = document.getElementById('progressBar');
-    const result = document.getElementById('result');
-    container.style.display = 'block';
-    result.style.display = 'none';
+const questionEl = document.getElementById("question");
+const choicesEl = document.getElementById("choices");
+const progressBar = document.getElementById("progressBar");
+const counter = document.getElementById("counter");
+const resultEl = document.getElementById("result");
 
-    // Stockage du score crédit
-    localStorage.setItem('scoreCredit', score);
+function loadQuestion() {
+  const q = questions[index];
+  questionEl.innerText = q.text;
+  counter.innerText = `Question ${index + 1} / ${questions.length}`;
+  progressBar.style.width = `${(index / questions.length) * 100}%`;
+  choicesEl.innerHTML = "";
 
-    let width = 0;
-    const interval = setInterval(function () {
-      if (width >= 100) {
-        clearInterval(interval);
-
-        let message = '';
-        if (score <= 7) message = '🟥 Structure financière fragile – attention avant toute demande de crédit.';
-        else if (score <= 14) message = '🟧 Situation intermédiaire – certains points à consolider.';
-        else message = '🟩 Structure financière saine – bon dossier pour un financement.';
-
-        result.innerHTML = `
-          <p>${message}</p>
-          <div class="temoignage" style="background: #fff; padding: 20px; border-left: 4px solid #0074D9; margin-top: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-            <p style="font-style: italic;">“J’ai toujours cru que mes finances étaient solides, mais ce test m’a montré les faiblesses qui freinaient mes demandes de financement.”</p>
-            <strong>— Damien R., Fondateur d’un atelier de production</strong>
-          </div>
-          <br>
-          <a href="cybersecurite.html" class="cta-button">Étape suivante : Cybersécurité</a>
-        `;
-        result.style.display = 'block';
-
-        setTimeout(() => {
-          window.location.href = "cybersecurite.html";
-        }, 8000);
-      } else {
-        width++;
-        bar.style.width = width + '%';
-      }
-    }, 15);
+  q.options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerText = opt.label;
+    btn.onclick = () => {
+      score += opt.value;
+      index++;
+      if (index < questions.length) loadQuestion();
+      else showResult();
+    };
+    choicesEl.appendChild(btn);
   });
-</script>
+}
 
+function showResult() {
+  progressBar.style.width = "100%";
+  localStorage.setItem("scoreCredit", score);
+
+  let message = score <= 7
+    ? "🟥 Structure financière fragile – vigilance avant toute demande de crédit."
+    : score <= 14
+    ? "🟧 Situation financière intermédiaire – points à consolider."
+    : "🟩 Structure financière solide – bon profil pour un financement.";
+
+  questionEl.style.display = "none";
+  choicesEl.style.display = "none";
+  counter.style.display = "none";
+
+  resultEl.style.display = "block";
+  resultEl.innerHTML = `
+    <h2>${message}</h2>
+    <div class="temoignage">
+      “Ce diagnostic nous a permis d’anticiper les attentes bancaires et de mieux préparer nos demandes de financement.”
+      <br><strong>— Damien R., Dirigeant de PME</strong>
+    </div>
+  `;
+
+  setTimeout(() => {
+    window.location.href = "cybersecurite.html";
+  }, 8000);
+}
+
+loadQuestion();
+</script>
 
 </body>
 </html>
