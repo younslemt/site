@@ -78,16 +78,6 @@ main {
   border-color: #6c5ce7;
 }
 
-.choice.selected {
-  background: #6c5ce7;
-  color: white;
-  border-color: #6c5ce7;
-}
-
-#result {
-  display: none;
-}
-
 .temoignage {
   background: #fff;
   padding: 20px;
@@ -108,7 +98,7 @@ footer {
 
 <header>
 <h1>Diagnostic Crédit</h1>
-<p>Évaluez la solidité financière et la capacité de financement de votre entreprise</p>
+<p>Évaluez votre solidité financière et votre capacité réelle de financement</p>
 </header>
 
 <main>
@@ -124,8 +114,9 @@ footer {
 <div id="result"></div>
 
 </div>
+
 <div id="nextStepTimer" style="display:none; margin-top:20px; font-size:0.95em; color:#555;">
-  Passage au diagnostic suivant (<strong>Cyber-sécurité</strong>) dans <strong><span id="countdown">4</span>s</strong>…
+  Passage au diagnostic suivant (<strong>Cybersécurité</strong>) dans <strong><span id="countdown">4</span>s</strong>…
 </div>
 
 <footer>
@@ -136,86 +127,13 @@ footer {
 
 <script>
 const questions = [
-  {
-    text: "Votre chiffre d’affaires est-il en croissance ?",
-    options: [
-      { label: "❌ En baisse", value: 0 },
-      { label: "⚠️ Stable", value: 1 },
-      { label: "✅ En croissance", value: 2 }
-    ]
-  },
-  {
-    text: "Vos fonds propres représentent-ils au moins 20 % du total du bilan ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Proches du seuil", value: 1 },
-      { label: "✅ Oui", value: 2 }
-    ]
-  },
-  {
-    text: "Votre entreprise génère-t-elle un bénéfice net positif ?",
-    options: [
-      { label: "❌ Déficitaire", value: 0 },
-      { label: "⚠️ À l’équilibre", value: 1 },
-      { label: "✅ Bénéficiaire", value: 2 }
-    ]
-  },
-  {
-    text: "Vos dettes financières sont-elles maîtrisées ?",
-    options: [
-      { label: "❌ Non maîtrisées", value: 0 },
-      { label: "⚠️ Sous contrôle", value: 1 },
-      { label: "✅ Très bien maîtrisées", value: 2 }
-    ]
-  },
-  {
-    text: "Disposez-vous d’au moins 3 mois de trésorerie disponible ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Environ 3 mois", value: 1 },
-      { label: "✅ Plus de 3 mois", value: 2 }
-    ]
-  },
-  {
-    text: "Vos clients respectent-ils globalement les délais de paiement ?",
-    options: [
-      { label: "❌ Retards fréquents", value: 0 },
-      { label: "⚠️ Retards occasionnels", value: 1 },
-      { label: "✅ Délais respectés", value: 2 }
-    ]
-  },
-  {
-    text: "Votre trésorerie est-elle suivie régulièrement ?",
-    options: [
-      { label: "❌ Pas de suivi", value: 0 },
-      { label: "⚠️ Suivi mensuel", value: 1 },
-      { label: "✅ Suivi hebdomadaire / quotidien", value: 2 }
-    ]
-  },
-  {
-    text: "Disposez-vous de lignes de crédit non utilisées ?",
-    options: [
-      { label: "❌ Aucune", value: 0 },
-      { label: "⚠️ Limitées", value: 1 },
-      { label: "✅ Disponibles", value: 2 }
-    ]
-  },
-  {
-    text: "Votre rentabilité nette dépasse-t-elle 5 % ?",
-    options: [
-      { label: "❌ Inférieure", value: 0 },
-      { label: "⚠️ Entre 2 % et 5 %", value: 1 },
-      { label: "✅ Supérieure à 5 %", value: 2 }
-    ]
-  },
-  {
-    text: "Disposez-vous d’une politique d’investissement claire ?",
-    options: [
-      { label: "❌ Aucune", value: 0 },
-      { label: "⚠️ Non formalisée", value: 1 },
-      { label: "✅ Claire et formalisée", value: 2 }
-    ]
-  }
+  { text: "Votre entreprise génère-t-elle un résultat net positif ?", weight: 20 },
+  { text: "Vos fonds propres représentent-ils au moins 20 % du total du bilan ?", weight: 20 },
+  { text: "Disposez-vous d’au moins 3 mois de trésorerie disponible ?", weight: 20 },
+  { text: "Votre niveau d’endettement est-il maîtrisé et soutenable ?", weight: 15 },
+  { text: "Votre activité génère-t-elle un cash-flow suffisant pour rembourser ses dettes ?", weight: 10 },
+  { text: "Les délais de paiement clients sont-ils globalement respectés ?", weight: 10 },
+  { text: "Disposez-vous d’une politique d’investissement claire et planifiée ?", weight: 5 }
 ];
 
 let index = 0;
@@ -234,12 +152,16 @@ function loadQuestion() {
   progressBar.style.width = `${(index / questions.length) * 100}%`;
   choicesEl.innerHTML = "";
 
-  q.options.forEach(opt => {
+  [
+    { label: "❌ Non", value: 0 },
+    { label: "⚠️ Partiellement", value: 0.5 },
+    { label: "✅ Oui", value: 1 }
+  ].forEach(opt => {
     const btn = document.createElement("button");
     btn.className = "choice";
     btn.innerText = opt.label;
     btn.onclick = () => {
-      score += opt.value;
+      score += opt.value * q.weight;
       index++;
       if (index < questions.length) loadQuestion();
       else showResult();
@@ -250,11 +172,13 @@ function loadQuestion() {
 
 function showResult() {
   progressBar.style.width = "100%";
-  localStorage.setItem("scoreCredit", score);
 
-  let message = score <= 7
+  const finalScore = Math.round(score);
+  localStorage.setItem("scoreCredit", finalScore);
+
+  let message = finalScore < 40
     ? "🟥 Structure financière fragile – vigilance avant toute demande de crédit."
-    : score <= 14
+    : finalScore < 70
     ? "🟧 Situation financière intermédiaire – points à consolider."
     : "🟩 Structure financière solide – bon profil pour un financement.";
 
@@ -265,8 +189,9 @@ function showResult() {
   resultEl.style.display = "block";
   resultEl.innerHTML = `
     <h2>${message}</h2>
+    <p><strong>Score Crédit :</strong> ${finalScore} / 100</p>
     <div class="temoignage">
-      “Ce diagnostic nous a permis d’anticiper les attentes bancaires et de mieux préparer nos demandes de financement.”
+      “Ce diagnostic nous a permis d’anticiper les attentes bancaires et de sécuriser notre dossier de financement.”
       <br><strong>— Damien R., Dirigeant de PME</strong>
     </div>
   `;
@@ -275,20 +200,16 @@ function showResult() {
   const countdownEl = document.getElementById("countdown");
 
   timerEl.style.display = "block";
-
   let timeLeft = 4;
-  countdownEl.innerText = timeLeft;
 
   const interval = setInterval(() => {
     timeLeft--;
     countdownEl.innerText = timeLeft;
-
     if (timeLeft <= 0) {
       clearInterval(interval);
       window.location.href = "cybersecurite.html";
     }
   }, 1000);
-
 }
 
 loadQuestion();
@@ -296,7 +217,3 @@ loadQuestion();
 
 </body>
 </html>
-
-
-
-
