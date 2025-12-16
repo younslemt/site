@@ -1,186 +1,279 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Évaluation ESG – Master Your Metrics</title>
-  <style>
-    body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; }
-    header { background-color: #001f3f; color: white; padding: 40px 20px; text-align: center; }
-    header h1 { margin: 0; font-size: 2.5em; }
-    main { max-width: 900px; margin: 40px auto; padding: 20px; }
+<meta charset="UTF-8">
+<title>Diagnostic ESG – Master Your Metrics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    form { display: flex; flex-direction: column; gap: 20px; }
-    label { font-weight: bold; margin-bottom: 5px; }
-    select { padding: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #ccc; }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #f4f6f8, #eef2f6);
+  margin: 0;
+}
 
-    button {
-      background-color: #28a745;
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 5px;
-      font-size: 1.2em;
-      cursor: pointer;
-      margin-top: 30px;
-    }
+header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
 
-    button:hover { background-color: #218838; }
+main {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+}
 
-    #progressContainer {
-      width: 100%; background-color: #ddd; border-radius: 20px;
-      margin-top: 30px; display: none;
-    }
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  text-align: center;
+}
 
-    #progressBar {
-      width: 0%; height: 30px; background-color: #28a745; border-radius: 20px;
-    }
+.progress {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
 
-    #result {
-      margin-top: 40px;
-      font-size: 1.5em;
-      text-align: center;
-      display: none;
-    }
-  </style>
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #27ae60, #2ecc71);
+  transition: width 0.4s ease;
+}
+
+.counter {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.question {
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.choice {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  margin: 12px 0;
+  border-radius: 14px;
+  border: 2px solid #eee;
+  background: #f9f9f9;
+  font-size: 1.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.choice:hover {
+  background: #eafaf1;
+  border-color: #27ae60;
+}
+
+.choice.selected {
+  background: #27ae60;
+  color: white;
+  border-color: #27ae60;
+}
+
+#result {
+  display: none;
+}
+
+.temoignage {
+  background: #fff;
+  padding: 20px;
+  border-left: 4px solid #27ae60;
+  margin-top: 25px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-style: italic;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+}
+</style>
 </head>
+
 <body>
-  <header>
-    <h1>Évaluation Rapide ESG</h1>
-    <p>10 questions pour découvrir votre profil ESG en moins de 3 minutes.</p>
-  </header>
 
-  <main>
-    <h2>Répondez aux questions :</h2>
-    <form id="esgForm">
-      <div>
-        <label>1. Avez-vous mis en place des actions pour réduire votre consommation d’énergie ?</label>
-        <select name="q1">
-          <option value="0">Aucune action</option>
-          <option value="1">Quelques initiatives ponctuelles</option>
-          <option value="2">Plan structuré avec suivi</option>
-        </select>
-      </div>
-      <div>
-        <label>2. Utilisez-vous des sources d’énergie renouvelables ?</label>
-        <select name="q2">
-          <option value="0">Non</option>
-          <option value="1">Partiellement (moins de 50%)</option>
-          <option value="2">Majoritairement (plus de 50%)</option>
-        </select>
-      </div>
-      <div>
-        <label>3. Gérez-vous et recyclez-vous vos déchets ?</label>
-        <select name="q3">
-          <option value="0">Non</option>
-          <option value="1">Oui, partiellement</option>
-          <option value="2">Oui, avec suivi</option>
-        </select>
-      </div>
-      <div>
-        <label>4. Avez-vous une politique d'égalité des chances ?</label>
-        <select name="q4">
-          <option value="0">Aucune politique</option>
-          <option value="1">Politique limitée</option>
-          <option value="2">Politique établie</option>
-        </select>
-      </div>
-      <div>
-        <label>5. Proposez-vous des programmes de formation continue ?</label>
-        <select name="q5">
-          <option value="0">Non</option>
-          <option value="1">Quelques formations</option>
-          <option value="2">Programme structuré</option>
-        </select>
-      </div>
-      <div>
-        <label>6. Avez-vous des actions pour la santé mentale des employés ?</label>
-        <select name="q6">
-          <option value="0">Non</option>
-          <option value="1">Actions ponctuelles</option>
-          <option value="2">Programme formalisé</option>
-        </select>
-      </div>
-      <div>
-        <label>7. Disposez-vous d’un code de conduite ou d’un engagement éthique ?</label>
-        <select name="q7">
-          <option value="0">Non</option>
-          <option value="1">En cours de développement</option>
-          <option value="2">Oui, appliqué</option>
-        </select>
-      </div>
-      <div>
-        <label>8. Avez-vous un processus de gestion des risques ?</label>
-        <select name="q8">
-          <option value="0">Aucun</option>
-          <option value="1">Partiel</option>
-          <option value="2">Complet</option>
-        </select>
-      </div>
-      <div>
-        <label>9. Intégrez-vous les critères ESG dans vos décisions stratégiques ?</label>
-        <select name="q9">
-          <option value="0">Non</option>
-          <option value="1">Parfois</option>
-          <option value="2">Oui, systématiquement</option>
-        </select>
-      </div>
-      <div>
-        <label>10. Communiquez-vous publiquement sur vos engagements ESG ?</label>
-        <select name="q10">
-          <option value="0">Pas du tout</option>
-          <option value="1">Communication limitée</option>
-          <option value="2">Communication complète</option>
-        </select>
-      </div>
-      <button type="submit">Voir mon score ESG</button>
-    </form>
+<header>
+<h1>Diagnostic ESG</h1>
+<p>Évaluez votre maturité environnementale, sociale et de gouvernance en 3 minutes</p>
+</header>
 
-    <div id="result" style="margin-top:40px; font-size:1.5em; text-align:center; display:none;"></div>
+<main>
 
-    
-  </main>
-<a href="../index.html" style="display:inline-block; margin-top:30px; padding:12px 24px; background-color:#0074D9; color:white; text-decoration:none; border-radius:6px; font-weight:bold;">← Retour à l'accueil</a>
-  <footer>
-    © 2025 Master Your Metrics. Tous droits réservés.
-  </footer>
+<div class="card">
 
-  <script>
-  document.getElementById('esgForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    let score = 0;
-    const formData = new FormData(this);
-    for (let value of formData.values()) {
-      score += parseInt(value);
-    }
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+<div class="counter" id="counter"></div>
 
-    // Enregistrer le score dans le localStorage
-    localStorage.setItem('scoreESG', score);
+<div class="question" id="question"></div>
+<div id="choices"></div>
 
-    // Déterminer le message
-    let message = '';
-    if (score <= 7) message = '🟠 ESG en construction - De nombreuses pistes d\'amélioration';
-    else if (score <= 14) message = '🟡 ESG intermédiaire - Base solide à renforcer';
-    else message = '🟢 ESG avancé - Engagement durable affirmé';
+<div id="result"></div>
 
-    const resultDiv = document.getElementById('result');
-    resultDiv.innerText = message;
-    resultDiv.style.display = 'block';
-       
-// essayer d 'ajouter le temoignage
- result.innerHTML = `
-          <p>${message}</p>
-          <div class="temoignage" style="background: #fff; padding: 20px; border-left: 4px solid #0074D9; margin-top: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-            <p style="font-style: italic;">“En plus d'asumer nos responsabilité envers la socièté cela nous a permis de nous démarquer lors d 'appel d 'offre.”</p>
-            <strong>— Patrick L., Free lance dans la logistique à Anvers</strong>
-          </div>
-        `;
-        result.style.display = 'block';
-    // Redirection vers la page suivante après 3 secondes
-    setTimeout(() => {
-      window.location.href = "aml.html";
-    }, 5000);
+</div>
+
+<footer>
+<a href="../index.html" style="display:inline-block;margin-top:20px;padding:12px 24px;background:#27ae60;color:white;text-decoration:none;border-radius:10px;font-weight:bold;">← Retour à l'accueil</a>
+</footer>
+
+</main>
+
+<script>
+const questions = [
+  {
+    text: "Avez-vous formalisé une politique ou une démarche ESG ?",
+    options: [
+      { label: "❌ Aucune démarche", value: 0 },
+      { label: "⚠️ En réflexion", value: 1 },
+      { label: "✅ Politique formalisée", value: 2 }
+    ]
+  },
+  {
+    text: "Mesurez-vous votre consommation d’énergie et vos émissions ?",
+    options: [
+      { label: "❌ Pas du tout", value: 0 },
+      { label: "⚠️ Partiellement", value: 1 },
+      { label: "✅ Suivi structuré", value: 2 }
+    ]
+  },
+  {
+    text: "Avez-vous mis en place des actions de réduction environnementale ?",
+    options: [
+      { label: "❌ Aucune", value: 0 },
+      { label: "⚠️ Actions ponctuelles", value: 1 },
+      { label: "✅ Plan d’actions suivi", value: 2 }
+    ]
+  },
+  {
+    text: "Disposez-vous de politiques RH (diversité, bien-être, formation) ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Partielles", value: 1 },
+      { label: "✅ Formelles et suivies", value: 2 }
+    ]
+  },
+  {
+    text: "Avez-vous identifié les risques sociaux et humains de votre activité ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Partiellement", value: 1 },
+      { label: "✅ Oui, formalisés", value: 2 }
+    ]
+  },
+  {
+    text: "Disposez-vous d’un code de conduite ou d’une charte éthique ?",
+    options: [
+      { label: "❌ Aucun", value: 0 },
+      { label: "⚠️ En cours", value: 1 },
+      { label: "✅ Appliqué", value: 2 }
+    ]
+  },
+  {
+    text: "Les critères ESG sont-ils intégrés dans vos décisions stratégiques ?",
+    options: [
+      { label: "❌ Jamais", value: 0 },
+      { label: "⚠️ Occasionnellement", value: 1 },
+      { label: "✅ Systématiquement", value: 2 }
+    ]
+  },
+  {
+    text: "Avez-vous une gouvernance claire (rôles, responsabilités, suivi) ?",
+    options: [
+      { label: "❌ Non définie", value: 0 },
+      { label: "⚠️ Partiellement définie", value: 1 },
+      { label: "✅ Gouvernance structurée", value: 2 }
+    ]
+  },
+  {
+    text: "Êtes-vous en mesure de répondre à des demandes ESG (clients, banques) ?",
+    options: [
+      { label: "❌ Pas du tout", value: 0 },
+      { label: "⚠️ Avec difficulté", value: 1 },
+      { label: "✅ Oui, rapidement", value: 2 }
+    ]
+  },
+  {
+    text: "Communiquez-vous sur vos engagements ESG de manière crédible ?",
+    options: [
+      { label: "❌ Pas de communication", value: 0 },
+      { label: "⚠️ Communication limitée", value: 1 },
+      { label: "✅ Communication structurée", value: 2 }
+    ]
+  }
+];
+
+let index = 0;
+let score = 0;
+
+const questionEl = document.getElementById("question");
+const choicesEl = document.getElementById("choices");
+const progressBar = document.getElementById("progressBar");
+const counter = document.getElementById("counter");
+const resultEl = document.getElementById("result");
+
+function loadQuestion() {
+  const q = questions[index];
+  questionEl.innerText = q.text;
+  counter.innerText = `Question ${index + 1} / ${questions.length}`;
+  progressBar.style.width = `${(index / questions.length) * 100}%`;
+  choicesEl.innerHTML = "";
+
+  q.options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerText = opt.label;
+    btn.onclick = () => {
+      score += opt.value;
+      index++;
+      if (index < questions.length) loadQuestion();
+      else showResult();
+    };
+    choicesEl.appendChild(btn);
   });
+}
+
+function showResult() {
+  progressBar.style.width = "100%";
+  localStorage.setItem("scoreESG", score);
+
+  let message = score <= 7
+    ? "🟥 Maturité ESG faible – structuration prioritaire."
+    : score <= 14
+    ? "🟧 ESG en développement – base à renforcer."
+    : "🟩 ESG avancé – démarche crédible et valorisable.";
+
+  questionEl.style.display = "none";
+  choicesEl.style.display = "none";
+  counter.style.display = "none";
+
+  resultEl.style.display = "block";
+  resultEl.innerHTML = `
+    <h2>${message}</h2>
+    <div class="temoignage">
+      “Cette évaluation ESG nous a permis de répondre plus sereinement aux demandes de nos clients et partenaires.”
+      <br><strong>— Patrick L., Indépendant logistique</strong>
+    </div>
+  `;
+
+  setTimeout(() => {
+    window.location.href = "aml.html";
+  }, 8000);
+}
+
+loadQuestion();
 </script>
 
 </body>
