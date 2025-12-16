@@ -1,199 +1,280 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Diagnostic Cybersécurité – Master Your Metrics</title>
-  <link rel="stylesheet" href="../assets/css/style-global.css">
-  <style>
-    body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; }
-    header { background-color: #001f3f; color: white; padding: 40px 20px; text-align: center; }
-    header h1 { margin: 0; font-size: 2.5em; }
-    main { max-width: 900px; margin: 40px auto; padding: 20px; }
+<meta charset="UTF-8">
+<title>Diagnostic Cybersécurité – Master Your Metrics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    form { display: flex; flex-direction: column; gap: 20px; }
-    label { font-weight: bold; margin-bottom: 5px; }
-    select { padding: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #ccc; }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #f4f6f8, #eef2f6);
+  margin: 0;
+}
 
-    button {
-      background-color: #28a745;
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 5px;
-      font-size: 1.2em;
-      cursor: pointer;
-      margin-top: 30px;
-    }
+header {
+  background-color: #0b1c2d;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
 
-    button:hover { background-color: #218838; }
+main {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+}
 
-    #progressContainer {
-      width: 100%; background-color: #ddd; border-radius: 20px;
-      margin-top: 30px; display: none;
-    }
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  text-align: center;
+}
 
-    #progressBar {
-      width: 0%; height: 30px; background-color: #28a745; border-radius: 20px;
-    }
+.progress {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
 
-    #result {
-      margin-top: 40px;
-      font-size: 1.5em;
-      text-align: center;
-      display: none;
-    }
-  </style>
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #6c5ce7, #00cec9);
+  transition: width 0.4s ease;
+}
+
+.counter {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.question {
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.choice {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  margin: 12px 0;
+  border-radius: 14px;
+  border: 2px solid #eee;
+  background: #f9f9f9;
+  font-size: 1.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.choice:hover {
+  background: #f0efff;
+  border-color: #6c5ce7;
+}
+
+.choice.selected {
+  background: #6c5ce7;
+  color: white;
+  border-color: #6c5ce7;
+}
+
+#result {
+  display: none;
+}
+
+.temoignage {
+  background: #fff;
+  padding: 20px;
+  border-left: 4px solid #6c5ce7;
+  margin-top: 25px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-style: italic;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <h1>Évaluation Cybersécurité</h1>
-  <p>Évaluez vos pratiques de sécurité informatique et de protection des données.</p>
+<h1>Diagnostic Cybersécurité</h1>
+<p>Évaluez la protection de vos systèmes et de vos données en 3 minutes</p>
 </header>
 
 <main>
-  <form id="cyberForm">
-    <div>
-      <label>1. Utilisez-vous l’authentification à deux facteurs pour les accès sensibles ?</label>
-      <select name="q1">
-        <option value="0">Non</option>
-        <option value="1">Partiellement</option>
-        <option value="2">Oui, partout</option>
-      </select>
-    </div>
-    <div>
-      <label>2. Avez-vous une politique claire de gestion des mots de passe ?</label>
-      <select name="q2">
-        <option value="0">Non</option>
-        <option value="1">Oui, peu appliquée</option>
-        <option value="2">Oui, appliquée et suivie</option>
-      </select>
-    </div>
-    <div>
-      <label>3. Vos équipes sont-elles formées à la cybersécurité ?</label>
-      <select name="q3">
-        <option value="0">Non</option>
-        <option value="1">Oui, ponctuellement</option>
-        <option value="2">Oui, régulièrement</option>
-      </select>
-    </div>
-    <div>
-      <label>4. Disposez-vous d’un plan de réponse aux incidents ?</label>
-      <select name="q4">
-        <option value="0">Non</option>
-        <option value="1">En cours d'élaboration</option>
-        <option value="2">Oui, testé régulièrement</option>
-      </select>
-    </div>
-    <div>
-      <label>5. Effectuez-vous des sauvegardes automatiques de vos données ?</label>
-      <select name="q5">
-        <option value="0">Non</option>
-        <option value="1">Oui, localement</option>
-        <option value="2">Oui, dans le cloud sécurisé</option>
-      </select>
-    </div>
-    <div>
-      <label>6. Vos infrastructures sont-elles protégées par des pare-feu et antivirus à jour ?</label>
-      <select name="q6">
-        <option value="0">Non</option>
-        <option value="1">Partiellement</option>
-        <option value="2">Oui, en permanence</option>
-      </select>
-    </div>
-    <div>
-      <label>7. Avez-vous un registre des accès et activités sensibles ?</label>
-      <select name="q7">
-        <option value="0">Non</option>
-        <option value="1">Oui, incomplet</option>
-        <option value="2">Oui, complet et audité</option>
-      </select>
-    </div>
-    <div>
-      <label>8. Avez-vous déjà subi une cyberattaque ou tentative d'intrusion ?</label>
-      <select name="q8">
-        <option value="2">Oui, mais gérée efficacement</option>
-        <option value="1">Oui, impact modéré</option>
-        <option value="0">Oui, impact majeur ou pas gérée</option>
-      </select>
-    </div>
-    <div>
-      <label>9. Disposez-vous de contrats ou de SLAs avec vos prestataires IT ?</label>
-      <select name="q9">
-        <option value="0">Non</option>
-        <option value="1">Oui, mais peu clairs</option>
-        <option value="2">Oui, précis et actualisés</option>
-      </select>
-    </div>
-    <div>
-      <label>10. Avez-vous désigné un DPO ou référent RGPD ?</label>
-      <select name="q10">
-        <option value="0">Non</option>
-        <option value="1">En cours</option>
-        <option value="2">Oui</option>
-      </select>
-    </div>
 
-    <button type="submit">Voir mon score Cybersécurité</button>
-  </form>
+<div class="card">
 
-  <div id="progressContainer">
-    <div id="progressBar"></div>
-  </div>
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+<div class="counter" id="counter"></div>
 
-  <div id="result"></div>
+<div class="question" id="question"></div>
+<div id="choices"></div>
+
+<div id="result"></div>
+
+</div>
+
+<footer>
+<a href="../index.html" style="display:inline-block;margin-top:20px;padding:12px 24px;background:#6c5ce7;color:white;text-decoration:none;border-radius:10px;font-weight:bold;">← Retour à l'accueil</a>
+</footer>
+
 </main>
-<a href="../index.html" style="display:inline-block; margin-top:30px; padding:12px 24px; background-color:#0074D9; color:white; text-decoration:none; border-radius:6px; font-weight:bold;">← Retour à l'accueil</a>
 
 <script>
-  document.getElementById('cyberForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+const questions = [
+  {
+    text: "Utilisez-vous l’authentification à deux facteurs pour les accès sensibles ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Partiellement", value: 1 },
+      { label: "✅ Oui, partout", value: 2 }
+    ]
+  },
+  {
+    text: "Disposez-vous d’une politique de gestion des mots de passe ?",
+    options: [
+      { label: "❌ Aucune", value: 0 },
+      { label: "⚠️ Peu appliquée", value: 1 },
+      { label: "✅ Appliquée et suivie", value: 2 }
+    ]
+  },
+  {
+    text: "Vos équipes sont-elles formées à la cybersécurité ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Ponctuellement", value: 1 },
+      { label: "✅ Régulièrement", value: 2 }
+    ]
+  },
+  {
+    text: "Disposez-vous d’un plan de réponse aux incidents cyber ?",
+    options: [
+      { label: "❌ Aucun", value: 0 },
+      { label: "⚠️ En cours", value: 1 },
+      { label: "✅ Testé régulièrement", value: 2 }
+    ]
+  },
+  {
+    text: "Effectuez-vous des sauvegardes automatiques de vos données ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Locales", value: 1 },
+      { label: "✅ Cloud sécurisé", value: 2 }
+    ]
+  },
+  {
+    text: "Vos systèmes sont-ils protégés par des antivirus et pare-feu à jour ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Partiellement", value: 1 },
+      { label: "✅ En continu", value: 2 }
+    ]
+  },
+  {
+    text: "Tenez-vous un registre des accès et actions sensibles ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ Incomplet", value: 1 },
+      { label: "✅ Complet et audité", value: 2 }
+    ]
+  },
+  {
+    text: "Avez-vous déjà subi une cyberattaque ?",
+    options: [
+      { label: "❌ Oui, mal gérée", value: 0 },
+      { label: "⚠️ Oui, impact limité", value: 1 },
+      { label: "✅ Oui, bien maîtrisée", value: 2 }
+    ]
+  },
+  {
+    text: "Disposez-vous de contrats clairs avec vos prestataires IT ?",
+    options: [
+      { label: "❌ Aucun", value: 0 },
+      { label: "⚠️ Peu clairs", value: 1 },
+      { label: "✅ Précis et à jour", value: 2 }
+    ]
+  },
+  {
+    text: "Un DPO ou référent RGPD est-il identifié ?",
+    options: [
+      { label: "❌ Non", value: 0 },
+      { label: "⚠️ En cours", value: 1 },
+      { label: "✅ Oui", value: 2 }
+    ]
+  }
+];
 
-    let score = 0;
-    const formData = new FormData(this);
-    for (let value of formData.values()) {
-      score += parseInt(value);
-    }
+let index = 0;
+let score = 0;
 
-    const container = document.getElementById('progressContainer');
-    const bar = document.getElementById('progressBar');
-    const result = document.getElementById('result');
-    container.style.display = 'block';
-    result.style.display = 'none';
+const questionEl = document.getElementById("question");
+const choicesEl = document.getElementById("choices");
+const progressBar = document.getElementById("progressBar");
+const counter = document.getElementById("counter");
+const resultEl = document.getElementById("result");
 
-    let width = 0;
-    const interval = setInterval(function () {
-      if (width >= 100) {
-        clearInterval(interval);
-        localStorage.setItem('scoreCyber', score);
+function loadQuestion() {
+  const q = questions[index];
+  questionEl.innerText = q.text;
+  counter.innerText = `Question ${index + 1} / ${questions.length}`;
+  progressBar.style.width = `${(index / questions.length) * 100}%`;
+  choicesEl.innerHTML = "";
 
-        let message = '';
-        if (score <= 7) message = '🟥 Faible cybersécurité – des actions urgentes sont à mettre en place.';
-        else if (score <= 14) message = '🟧 Cybersécurité intermédiaire – quelques points sensibles à renforcer.';
-        else message = '🟩 Très bonne cybersécurité – continuez à rester vigilant.';
-
-        result.innerHTML = `
-          <p>${message}</p>
-          <div class="temoignage" style="background:#fff; padding:20px; margin-top:20px; border-left:4px solid #0074D9; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
-            <p style="font-style:italic;">“Nous pensions être à jour, mais ce diagnostic a révélé plusieurs angles morts dans notre sécurité. Nous avons revu nos accès et procédures, un vrai gain en sérénité.”</p>
-            <strong>— Benoît V., expert-comptable à Bruxelles</strong>
-          </div>
-          <br><a href="../synthese.html" class="cta-button">Voir mon profil complet</a>
-        `;
-        result.style.display = 'block';
-
-        setTimeout(() => {
-          window.location.href = "../synthese.html";
-        }, 8000);
-
-      } else {
-        width++;
-        bar.style.width = width + '%';
-      }
-    }, 15);
+  q.options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerText = opt.label;
+    btn.onclick = () => {
+      score += opt.value;
+      index++;
+      if (index < questions.length) loadQuestion();
+      else showResult();
+    };
+    choicesEl.appendChild(btn);
   });
-</script>
+}
 
+function showResult() {
+  progressBar.style.width = "100%";
+  localStorage.setItem("scoreCyber", score);
+
+  let message = score <= 7
+    ? "🟥 Cybersécurité faible – actions urgentes recommandées."
+    : score <= 14
+    ? "🟧 Niveau intermédiaire – plusieurs points à renforcer."
+    : "🟩 Cybersécurité solide – vigilance continue requise.";
+
+  questionEl.style.display = "none";
+  choicesEl.style.display = "none";
+  counter.style.display = "none";
+
+  resultEl.style.display = "block";
+  resultEl.innerHTML = `
+    <h2>${message}</h2>
+    <div class="temoignage">
+      “Ce diagnostic a mis en évidence des failles que nous n’avions pas identifiées. Nous avons immédiatement renforcé nos accès.”
+      <br><strong>— Benoît V., Expert-comptable</strong>
+    </div>
+  `;
+
+  setTimeout(() => {
+    window.location.href = "../synthese.html";
+  }, 8000);
+}
+
+loadQuestion();
+</script>
 
 </body>
 </html>
