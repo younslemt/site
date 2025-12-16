@@ -103,7 +103,6 @@ footer {
 }
 </style>
 </head>
-</head>
 
 <body>
 
@@ -125,6 +124,7 @@ footer {
 <div id="result"></div>
 
 </div>
+
 <div id="nextStepTimer" style="display:none; margin-top:20px; font-size:0.95em; color:#555;">
   Passage au diagnostic suivant (<strong>Crédit</strong>) dans <strong><span id="countdown">4</span>s</strong>…
 </div>
@@ -139,83 +139,31 @@ footer {
 const questions = [
   {
     text: "Disposez-vous d’un ERP ou CRM centralisé ?",
-    options: [
-      { label: "❌ Aucun", value: 0 },
-      { label: "⚠️ Partiellement", value: 1 },
-      { label: "✅ Oui, centralisé", value: 2 }
-    ]
+    weight: 20
   },
   {
     text: "Vos outils métiers sont-ils interconnectés ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Partiellement", value: 1 },
-      { label: "✅ Oui, interopérables", value: 2 }
-    ]
+    weight: 20
   },
   {
-    text: "Proposez-vous une expérience digitale à vos clients ?",
-    options: [
-      { label: "❌ Aucune", value: 0 },
-      { label: "⚠️ Basique", value: 1 },
-      { label: "✅ Fluide et optimisée", value: 2 }
-    ]
+    text: "Proposez-vous une expérience digitale fluide à vos clients ?",
+    weight: 15
   },
   {
-    text: "Votre site permet-il des actions concrètes (RDV, devis, paiement) ?",
-    options: [
-      { label: "❌ Informatif uniquement", value: 0 },
-      { label: "⚠️ Fonctions limitées", value: 1 },
-      { label: "✅ Complet et interactif", value: 2 }
-    ]
+    text: "Votre site permet-il des actions concrètes comme RDV, devis, paiement ?",
+    weight: 15
   },
   {
-    text: "Disposez-vous d’une stratégie de marketing digital ?",
-    options: [
-      { label: "❌ Aucune", value: 0 },
-      { label: "⚠️ Informelle", value: 1 },
-      { label: "✅ Formelle et suivie", value: 2 }
-    ]
+    text: "Disposez-vous d’une stratégie de marketing digital formelle ?",
+    weight: 20
   },
   {
-    text: "Utilisez-vous les réseaux sociaux de manière structurée ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Sans plan", value: 1 },
-      { label: "✅ Ligne éditoriale définie", value: 2 }
-    ]
+    text: "Utilisez-vous les réseaux sociaux de manière structurée et planifiée ?",
+    weight: 5
   },
   {
     text: "Avez-vous automatisé certaines tâches (facturation, relances, reporting) ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Automatisations basiques", value: 1 },
-      { label: "✅ Automatisation avancée", value: 2 }
-    ]
-  },
-  {
-    text: "Vos équipes sont-elles formées aux outils digitaux ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ De manière ponctuelle", value: 1 },
-      { label: "✅ Formation continue", value: 2 }
-    ]
-  },
-  {
-    text: "Suivez-vous des indicateurs de performance digitale ?",
-    options: [
-      { label: "❌ Aucun", value: 0 },
-      { label: "⚠️ Quelques indicateurs", value: 1 },
-      { label: "✅ Tableaux de bord complets", value: 2 }
-    ]
-  },
-  {
-    text: "Un responsable digital est-il clairement identifié ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Rôle peu défini", value: 1 },
-      { label: "✅ Rôle clair et actif", value: 2 }
-    ]
+    weight: 5
   }
 ];
 
@@ -235,12 +183,16 @@ function loadQuestion() {
   progressBar.style.width = `${(index / questions.length) * 100}%`;
   choicesEl.innerHTML = "";
 
-  q.options.forEach(opt => {
+  [
+    { label: "❌ Non", value: 0 },
+    { label: "⚠️ Partiellement", value: 0.5 },
+    { label: "✅ Oui, structuré", value: 1 }
+  ].forEach(opt => {
     const btn = document.createElement("button");
     btn.className = "choice";
     btn.innerText = opt.label;
     btn.onclick = () => {
-      score += opt.value;
+      score += opt.value * q.weight;
       index++;
       if (index < questions.length) loadQuestion();
       else showResult();
@@ -251,11 +203,13 @@ function loadQuestion() {
 
 function showResult() {
   progressBar.style.width = "100%";
-  localStorage.setItem("scoreDigital", score);
 
-  let message = score <= 7
+  const finalScore = Math.round(score);
+  localStorage.setItem("scoreDigital", finalScore);
+
+  let message = finalScore <= 7
     ? "🟥 Maturité digitale faible – transformation prioritaire."
-    : score <= 14
+    : finalScore <= 14
     ? "🟧 Digitalisation intermédiaire – potentiel à exploiter."
     : "🟩 Organisation digitalement performante.";
 
@@ -266,18 +220,18 @@ function showResult() {
   resultEl.style.display = "block";
   resultEl.innerHTML = `
     <h2>${message}</h2>
+    <p><strong>Score Digital :</strong> ${finalScore} / 100</p>
     <div class="temoignage">
       “Ce diagnostic digital nous a permis de structurer notre feuille de route et d’automatiser des tâches clés.”
       <br><strong>— Nathalie D., Gérante de PME</strong>
     </div>
   `;
+
   const timerEl = document.getElementById("nextStepTimer");
   const countdownEl = document.getElementById("countdown");
 
   timerEl.style.display = "block";
-
   let timeLeft = 4;
-  countdownEl.innerText = timeLeft;
 
   const interval = setInterval(() => {
     timeLeft--;
@@ -288,7 +242,6 @@ function showResult() {
       window.location.href = "credit.html";
     }
   }, 1000);
-
 }
 
 loadQuestion();
@@ -296,8 +249,3 @@ loadQuestion();
 
 </body>
 </html>
-
-
-
-
-
