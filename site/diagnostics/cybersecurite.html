@@ -78,16 +78,6 @@ main {
   border-color: #6c5ce7;
 }
 
-.choice.selected {
-  background: #6c5ce7;
-  color: white;
-  border-color: #6c5ce7;
-}
-
-#result {
-  display: none;
-}
-
 .temoignage {
   background: #fff;
   padding: 20px;
@@ -108,7 +98,7 @@ footer {
 
 <header>
 <h1>Diagnostic Cybersécurité</h1>
-<p>Évaluez la protection de vos systèmes et de vos données en 3 minutes</p>
+<p>Évaluez la protection réelle de vos systèmes et de vos données</p>
 </header>
 
 <main>
@@ -124,8 +114,9 @@ footer {
 <div id="result"></div>
 
 </div>
+
 <div id="nextStepTimer" style="display:none; margin-top:20px; font-size:0.95em; color:#555;">
-  Passage au diagnostic suivant (<strong>Résultat</strong>) dans <strong><span id="countdown">4</span>s</strong>…
+  Passage à la <strong>synthèse finale</strong> dans <strong><span id="countdown">4</span>s</strong>…
 </div>
 
 <footer>
@@ -136,85 +127,25 @@ footer {
 
 <script>
 const questions = [
-  {
-    text: "Utilisez-vous l’authentification à deux facteurs pour les accès sensibles ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Partiellement", value: 1 },
-      { label: "✅ Oui, partout", value: 2 }
-    ]
+  { 
+    text: "Vos collaborateurs sont-ils formés et sensibilisés aux risques cyber (phishing, mots de passe, e-mails) ?",
+    weight: 30 
   },
-  {
-    text: "Disposez-vous d’une politique de gestion des mots de passe ?",
-    options: [
-      { label: "❌ Aucune", value: 0 },
-      { label: "⚠️ Peu appliquée", value: 1 },
-      { label: "✅ Appliquée et suivie", value: 2 }
-    ]
+  { 
+    text: "Utilisez-vous des mots de passe robustes et une authentification à deux facteurs pour les accès sensibles ?",
+    weight: 20 
   },
-  {
-    text: "Vos équipes sont-elles formées à la cybersécurité ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Ponctuellement", value: 1 },
-      { label: "✅ Régulièrement", value: 2 }
-    ]
+  { 
+    text: "Vos systèmes sont-ils protégés par des antivirus, pare-feu et mises à jour régulières ?",
+    weight: 20 
   },
-  {
-    text: "Disposez-vous d’un plan de réponse aux incidents cyber ?",
-    options: [
-      { label: "❌ Aucun", value: 0 },
-      { label: "⚠️ En cours", value: 1 },
-      { label: "✅ Testé régulièrement", value: 2 }
-    ]
+  { 
+    text: "Effectuez-vous des sauvegardes automatiques, sécurisées et testées de vos données ?",
+    weight: 15 
   },
-  {
-    text: "Effectuez-vous des sauvegardes automatiques de vos données ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Locales", value: 1 },
-      { label: "✅ Cloud sécurisé", value: 2 }
-    ]
-  },
-  {
-    text: "Vos systèmes sont-ils protégés par des antivirus et pare-feu à jour ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Partiellement", value: 1 },
-      { label: "✅ En continu", value: 2 }
-    ]
-  },
-  {
-    text: "Tenez-vous un registre des accès et actions sensibles ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ Incomplet", value: 1 },
-      { label: "✅ Complet et audité", value: 2 }
-    ]
-  },
-  {
-    text: "Avez-vous déjà subi une cyberattaque ?",
-    options: [
-      { label: "❌ Oui, mal gérée", value: 0 },
-      { label: "⚠️ Oui, impact limité", value: 1 },
-      { label: "✅ Oui, bien maîtrisée", value: 2 }
-    ]
-  },
-  {
-    text: "Disposez-vous de contrats clairs avec vos prestataires IT ?",
-    options: [
-      { label: "❌ Aucun", value: 0 },
-      { label: "⚠️ Peu clairs", value: 1 },
-      { label: "✅ Précis et à jour", value: 2 }
-    ]
-  },
-  {
-    text: "Un DPO ou référent RGPD est-il identifié ?",
-    options: [
-      { label: "❌ Non", value: 0 },
-      { label: "⚠️ En cours", value: 1 },
-      { label: "✅ Oui", value: 2 }
-    ]
+  { 
+    text: "Disposez-vous d’un plan de réponse aux incidents cyber avec des responsabilités clairement définies ?",
+    weight: 15 
   }
 ];
 
@@ -234,12 +165,16 @@ function loadQuestion() {
   progressBar.style.width = `${(index / questions.length) * 100}%`;
   choicesEl.innerHTML = "";
 
-  q.options.forEach(opt => {
+  [
+    { label: "❌ Non", value: 0 },
+    { label: "⚠️ Partiellement", value: 0.5 },
+    { label: "✅ Oui, structuré", value: 1 }
+  ].forEach(opt => {
     const btn = document.createElement("button");
     btn.className = "choice";
     btn.innerText = opt.label;
     btn.onclick = () => {
-      score += opt.value;
+      score += opt.value * q.weight;
       index++;
       if (index < questions.length) loadQuestion();
       else showResult();
@@ -250,13 +185,15 @@ function loadQuestion() {
 
 function showResult() {
   progressBar.style.width = "100%";
-  localStorage.setItem("scoreCyber", score);
 
-  let message = score <= 7
-    ? "🟥 Cybersécurité faible – actions urgentes recommandées."
-    : score <= 14
-    ? "🟧 Niveau intermédiaire – plusieurs points à renforcer."
-    : "🟩 Cybersécurité solide – vigilance continue requise.";
+  const finalScore = Math.round(score);
+  localStorage.setItem("scoreCyber", finalScore);
+
+  let message = finalScore < 40
+    ? "🟥 Cybersécurité faible – exposition élevée au risque de piratage."
+    : finalScore < 70
+    ? "🟧 Cybersécurité intermédiaire – vulnérabilités à corriger."
+    : "🟩 Cybersécurité solide – vigilance et amélioration continue.";
 
   questionEl.style.display = "none";
   choicesEl.style.display = "none";
@@ -265,9 +202,10 @@ function showResult() {
   resultEl.style.display = "block";
   resultEl.innerHTML = `
     <h2>${message}</h2>
+    <p><strong>Score Cybersécurité :</strong> ${finalScore} / 100</p>
     <div class="temoignage">
-      “Ce diagnostic a mis en évidence des failles que nous n’avions pas identifiées. Nous avons immédiatement renforcé nos accès.”
-      <br><strong>— Benoît V., Expert-comptable</strong>
+      “Nous pensions être protégés, mais le facteur humain était notre point faible.”
+      <br><strong>— Benoît V., Dirigeant PME</strong>
     </div>
   `;
 
@@ -275,20 +213,16 @@ function showResult() {
   const countdownEl = document.getElementById("countdown");
 
   timerEl.style.display = "block";
-
   let timeLeft = 4;
-  countdownEl.innerText = timeLeft;
 
   const interval = setInterval(() => {
     timeLeft--;
     countdownEl.innerText = timeLeft;
-
     if (timeLeft <= 0) {
       clearInterval(interval);
-      window.location.href = "https://master-metrics.vercel.app/synthese.html";
+      window.location.href = "synthese.html";
     }
   }, 1000);
-
 }
 
 loadQuestion();
@@ -296,7 +230,3 @@ loadQuestion();
 
 </body>
 </html>
-
-
-
-
