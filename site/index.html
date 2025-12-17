@@ -85,6 +85,32 @@
       border-left: 5px solid var(--primary);
       box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     }
+.about-container {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+/* Image */
+.about-container img {
+  max-width: 300px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  flex-shrink: 0; /* empêche l'image de se réduire */
+}
+
+/* Texte */
+.about-container > div {
+  max-width: 700px;
+}
+
+/* Mobile : image au-dessus du texte */
+@media (max-width: 768px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
 
     #scrollCTA {
       position: fixed;
@@ -206,7 +232,7 @@
 
 <section id="about">
   <h2>Qui sommes-nous ?</h2>
-  <div style="display:flex;gap:30px;flex-wrap:wrap;align-items:center;">
+  <div class="about-container">
     <img src="MMimage.JPG" alt="Équipe Master Your Metrics"
          style="max-width:300px;border-radius:14px;box-shadow:0 8px 20px rgba(0,0,0,0.12);">
     <div>
