@@ -1,463 +1,263 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Master Your Metrics – Diagnostic</title>
-  <style>
-    :root {
-  --bg-main: #f4f6f8;
-  --bg-dark: #0b1c2d;
-  --primary: #6c5ce7;
-  --secondary: #00cec9;
-  --accent: #28a745;
-  --text-main: #2d3436;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Your Metrics – Diagnostic</title>
+
+<style>
+:root {
+  --primary:#6c5ce7;
+  --secondary:#00cec9;
+  --accent:#28a745;
+  --dark:#0b1c2d;
 }
 
 body {
-  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
-  margin: 0;
-  background: linear-gradient(135deg, #f4f6f8, #eef2f6);
-  color: var(--text-main);
-  line-height: 1.6;
+  font-family: "Inter","Segoe UI",Roboto,sans-serif;
+  margin:0;
+  background:linear-gradient(135deg,#f4f6f8,#eef2f6);
+  color:#2d3436;
+  line-height:1.6;
 }
 
-header, footer {
-  background: linear-gradient(135deg, #0b1c2d, #162c4f);
-  color: white;
-  padding: 3rem 2rem;
-  text-align: center;
+header,footer{
+  background:linear-gradient(135deg,#0b1c2d,#162c4f);
+  color:white;
+  text-align:center;
+  padding:3rem 2rem;
 }
 
-header h1 {
-  font-size: 2.4rem;
-  letter-spacing: -0.5px;
+section{
+  max-width:1100px;
+  margin:auto;
+  padding:3.5rem 2rem;
 }
 
-section {
-  padding: 3rem 2rem;
-  max-width: 1100px;
-  margin: auto;
+h2{
+  margin-bottom:1.8rem;
+  color:#001f3f;
 }
 
-.cta-button {
-  display: inline-block;
-  padding: 1rem 2.4rem;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  text-decoration: none;
-  border-radius: 50px;
-  font-weight: 600;
-  margin-top: 1.5rem;
-  transition: all 0.25s ease;
-  box-shadow: 0 8px 18px rgba(108,92,231,0.25);
+/* CTA */
+.cta-button{
+  display:inline-block;
+  padding:1rem 2.4rem;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:white;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:600;
+  margin-top:1.5rem;
+  box-shadow:0 8px 18px rgba(108,92,231,0.25);
+  transition:.25s;
+}
+.cta-button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(108,92,231,0.35);
 }
 
-.cta-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(108,92,231,0.35);
+/* ABOUT */
+.about-block{
+  display:flex;
+  gap:40px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.about-image{
+  flex:1 1 280px;
+  text-align:center;
+}
+.about-image img{
+  max-width:320px;
+  border-radius:16px;
+  box-shadow:0 10px 24px rgba(0,0,0,.18);
+}
+.about-text{
+  flex:1 1 480px;
 }
 
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+/* MODULES */
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.5rem;
+}
+.feature{
+  background:white;
+  padding:1.8rem;
+  border-radius:16px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.08);
+  transition:.25s;
+}
+.feature:hover{
+  transform:translateY(-4px);
+  box-shadow:0 18px 40px rgba(0,0,0,0.12);
 }
 
-.feature {
-  background: white;
-  padding: 1.8rem;
-  border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+/* TESTIMONIALS */
+#temoignages{
+  background:#f4f6f8;
+}
+.testimonial-wrapper{
+  max-width:720px;
+  margin:auto;
+  position:relative;
+  min-height:320px;
+}
+.testimonial-slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transform:translateY(15px);
+  transition:.6s ease;
+  background:white;
+  padding:40px 35px;
+  border-radius:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,.08);
+  text-align:center;
+}
+.testimonial-slide.active{
+  opacity:1;
+  transform:translateY(0);
+  position:relative;
+}
+.testimonial-slide img{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:18px;
+  box-shadow:0 6px 16px rgba(0,0,0,.15);
+}
+.testimonial-text{
+  font-size:1.1em;
+  margin-bottom:18px;
+}
+.testimonial-author{
+  font-size:.95em;
+  color:#555;
 }
 
-.feature:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+/* RDV */
+#prendre-rendez-vous{
+  background:linear-gradient(135deg,#001f3f,#003a70);
+  color:white;
+  text-align:center;
 }
 
-.usecase-carousel {
-  background: white;
-  padding: 2rem;
-  border-radius: 18px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-  margin-top: 3rem;
-  font-style: italic;
+/* FOOTER */
+footer{
+  font-size:.9em;
+  opacity:.9;
 }
+</style>
 
-.testimonial {
-  background: white;
-  margin-top: 3rem;
-  padding: 2rem;
-  border-left: 5px solid var(--primary);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-}
-
-.roadmap li::before {
-  content: "";
-  color: var(--accent);
-}
-
-#scrollCTA {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  background: linear-gradient(135deg, var(--accent), #1e7e34);
-  color: white;
-  padding: 14px 26px;
-  border-radius: 50px;
-  font-weight: bold;
-  text-decoration: none;
-  box-shadow: 0 10px 24px rgba(40,167,69,0.35);
-  transition: all 0.25s ease;
-}
-
-#scrollCTA:hover {
-  transform: translateY(-2px);
-}
-    .feature {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.feature:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-}
-
-  </style>
-  <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
+
 <body>
 
 <header>
-  <h1>Transformez vos contraintes en opportunités. </h1>
-  <p style="font-size: 1.2em; max-width: 800px; margin: auto;">
-    Nos diagnostics ESG, AML/KYC, digitalisation et cybersécurité vous aident à mieux piloter votre activité, à répondre aux attentes des clients et à anticiper les évolutions réglementaires.
+  <h1>Transformez vos contraintes en opportunités</h1>
+  <p style="max-width:820px;margin:auto;font-size:1.15em;">
+    Diagnostics ESG, AML/KYC, digital, cyber et crédit pour piloter votre activité,
+    anticiper les risques et prendre les bonnes décisions.
   </p>
-  <a href="diagnostics/esg.html" class="cta-button">🚀 Commencer l'auto-évaluation</a>
+  <a href="diagnostics/esg.html" class="cta-button">🚀 Commencer l’auto-évaluation</a>
 </header>
 
 <section id="about">
   <h2>Qui sommes-nous ?</h2>
   <div class="about-block">
     <div class="about-image">
-      <img src="MMimage.JPG" alt="Équipe Master Your Metrics"
-           style="max-width: 300px; border-radius: 14px; box-shadow:0 8px 20px rgba(0,0,0,0.12);">
+      <img src="assets/images/MMimage.JPG" alt="Master Your Metrics">
     </div>
     <div class="about-text">
-      <p>
-        <strong>Master Your Metrics</strong> est une solution conçue par des experts en finance,
-        conformité et digital pour aider les indépendants, PME et professionnels du chiffre
-        à <strong>piloter leur activité avec clarté et anticipation</strong>.
-      </p>
-      <p>
-        À l’approche de <strong>2026</strong>, les exigences réglementaires, les attentes des partenaires
-        et la pression sur la performance s’intensifient.
-        Nous vous aidons à <strong>évaluer objectivement votre situation</strong> et à
-        <strong>prioriser les bonnes décisions</strong>, sans jargon inutile.
-      </p>
-      <p style="margin-top:10px;font-weight:600;color:#0b1f3a;">
-        Diagnostic clair. Décisions structurées. Actions maîtrisées.
+      <p><strong>Master Your Metrics</strong> accompagne indépendants, PME et experts du chiffre
+      dans l’évaluation objective de leur maturité.</p>
+      <p>À l’approche de <strong>2026</strong>, exigences réglementaires, pression business
+      et attentes clients s’intensifient.</p>
+      <p><strong>Notre rôle :</strong> vous donner une lecture claire, priorisée et exploitable,
+      sans jargon inutile.</p>
+      <p style="font-weight:600;color:#0b1f3a;">
+        Diagnostic clair • Décisions structurées • Actions maîtrisées
       </p>
     </div>
   </div>
 </section>
-
 
 <section id="modules">
-  <h2>Nos 5 Modules Clés</h2>
+  <h2>Nos 5 modules clés</h2>
   <div class="features">
-     <a href="diagnostics/esg.html" class="feature" style="text-decoration: none; color: inherit;">
-      <strong>🌱 ESG</strong><br/>Évaluez vos engagements durables
-    </a>
-    <a href="diagnostics/aml.html" class="feature" style="text-decoration: none; color: inherit;">
-      <strong>🔒 AML/KYC</strong><br/>Renforcez votre conformité réglementaire
-    </a>
-    <a href="diagnostics/digital.html" class="feature" style="text-decoration: none; color: inherit;">
-      <strong>💻 Digitalisation</strong><br/>Identifiez vos leviers numériques
-    </a>
-    <a href="diagnostics/credit.html" class="feature" style="text-decoration: none; color: inherit;">
-      <strong>📊 Crédit</strong><br/>Optimisez vos ratios financiers
-    </a>
-    <a href="diagnostics/cyber.html" class="feature" style="text-decoration: none; color: inherit;">
-      <strong>🛡️ Cybersécurité</strong><br/>Mesurez vos protections techniques
-    </a>
+    <a href="diagnostics/esg.html" class="feature">🌱 <strong>ESG</strong><br>Évaluer vos engagements durables</a>
+    <a href="diagnostics/aml.html" class="feature">🔒 <strong>AML / KYC</strong><br>Renforcer votre conformité</a>
+    <a href="diagnostics/digital.html" class="feature">💻 <strong>Digital</strong><br>Mesurer votre maturité digitale</a>
+    <a href="diagnostics/credit.html" class="feature">📊 <strong>Crédit</strong><br>Optimiser vos ratios financiers</a>
+    <a href="diagnostics/cyber.html" class="feature">🛡️ <strong>Cybersécurité</strong><br>Évaluer vos protections</a>
   </div>
 </section>
 
-<!-- =======================
-     SECTION RENDEZ-VOUS
-======================= -->
-<section id="prendre-rendez-vous"
-style="
-  background: linear-gradient(135deg, #001f3f, #003a70);
-  color: white;
-  padding: 80px 20px;
-  text-align: center;
-">
-
-  <div style="max-width: 900px; margin: 0 auto;">
-
-    <h2 style="font-size: 2.6em; margin-bottom: 20px;">
-      🎯 Passez du diagnostic à l’action
-    </h2>
-
-   <p style="
-  font-size: 1.25em;
-  line-height: 1.6;
-  max-width: 750px;
-  margin: 0 auto 35px auto;
-  opacity: 0.95;
-">
-  Vous avez complété votre diagnostic.<br>
-  En <strong>30 minutes gratuites</strong>, nous passons en revue vos résultats pour
-  <strong>évaluer votre niveau de maturité</strong>, identifier vos points critiques
-  et définir <strong>les priorités d’action</strong>, afin de
-  <strong>sécuriser votre activité</strong> — sans jargon inutile.
-</p>
-
-
-    <div style="
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    ">
-
-      <div style="max-width: 220px;">
-        <div style="font-size: 2.2em;">📊</div>
-        <strong>Lecture de vos scores</strong>
-        <p style="font-size: 0.95em; opacity: 0.9;">ESG, AML, digital, cyber, crédit</p>
-      </div>
-
-      <div style="max-width: 220px;">
-        <div style="font-size: 2.2em;">⚠️</div>
-        <strong>Priorités & risques</strong>
-        <p style="font-size: 0.95em; opacity: 0.9;">Ce qui mérite une action immédiate</p>
-      </div>
-
-      <div style="max-width: 220px;">
-        <div style="font-size: 2.2em;">🧭</div>
-        <strong>Plan d’action clair</strong>
-        <p style="font-size: 0.95em; opacity: 0.9;">Sans jargon, sans vente forcée</p>
-      </div>
-
-    </div>
-
-    <a href="https://calendar.app.google/TWzExGsSew5rCkN77"
-       target="_blank"
-       rel="noopener"
-       style="
-         display: inline-block;
-         background: #28a745;
-         color: white;
-         padding: 18px 36px;
-         font-size: 1.3em;
-         border-radius: 10px;
-         text-decoration: none;
-         font-weight: bold;
-         box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-       ">
-      📅 Réserver mon entretien gratuit (30 min)
-    </a>
-
-    <p style="margin-top: 18px; font-size: 0.9em; opacity: 0.85;">
-      ✔ Sans engagement &nbsp; • &nbsp; ✔ Confidentiel &nbsp; • &nbsp; ✔ Créneaux limités
-    </p>
-
-  </div>
-
-</section>
-  <section id="realite-du-risque" style="background:#f8f9fb; padding:60px 20px;">
-  <h2 style="text-align:center; color:#001f3f;">⚠️ Risques documentés et impacts réels</h2>
-
-  <div style="max-width:900px; margin:30px auto; font-size:1.05em; color:#444;">
-
-    <p>
-      <strong>Cyberattaque significative :</strong>
-      En avril 2025, plusieurs grandes entreprises ont été affectées par une attaque de ransomware, mettant
-      hors ligne leurs systèmes pendant près de 7 semaines, avec des pertes évaluées à plus de 300 millions £. 
-      <a href="https://www.theguardian.com/business/2025/jul/08/m-and-s-boss-cyber-attacks-archie-norman" target="_blank">Voir l’article</a>. 
-<p>
-      <strong>🌍 Le saviez-vous ?
-Un seul manquement environnemental peut coûter des milliards, bien au-delà des amendes.
-Le Dieselgate (Volkswagen) a montré qu’un défaut de conformité ESG peut impacter la valeur de l’entreprise, l’accès au financement et la confiance des partenaires pendant des années.</strong>, des rappels massifs et une perte de crédibilité.
-      <a href="https://www.bbc.com/news/business-34324772" target="_blank">Voir l’article</a>.
-    </p>
-    <p>
-      <strong>Ransomware et services publics :</strong>
-      Une attaque contre un fournisseur de systèmes IT en Suède a perturbé des services municipaux pour
-      environ 200 régions, avec une rançon demandée d’environ 1,5 bitcoin (~163 245 $). 
-      <a href="https://www.itpro.com/security/cyber-attacks/ransomware-attack-on-it-supplier-disrupts-hundreds-of-swedish-municipalities" target="_blank">Voir l’article</a>.
-    </p>
-
-    <p>
-      <strong>Attaques et amendes sur les PME :</strong>
-      Une récente étude a montré que 59 % des PME ont subi une attaque et qu’un tiers ont fait face à des
-      amendes substantielles suite à un incident de cybersécurité.
-      <a href="https://www.hiscoxgroup.com/news/press-releases/2025/29-09-25" target="_blank">Voir l’article</a>. 
-    </p>
-
-    <p>
-      <strong>Sanctions AML / KYC :</strong>
-      En 2022, les amendes pour manquements à la lutte contre le blanchiment d’argent ont dépassé plusieurs
-      milliards de dollars, dont plus de 2 milliards $ pour des banques ne respectant pas les règles essentielles.
-      <a href="https://complyadvantage.com/fr/insights/le-top-2022-des-amendes-lcb-ft-2/" target="_blank">Voir l’article</a>.
-    </p>
-
-  </div>
-  </section>
 <section id="temoignages">
-  <h2>🎤 Ils témoignent</h2>
+  <h2 style="text-align:center;">🎤 Ils témoignent</h2>
 
-  <div class="testimonial-slider">
-
+  <div class="testimonial-wrapper">
     <div class="testimonial-slide active">
-      <img src="assets/images/sophie.jpg" alt="Sophie - Dirigeante PME">
-      <div class="testimonial-content">
+      <img src="assets/images/Sophie.jpg">
+      <p class="testimonial-text">
         “En quelques clics, j’ai compris pourquoi ma demande de crédit bloquait.
-        Le diagnostic nous a permis de restructurer notre approche.”
-        <strong>— Sophie L., Dirigeante de PME</strong>
-      </div>
+        Le diagnostic a tout clarifié.”
+      </p>
+      <span class="testimonial-author">Sophie L. — <strong>Dirigeante de PME</strong></span>
     </div>
 
     <div class="testimonial-slide">
-      <img src="assets/images/marc.jpg" alt="Marc - Expert-comptable">
-      <div class="testimonial-content">
-        “L’approche est claire, structurée et orientée décision.
-        Nous avons identifié nos priorités avant un contrôle AML.”
-        <strong>— Marc D., Expert-comptable</strong>
-      </div>
+      <img src="assets/images/Marc.jpg">
+      <p class="testimonial-text">
+        “Une approche structurée et orientée décision.
+        Nous avons anticipé un contrôle AML.”
+      </p>
+      <span class="testimonial-author">Marc D. — <strong>Expert-comptable</strong></span>
     </div>
 
     <div class="testimonial-slide">
-      <img src="assets/images/karim.jpg" alt="Karim - Responsable conformité">
-      <div class="testimonial-content">
-        “Un vrai outil d’aide à la décision.
-        Sans jargon, avec une vision concrète des risques.”
-        <strong>— Karim B., Responsable conformité</strong>
-      </div>
+      <img src="assets/images/Karim.jpg">
+      <p class="testimonial-text">
+        “Un véritable outil d’aide à la décision,
+        sans jargon, avec une vision concrète des risques.”
+      </p>
+      <span class="testimonial-author">Karim B. — <strong>Responsable conformité</strong></span>
     </div>
-
   </div>
 </section>
 
-
-<section id="plan">
-  <h2>🗺️ Feuille de route</h2>
-  <p>Voici comment nous collaborons avec vous :</p>
-  <ul class="roadmap">
-    <li>Test de diagnostic en ligne</li>
-    <li>Contact personnalisé</li>
-    <li>Premier entretien (offert)</li>
-    <li>Plan d’action personnalisé</li>
-    <li>Mise en œuvre avec notre appui</li>
-    <li>Autoévaluation annuelle</li>
-  </ul>
-</section>
-
-<section id="contact">
-  <h2>📬 Contactez-nous</h2>
-  <p>Prêt à mesurer et améliorer vos indicateurs clés ?</p>
-  <a href="mailto:masteryourmetrics@gmail.com" class="cta-button">📩 Prendre contact</a>
+<section id="prendre-rendez-vous">
+  <h2>🎯 Passez du diagnostic à l’action</h2>
+  <p style="max-width:760px;margin:auto;font-size:1.2em;">
+    En <strong>30 minutes gratuites</strong>, nous analysons vos scores,
+    évaluons votre maturité et définissons les priorités
+    pour sécuriser votre activité.
+  </p>
+  <a href="https://calendar.app.google/TWzExGsSew5rCkN77"
+     class="cta-button"
+     style="background:#28a745;margin-top:2rem;">
+     📅 Réserver mon entretien gratuit
+  </a>
 </section>
 
 <footer>
-  <p>&copy; 2025 Master Your Metrics – Tous droits réservés</p>
+  © 2025 Master Your Metrics — Tous droits réservés
 </footer>
 
-<a id="scrollCTA" href="diagnostics/esg.html">🚀 Faites le test</a>
-
 <script>
-  const usecases = [
-    "“Grâce au diagnostic AML, nous avons anticipé un audit réglementaire.”<br><strong>— Karim, Responsable conformité</strong>",
-    "“L’évaluation cybersécurité a mis en lumière nos faiblesses réseau.”<br><strong>— Benoît, Expert-comptable</strong>",
-    "“Le module ESG nous a aidé à répondre à un appel d'offre public.”<br><strong>— Aline, Responsable RSE</strong>",
-    "“Nous avons pu corriger notre stratégie web grâce au diagnostic digital.”<br><strong>— David, Consultant indépendant</strong>"
-  ];
-  let index = 0;
-  setInterval(() => {
-    document.getElementById('usecaseDisplay').innerHTML = usecases[index];
-    index = (index + 1) % usecases.length;
-  }, 6000);
-
-  const cta = document.getElementById('scrollCTA');
-  window.addEventListener('scroll', () => {
-    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = window.scrollY;
-    if (scrolled >= scrollable - 80) {
-      cta.style.display = 'block';
-    } else {
-      cta.style.display = 'none';
-    }
-  });
+const slides=document.querySelectorAll('.testimonial-slide');
+let i=0;
+setInterval(()=>{
+  slides[i].classList.remove('active');
+  i=(i+1)%slides.length;
+  slides[i].classList.add('active');
+},6000);
 </script>
-  <script>
-  // Affiche la popup après 20 secondes
-  setTimeout(() => {
-    document.getElementById('test-popup').style.display = 'block';
-  }, 10000);
-
-  // Ferme la popup au clic
-  document.getElementById('popup-close').addEventListener('click', () => {
-    document.getElementById('test-popup').style.display = 'none';
-  });
-</script>
-
-<!-- Boîte flottante d'incitation au test -->
-<div id="test-popup" class="test-popup">
-  <div class="popup-content">
-    <p>📊 Besoin d’un coup de pouce pour structurer votre démarche ?</p>
-    <a href="diagnostics/esg.html" class="popup-button">🚀 Lancer le diagnostic</a>
-    <span id="popup-close" class="popup-close">&times;</span>
-  </div>
-</div>
-
-<style>
-  .test-popup {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: #0b1f3a;
-    color: white;
-    padding: 16px 20px;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.25);
-    display: none;
-    z-index: 10000;
-    max-width: 300px;
-    font-size: 0.95em;
-  }
-
-  .popup-content p {
-    margin: 0 0 10px;
-  }
-
-  .popup-button {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 15px;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: bold;
-    display: inline-block;
-  }
-
-  .popup-button:hover {
-    background-color: #218838;
-  }
-
-  .popup-close {
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 18px;
-  }
-</style>
 
 </body>
 </html>
