@@ -117,6 +117,15 @@ section {
 #scrollCTA:hover {
   transform: translateY(-2px);
 }
+    .feature {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.feature:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
   </style>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -158,7 +167,6 @@ section {
 
 
 <section id="modules">
-  
   <h2>Nos 5 Modules Clés</h2>
   <div class="features">
      <a href="diagnostics/esg.html" class="feature" style="text-decoration: none; color: inherit;">
