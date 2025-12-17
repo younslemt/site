@@ -138,6 +138,56 @@
       cursor: pointer;
       font-size: 18px;
     }
+    #temoignages {
+  text-align: center;
+}
+
+.testimonial-carousel {
+  max-width: 700px;
+  margin: 40px auto 0 auto;
+  position: relative;
+}
+
+.testimonial-slide {
+  display: none;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  transition: opacity 0.6s ease;
+}
+
+.testimonial-slide.active {
+  display: block;
+}
+
+.testimonial-slide img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.testimonial-slide blockquote {
+  font-style: italic;
+  color: #444;
+  margin: 15px 0 20px 0;
+  line-height: 1.5;
+}
+
+.testimonial-slide strong {
+  display: block;
+  font-weight: 600;
+  color: #0b1c2d;
+}
+
+.testimonial-slide span {
+  font-size: 0.9em;
+  color: #666;
+}
+
   </style>
 
   <script defer src="/_vercel/insights/script.js"></script>
@@ -356,6 +406,16 @@ style="
   <a href="diagnostics/esg.html" class="popup-button">🚀 Lancer le diagnostic</a>
   <span id="popup-close" class="popup-close">&times;</span>
 </div>
+<script>
+  const testimonials = document.querySelectorAll('.testimonial-slide');
+  let currentTestimonial = 0;
+
+  setInterval(() => {
+    testimonials[currentTestimonial].classList.remove('active');
+    currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+    testimonials[currentTestimonial].classList.add('active');
+  }, 6000);
+</script>
 
 </body>
 </html>
