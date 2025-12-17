@@ -78,54 +78,12 @@ section {
   box-shadow: 0 18px 40px rgba(0,0,0,0.12);
 }
 
-/* =========================
-   TÉMOIGNAGES – AMÉLIORÉS
-========================= */
-
-.testimonial-slider {
-  position: relative;
-  max-width: 900px;
-  margin: 40px auto 0 auto;
-  min-height: 260px;
-}
-
-.testimonial-slide {
-  position: absolute;
-  inset: 0;
+.testimonial {
   background: white;
-  padding: 2.2rem;
+  margin-top: 3rem;
+  padding: 2rem;
   border-left: 5px solid var(--primary);
   box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  opacity: 0;
-  transform: translateY(15px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  display: flex;
-  gap: 24px;
-  align-items: center;
-}
-
-.testimonial-slide.active {
-  opacity: 1;
-  transform: translateY(0);
-  position: relative;
-}
-
-.testimonial-slide img {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-}
-
-.testimonial-content p {
-  font-style: italic;
-  margin-bottom: 8px;
-}
-
-.testimonial-content strong {
-  font-size: 0.95em;
-  color: #0b1c2d;
 }
 
 #scrollCTA {
@@ -154,66 +112,80 @@ section {
 
 <header>
 <h1>Transformez vos contraintes en opportunités.</h1>
-<p style="font-size:1.2em;max-width:800px;margin:auto;">
+<p style="font-size:1.2em; max-width:800px; margin:auto;">
 Nos diagnostics ESG, AML/KYC, digitalisation et cybersécurité vous aident à mieux piloter votre activité,
 à répondre aux attentes des clients et à anticiper les évolutions réglementaires.
 </p>
 <a href="diagnostics/esg.html" class="cta-button">🚀 Commencer l'auto-évaluation</a>
 </header>
 
-<!-- (tout le contenu intermédiaire est STRICTEMENT inchangé) -->
-
-<section id="temoignages">
-<h2>🎤 Ils témoignent</h2>
-
-<div class="testimonial-slider">
-
-  <div class="testimonial-slide active">
-    <img src="assets/images/Sophie.jpg" alt="Sophie">
-    <div class="testimonial-content">
-      <p>“En quelques clics, j’ai compris pourquoi ma demande de crédit bloquait.
-      Le diagnostic nous a permis de restructurer notre approche.”</p>
-      <strong>— Sophie L., Dirigeante de PME</strong>
-    </div>
+<section id="about">
+<h2>Qui sommes-nous ?</h2>
+<div class="about-block">
+  <div class="about-image">
+    <img src="MMimage.JPG" alt="Équipe Master Your Metrics"
+         style="max-width:300px; border-radius:14px; box-shadow:0 8px 20px rgba(0,0,0,0.12);">
   </div>
-
-  <div class="testimonial-slide">
-    <img src="assets/images/Marc.jpg" alt="Marc">
-    <div class="testimonial-content">
-      <p>“L’approche est claire, structurée et orientée décision.
-      Nous avons identifié nos priorités avant un contrôle AML.”</p>
-      <strong>— Marc D., Expert-comptable</strong>
-    </div>
+  <div class="about-text">
+    <p>
+      <strong>Master Your Metrics</strong> est une solution conçue par des experts en finance,
+      conformité et digital pour aider les indépendants, PME et professionnels du chiffre
+      à <strong>piloter leur activité avec clarté et anticipation</strong>.
+    </p>
+    <p>
+      À l’approche de <strong>2026</strong>, les exigences réglementaires, les attentes des partenaires
+      et la pression sur la performance s’intensifient.
+      Nous vous aidons à <strong>évaluer objectivement votre situation</strong> et à
+      <strong>prioriser les bonnes décisions</strong>, sans jargon inutile.
+    </p>
+    <p style="margin-top:10px;font-weight:600;color:#0b1f3a;">
+      Diagnostic clair. Décisions structurées. Actions maîtrisées.
+    </p>
   </div>
-
-  <div class="testimonial-slide">
-    <img src="assets/images/Karim.jpg" alt="Karim">
-    <div class="testimonial-content">
-      <p>“Un vrai outil d’aide à la décision.
-      Sans jargon, avec une vision concrète des risques.”</p>
-      <strong>— Karim B., Responsable conformité</strong>
-    </div>
-  </div>
-
 </div>
 </section>
 
+<section id="modules">
+<h2>Nos 5 Modules Clés</h2>
+<div class="features">
+  <a href="diagnostics/esg.html" class="feature" style="text-decoration:none;color:inherit;">
+    <strong>🌱 ESG</strong><br>Évaluez vos engagements durables
+  </a>
+  <a href="diagnostics/aml.html" class="feature" style="text-decoration:none;color:inherit;">
+    <strong>🔒 AML/KYC</strong><br>Renforcez votre conformité réglementaire
+  </a>
+  <a href="diagnostics/digital.html" class="feature" style="text-decoration:none;color:inherit;">
+    <strong>💻 Digitalisation</strong><br>Identifiez vos leviers numériques
+  </a>
+  <a href="diagnostics/credit.html" class="feature" style="text-decoration:none;color:inherit;">
+    <strong>📊 Crédit</strong><br>Optimisez vos ratios financiers
+  </a>
+  <a href="diagnostics/cyber.html" class="feature" style="text-decoration:none;color:inherit;">
+    <strong>🛡️ Cybersécurité</strong><br>Mesurez vos protections techniques
+  </a>
+</div>
+</section>
+
+<section id="temoignages">
+<h2>🎤 Ils témoignent</h2>
+<div class="testimonial">
+“En quelques clics, j’ai compris pourquoi ma demande de crédit bloquait.
+On a tout restructuré grâce au diagnostic.”
+<br><strong>— Sophie L., Dirigeante de PME</strong>
+</div>
+</section>
+
+<section id="contact">
+<h2>📬 Contactez-nous</h2>
+<p>Prêt à mesurer et améliorer vos indicateurs clés ?</p>
+<a href="mailto:masteryourmetrics@gmail.com" class="cta-button">📩 Prendre contact</a>
+</section>
+
 <footer>
-<p>&copy; 2025 Master Your Metrics – Tous droits réservés</p>
+<p>© 2025 Master Your Metrics – Tous droits réservés</p>
 </footer>
 
 <a id="scrollCTA" href="diagnostics/esg.html">🚀 Faites le test</a>
-
-<script>
-const slides = document.querySelectorAll('.testimonial-slide');
-let current = 0;
-
-setInterval(() => {
-  slides[current].classList.remove('active');
-  current = (current + 1) % slides.length;
-  slides[current].classList.add('active');
-}, 6000);
-</script>
 
 </body>
 </html>
