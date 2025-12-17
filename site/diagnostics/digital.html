@@ -207,7 +207,7 @@ function showResult() {
   const finalScore = Math.round(score);
   localStorage.setItem("scoreDigital", finalScore);
 
-  let message = finalScore <= 30
+  let message = finalScore <= 40
     ? "🟥 Maturité digitale faible – transformation prioritaire."
     : finalScore <= 70
     ? "🟧 Digitalisation intermédiaire – potentiel à exploiter."
@@ -249,5 +249,6 @@ loadQuestion();
 
 </body>
 </html>
+
 
 
