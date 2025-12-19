@@ -92,9 +92,9 @@ footer {
   margin-top: 30px;
 }
 </style>
-  <script defer src="/_vercel/insights/script.js"></script>
-<script defer src="https://vercel.com/insights/script.js"></script>
 
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="https://vercel.com/insights/script.js"></script>
 </head>
 
 <body>
@@ -107,15 +107,13 @@ footer {
 <main>
 
 <div class="card">
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="counter" id="counter"></div>
 
-<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-<div class="counter" id="counter"></div>
+  <div class="question" id="question"></div>
+  <div id="choices"></div>
 
-<div class="question" id="question"></div>
-<div id="choices"></div>
-
-<div id="result"></div>
-
+  <div id="result"></div>
 </div>
 
 <div id="nextStepTimer" style="display:none; margin-top:20px; font-size:0.95em; color:#555;">
@@ -123,37 +121,26 @@ footer {
 </div>
 
 <footer>
-<a href="../index.html" style="display:inline-block;margin-top:20px;padding:12px 24px;background:#0074D9;color:white;text-decoration:none;border-radius:10px;font-weight:bold;">← Retour à l'accueil</a>
+<a href="../index.html"
+   style="display:inline-block;margin-top:20px;padding:12px 24px;background:#0074D9;color:white;text-decoration:none;border-radius:10px;font-weight:bold;">
+← Retour à l'accueil
+</a>
 </footer>
 
 </main>
 
 <script>
 const questions = [
-  {
-    text: "Vérifiez-vous systématiquement l’identité et les documents de vos clients (KYC) ?",
-    weight: 25
-  },
-  {
-    text: "Réalisez-vous une analyse de risque client (activité, pays, structure, UBO) ?",
-    weight: 25
-  },
-  {
-    text: "Disposez-vous d’une surveillance des transactions et opérations atypiques ?",
-    weight: 20
-  },
-  {
-    text: "Avez-vous un responsable AML identifié avec des procédures formalisées ?",
-    weight: 15
-  },
-  {
-    text: "Revoyez-vous régulièrement vos données clients, procédures et formations AML ?",
-    weight: 15
-  }
+  { text: "Vérifiez-vous systématiquement l’identité et les documents de vos clients (KYC) ?", weight: 25 },
+  { text: "Réalisez-vous une analyse de risque client (activité, pays, structure, UBO) ?", weight: 25 },
+  { text: "Disposez-vous d’une surveillance des transactions et opérations atypiques ?", weight: 20 },
+  { text: "Avez-vous un responsable AML identifié avec des procédures formalisées ?", weight: 15 },
+  { text: "Revoyez-vous régulièrement vos données clients, procédures et formations AML ?", weight: 15 }
 ];
 
 let index = 0;
-let score = 0;
+let totalScore = 0;
+let answers = [];
 
 const questionEl = document.getElementById("question");
 const choicesEl = document.getElementById("choices");
@@ -163,8 +150,8 @@ const resultEl = document.getElementById("result");
 
 function loadQuestion() {
   const q = questions[index];
-  questionEl.innerText = q.text;
-  counter.innerText = `Question ${index + 1} / ${questions.length}`;
+  questionEl.textContent = q.text;
+  counter.textContent = `Question ${index + 1} / ${questions.length}`;
   progressBar.style.width = `${(index / questions.length) * 100}%`;
   choicesEl.innerHTML = "";
 
@@ -175,12 +162,19 @@ function loadQuestion() {
   ].forEach(opt => {
     const btn = document.createElement("button");
     btn.className = "choice";
-    btn.innerText = opt.label;
+    btn.textContent = opt.label;
     btn.onclick = () => {
-      score += opt.value * q.weight;
+      const weighted = opt.value * q.weight;
+      totalScore += weighted;
+
+      answers.push({
+        question: q.text,
+        answer: opt.label,
+        score: Math.round(weighted)
+      });
+
       index++;
-      if (index < questions.length) loadQuestion();
-      else showResult();
+      index < questions.length ? loadQuestion() : showResult();
     };
     choicesEl.appendChild(btn);
   });
@@ -189,20 +183,21 @@ function loadQuestion() {
 function showResult() {
   progressBar.style.width = "100%";
 
-  const finalScore = Math.round(score);
+  const finalScore = Math.round(totalScore);
   localStorage.setItem("scoreAML", finalScore);
+  localStorage.setItem("answersAML", JSON.stringify(answers));
 
-  let message = finalScore < 40
-    ? "🟥 Risque AML élevé – actions urgentes requises."
-    : finalScore < 70
-    ? "🟧 Dispositif AML partiellement structuré – améliorations nécessaires."
-    : "🟩 Dispositif AML solide – bonnes pratiques en place.";
+  let message =
+    finalScore < 40
+      ? "🟥 Risque AML élevé – actions urgentes requises."
+      : finalScore < 70
+      ? "🟧 Dispositif AML partiellement structuré – améliorations nécessaires."
+      : "🟩 Dispositif AML solide – bonnes pratiques en place.";
 
   questionEl.style.display = "none";
   choicesEl.style.display = "none";
   counter.style.display = "none";
 
-  resultEl.style.display = "block";
   resultEl.innerHTML = `
     <h2>${message}</h2>
     <p><strong>Score AML :</strong> ${finalScore} / 100</p>
@@ -217,10 +212,11 @@ function showResult() {
 
   timerEl.style.display = "block";
   let timeLeft = 4;
+  countdownEl.textContent = timeLeft;
 
   const interval = setInterval(() => {
     timeLeft--;
-    countdownEl.innerText = timeLeft;
+    countdownEl.textContent = timeLeft;
     if (timeLeft <= 0) {
       clearInterval(interval);
       window.location.href = "digital.html";
@@ -233,5 +229,3 @@ loadQuestion();
 
 </body>
 </html>
-
-
