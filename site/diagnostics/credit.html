@@ -137,15 +137,35 @@ footer {
 
 <script>
 const questions = [
-  { text: "Votre entreprise génère-t-elle un résultat net positif ?", weight: 20 },
-  { text: "Vos fonds propres représentent-ils au moins 20 % du total du bilan ?", weight: 20 },
-  { text: "Disposez-vous d’au moins 3 mois de trésorerie disponible ?", weight: 20 },
-  { text: "Votre niveau d’endettement est-il maîtrisé et soutenable ?", weight: 15 },
-  { text: "Votre activité génère-t-elle un cash-flow suffisant pour rembourser ses dettes ?", weight: 10 },
-  { text: "Les délais de paiement clients sont-ils globalement respectés ?", weight: 10 },
-  { text: "Disposez-vous d’une politique d’investissement claire et planifiée ?", weight: 5 }
+  {
+    text: "Votre activité dégage-t-elle un bénéfice de manière régulière sur les derniers exercices ?",
+    weight: 20
+  },
+  {
+    text: "Votre entreprise dispose-t-elle de fonds propres suffisants pour absorber des imprévus ou soutenir sa croissance ?",
+    weight: 20
+  },
+  {
+    text: "Disposez-vous d’une trésorerie permettant de couvrir au moins trois mois d’activité sans tension ?",
+    weight: 20
+  },
+  {
+    text: "Votre niveau d’endettement est-il compatible avec vos revenus et vos capacités de remboursement ?",
+    weight: 15
+  },
+  {
+    text: "Votre activité génère-t-elle suffisamment de liquidités pour honorer ses crédits et engagements financiers ?",
+    weight: 10
+  },
+  {
+    text: "Vos clients respectent-ils globalement les délais de paiement convenus ?",
+    weight: 10
+  },
+  {
+    text: "Avez-vous une vision claire de vos investissements à venir et de leur financement ?",
+    weight: 5
+  }
 ];
-
 let index = 0;
 let totalScore = 0;
 let answers = [];
@@ -237,3 +257,4 @@ loadQuestion();
 
 </body>
 </html>
+
