@@ -131,11 +131,26 @@ footer {
 
 <script>
 const questions = [
-  { text: "Vérifiez-vous systématiquement l’identité et les documents de vos clients (KYC) ?", weight: 25 },
-  { text: "Réalisez-vous une analyse de risque client (activité, pays, structure, UBO) ?", weight: 25 },
-  { text: "Disposez-vous d’une surveillance des transactions et opérations atypiques ?", weight: 20 },
-  { text: "Avez-vous un responsable AML identifié avec des procédures formalisées ?", weight: 15 },
-  { text: "Revoyez-vous régulièrement vos données clients, procédures et formations AML ?", weight: 15 }
+  {
+    text: "Vérifiez-vous systématiquement l’identité de vos clients et la validité de leurs documents avant toute relation ou opération ?",
+    weight: 25
+  },
+  {
+    text: "Analysez-vous le niveau de risque de vos clients (activité exercée, pays, structure, bénéficiaires effectifs) ?",
+    weight: 25
+  },
+  {
+    text: "Surveillez-vous les opérations inhabituelles ou atypiques afin de détecter d’éventuelles situations à risque ?",
+    weight: 20
+  },
+  {
+    text: "Une personne est-elle clairement responsable de la conformité et de la prévention du blanchiment au sein de votre structure ?",
+    weight: 15
+  },
+  {
+    text: "Revoyez-vous régulièrement vos données clients, vos procédures internes et la sensibilisation de vos équipes ?",
+    weight: 15
+  }
 ];
 
 let index = 0;
@@ -229,3 +244,4 @@ loadQuestion();
 
 </body>
 </html>
+
