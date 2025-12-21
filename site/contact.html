@@ -1,1 +1,601 @@
-<!-- Page de contact -->
+<!-- Page<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact – Master Your Metrics</title>
+  <meta name="description" content="Contactez Master Your Metrics : diagnostic gratuit, échange stratégique 30 minutes, questions conformité, durabilité, digital, crédit, cybersécurité." />
+
+  <style>
+    :root{
+      --bg:#f4f6f8;
+      --card:#ffffff;
+      --text:#223;
+      --muted:#667085;
+      --blue1:#001f3f;
+      --blue2:#003a70;
+      --blue3:#0074D9;
+      --blue4:#005fa3;
+      --green:#28a745;
+      --green2:#218838;
+      --border: rgba(16, 24, 40, 0.12);
+      --shadow: 0 10px 26px rgba(0,0,0,0.08);
+      --shadow2: 0 6px 18px rgba(0,0,0,0.08);
+      --radius: 14px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header{
+      background: linear-gradient(135deg, var(--blue1), var(--blue2));
+      color:#fff;
+      padding: 74px 18px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    header:before{
+      content:"";
+      position:absolute;
+      inset:-120px -120px auto auto;
+      width:360px; height:360px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.20), rgba(255,255,255,0));
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    header h1{
+      margin:0 0 10px 0;
+      font-size: 2.6em;
+      letter-spacing:-0.5px;
+    }
+    header p{
+      margin:0 auto;
+      max-width: 900px;
+      font-size: 1.15em;
+      opacity:0.95;
+      line-height:1.55;
+    }
+
+    .wrap{
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .top-actions{
+      margin-top: -22px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 12px 16px;
+      text-decoration:none;
+      color: var(--blue3);
+      font-weight: bold;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.06);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .pill:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px rgba(0,0,0,0.09);
+      border-color: rgba(0,116,217,0.35);
+    }
+
+    main{
+      padding: 34px 0 64px 0;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      margin-top: 24px;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+      header h1{ font-size:2.25em; }
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      padding: 24px;
+    }
+
+    .card h2{
+      margin: 0 0 10px 0;
+      font-size: 1.35em;
+      letter-spacing:-0.2px;
+    }
+    .card p{
+      margin: 0 0 14px 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .badge-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+      margin-bottom: 14px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size: 0.92em;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(0,116,217,0.08);
+      border: 1px solid rgba(0,116,217,0.20);
+      color: #0b3b73;
+      font-weight: 600;
+    }
+
+    .cta-primary{
+      display:inline-block;
+      width:100%;
+      text-align:center;
+      background: var(--green);
+      color:#fff;
+      padding: 16px 18px;
+      border-radius: 10px;
+      font-weight: 800;
+      text-decoration:none;
+      box-shadow: 0 10px 18px rgba(40,167,69,0.22);
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+    .cta-primary:hover{
+      transform: translateY(-2px);
+      background: var(--green2);
+      box-shadow: 0 14px 24px rgba(40,167,69,0.28);
+    }
+
+    .cta-secondary{
+      display:inline-block;
+      width:100%;
+      text-align:center;
+      background: #fff;
+      color: var(--blue3);
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-weight: 800;
+      text-decoration:none;
+      border: 2px solid rgba(0,116,217,0.35);
+      margin-top: 10px;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .cta-secondary:hover{
+      transform: translateY(-2px);
+      border-color: rgba(0,116,217,0.60);
+      box-shadow: 0 14px 24px rgba(0,0,0,0.08);
+    }
+
+    .note{
+      margin-top: 12px;
+      padding: 12px 12px;
+      border-radius: 12px;
+      background: rgba(16,24,40,0.04);
+      border: 1px dashed rgba(16,24,40,0.18);
+      color: #3b475a;
+      font-size: 0.93em;
+      line-height:1.55;
+    }
+
+    /* FORM */
+    form{
+      margin-top: 10px;
+    }
+    .field{
+      margin-top: 12px;
+      text-align:left;
+    }
+    label{
+      display:block;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 0.95em;
+      color:#1f2a37;
+    }
+    input, select, textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(16,24,40,0.18);
+      outline:none;
+      font-size: 1em;
+      background:#fff;
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(0,116,217,0.55);
+      box-shadow: 0 0 0 4px rgba(0,116,217,0.12);
+    }
+    textarea{ min-height: 130px; resize: vertical; }
+
+    .btn{
+      width:100%;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border:none;
+      border-radius: 10px;
+      background: var(--blue3);
+      color:#fff;
+      font-weight: 800;
+      font-size: 1.05em;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+      box-shadow: 0 12px 18px rgba(0,116,217,0.18);
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      background: var(--blue4);
+      box-shadow: 0 16px 24px rgba(0,116,217,0.22);
+    }
+
+    .tiny{
+      margin-top: 10px;
+      font-size: 0.88em;
+      color: var(--muted);
+      line-height:1.5;
+    }
+
+    /* FAQ */
+    .faq{
+      margin-top: 22px;
+    }
+    .faq h2{
+      margin: 0 0 10px 0;
+      font-size: 1.35em;
+    }
+    .faq-item{
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background:#fff;
+      overflow:hidden;
+      margin-top: 10px;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.05);
+    }
+    .faq-q{
+      width:100%;
+      text-align:left;
+      padding: 14px 14px;
+      background: #fff;
+      border:none;
+      cursor:pointer;
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap:12px;
+      font-weight: 800;
+      color:#1f2a37;
+      font-size: 1.02em;
+    }
+    .faq-q span{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+    }
+    .chev{
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      display:grid;
+      place-items:center;
+      background: rgba(0,116,217,0.10);
+      border: 1px solid rgba(0,116,217,0.22);
+      font-weight:900;
+      color: var(--blue3);
+      transition: transform .15s ease;
+      flex: 0 0 auto;
+    }
+    .faq-a{
+      display:none;
+      padding: 0 14px 14px 14px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.98em;
+    }
+    .faq-item.open .faq-a{ display:block; }
+    .faq-item.open .chev{ transform: rotate(45deg); }
+
+    /* Bottom CTA band */
+    .band{
+      margin-top: 26px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #0074D9, #005fa3);
+      color:#fff;
+      padding: 22px 18px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap:16px;
+      box-shadow: var(--shadow);
+      flex-wrap:wrap;
+    }
+    .band h3{
+      margin:0;
+      font-size: 1.25em;
+      letter-spacing:-0.2px;
+    }
+    .band p{
+      margin:6px 0 0 0;
+      opacity:0.95;
+      max-width: 740px;
+      line-height:1.55;
+    }
+    .band .band-btn{
+      display:inline-block;
+      background: var(--green);
+      color:#fff;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-weight: 900;
+      text-decoration:none;
+      white-space:nowrap;
+      transition: transform .15s ease, background .15s ease;
+    }
+    .band .band-btn:hover{
+      transform: translateY(-2px);
+      background: var(--green2);
+    }
+
+    footer{
+      text-align:center;
+      padding: 28px 18px 40px;
+      color: #667085;
+      font-size: 0.92em;
+    }
+    .home-btn{
+      display:inline-block;
+      margin-top: 14px;
+      padding: 12px 22px;
+      background: var(--blue3);
+      color:#fff;
+      text-decoration:none;
+      border-radius: 10px;
+      font-weight: 900;
+    }
+  </style>
+
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="https://vercel.com/insights/script.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Contact & Échange stratégique</h1>
+      <p>
+        Conformité, durabilité, digitalisation, financement et cybersécurité peuvent devenir
+        des <strong>leviers de pilotage économique</strong> — à condition d’identifier les priorités et d’agir par étapes.
+      </p>
+    </div>
+  </header>
+
+  <div class="wrap top-actions">
+    <a class="pill" href="https://master-metrics.vercel.app/" target="_blank" rel="noopener">
+      ⚡ Diagnostic gratuit (5 min)
+    </a>
+    <a class="pill" href="https://calendar.app.google/TWzExGsSew5rCkN77" target="_blank" rel="noopener">
+      📅 Réserver 30 minutes gratuites
+    </a>
+  </div>
+
+  <main>
+    <div class="wrap">
+      <div class="grid">
+        <!-- LEFT: RDV -->
+        <section class="card">
+          <h2>🎯 Échange stratégique gratuit (30 min)</h2>
+          <p>
+            Idéal si vous voulez une lecture claire de votre situation, des priorités réalistes,
+            et un chemin d’action concret (sans jargon).
+          </p>
+
+          <div class="badge-row">
+            <div class="badge">📊 Lecture des scores</div>
+            <div class="badge">⚠️ Points critiques</div>
+            <div class="badge">🧭 Priorités d’action</div>
+            <div class="badge">🏦 Attentes banques/partenaires</div>
+          </div>
+
+          <a class="cta-primary" href="https://calendar.app.google/TWzExGsSew5rCkN77" target="_blank" rel="noopener">
+            📅 Planifier mon échange gratuit (30 min)
+          </a>
+
+          <a class="cta-secondary" href="https://master-metrics.vercel.app/" target="_blank" rel="noopener">
+            ⚡ Faire le diagnostic gratuit (5 min)
+          </a>
+
+          <div class="note">
+            <strong>Ce que vous obtenez :</strong><br/>
+            1) une lecture structurée de votre situation, 2) un tri des sujets “bruit” vs “priorités”,
+            3) une proposition d’étapes (état des lieux → sprint → suivi).
+          </div>
+
+          <div class="tiny">
+            ✔ Sans engagement • ✔ Échange confidentiel • ✔ Créneaux limités
+          </div>
+        </section>
+
+        <!-- RIGHT: FORM -->
+        <section class="card">
+          <h2>📩 Une question précise ?</h2>
+          <p>
+            Laissez-nous un message : nous vous répondrons rapidement avec une orientation claire.
+          </p>
+
+          <form id="contactForm" onsubmit="return openMailto();">
+            <div class="field">
+              <label for="company">Société</label>
+              <input id="company" name="company" type="text" placeholder="Nom de la société" required />
+            </div>
+
+            <div class="field">
+              <label for="email">Votre e-mail</label>
+              <input id="email" name="email" type="email" placeholder="vous@entreprise.com" required />
+            </div>
+
+            <div class="field">
+              <label for="topic">Sujet</label>
+              <select id="topic" name="topic" required>
+                <option value="" selected disabled>Choisir un sujet</option>
+                <option>Diagnostic & scorecard</option>
+                <option>Conformité (AML/KYC)</option>
+                <option>Durabilité & ESG</option>
+                <option>Digitalisation</option>
+                <option>Crédit & financement</option>
+                <option>Cybersécurité</option>
+                <option>Autre</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Décrivez brièvement votre besoin (2-5 lignes)..." required></textarea>
+            </div>
+
+            <button class="btn" type="submit">Envoyer le message</button>
+
+            <div class="tiny">
+              En cliquant sur “Envoyer”, votre client mail s’ouvre avec un message pré-rempli.
+              (C’est volontaire : rapide, simple, et traçable.)
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <!-- FAQ -->
+      <section class="faq">
+        <h2>❓ FAQ</h2>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button" onclick="toggleFaq(this)">
+            <span>Le diagnostic est-il vraiment gratuit ?</span><div class="chev">+</div>
+          </button>
+          <div class="faq-a">
+            Oui. Le diagnostic en ligne est <strong>100 % gratuit</strong> et <strong>sans engagement</strong>.
+            Il vous donne une première lecture structurée de votre situation.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button" onclick="toggleFaq(this)">
+            <span>Que se passe-t-il après le diagnostic ?</span><div class="chev">+</div>
+          </button>
+          <div class="faq-a">
+            Rien si vous ne le souhaitez pas. Vous pouvez consulter vos scores et arrêter là.
+            Si vous le décidez, l’échange gratuit permet d’interpréter les résultats et de définir des priorités concrètes.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button" onclick="toggleFaq(this)">
+            <span>Est-ce un outil automatisé ou un vrai accompagnement ?</span><div class="chev">+</div>
+          </button>
+          <div class="faq-a">
+            Le diagnostic est automatisé pour aller vite. L’analyse et les recommandations sont
+            <strong>humaines</strong> et adaptées à votre contexte.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button" onclick="toggleFaq(this)">
+            <span>Proposez-vous aussi de l’opérationnel (pas seulement du conseil) ?</span><div class="chev">+</div>
+          </button>
+          <div class="faq-a">
+            Oui. Nous travaillons par étapes : <strong>état des lieux</strong> → <strong>sprint</strong> → <strong>suivi</strong>.
+            L’objectif est de livrer des résultats concrets (process, documents, templates, automatisations, dashboards).
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" type="button" onclick="toggleFaq(this)">
+            <span>Mes données sont-elles sécurisées ?</span><div class="chev">+</div>
+          </button>
+          <div class="faq-a">
+            Oui. Aucune revente, aucun partage. Les données servent uniquement à produire le diagnostic
+            et à vous répondre si vous le demandez.
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom band CTA -->
+      <div class="band">
+        <div>
+          <h3>⚡ Commencez par le diagnostic (5 minutes)</h3>
+          <p>
+            Un test rapide pour obtenir une lecture claire de votre situation — et décider ensuite
+            si un échange stratégique vaut la peine.
+          </p>
+        </div>
+        <a class="band-btn" href="https://master-metrics.vercel.app/" target="_blank" rel="noopener">
+          Accéder au diagnostic gratuit
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <a class="home-btn" href="../index.html">Retour à l’accueil</a>
+    <div style="margin-top:10px;">© 2025 Master Your Metrics — Tous droits réservés</div>
+  </footer>
+
+  <script>
+    function toggleFaq(btn){
+      const item = btn.closest(".faq-item");
+      const isOpen = item.classList.contains("open");
+      document.querySelectorAll(".faq-item.open").forEach(el => el.classList.remove("open"));
+      if(!isOpen) item.classList.add("open");
+    }
+
+    function openMailto(){
+      const company = (document.getElementById("company").value || "").trim();
+      const email = (document.getElementById("email").value || "").trim();
+      const topic = (document.getElementById("topic").value || "").trim();
+      const message = (document.getElementById("message").value || "").trim();
+
+      const recipient = "masteryourmetrics@gmail.com";
+      const subject = `Contact – ${company} (${topic})`;
+
+      const body =
+`Bonjour,
+
+Société : ${company}
+E-mail : ${email}
+Sujet : ${topic}
+
+Message :
+${message}
+
+—
+Envoyé via la page Contact (Master Your Metrics).`;
+
+      const url = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = url;
+
+      return false; // Empêche l'envoi "classique"
+    }
+  </script>
+</body>
+</html>
+ de contact -->
