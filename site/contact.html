@@ -108,4 +108,173 @@ form input, form select, form textarea {
   margin-top: 10px;
   margin-bottom: 20px;
   border-radius: 8px;
-  border: 1px solid
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+
+form button {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  padding: 16px;
+  font-size: 1.05em;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+form button:hover {
+  background: #005fa3;
+}
+
+/* FAQ */
+.faq-item {
+  border-bottom: 1px solid #ddd;
+  padding: 18px 0;
+}
+
+.faq-item summary {
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.05em;
+}
+
+.faq-item p {
+  margin-top: 12px;
+  color: #555;
+}
+
+/* Footer CTA */
+.final-cta {
+  text-align: center;
+  background: linear-gradient(135deg, #0074D9, #005fa3);
+  color: white;
+  padding: 70px 20px;
+  border-radius: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Échange stratégique gratuit (30 min)</h1>
+  <p>
+    Une lecture claire de votre situation, des priorités réalistes et
+    un chemin d’action concret — sans jargon, sans engagement.
+  </p>
+
+  <a href="https://calendar.app.google/TWzExGsSew5rCkN77"
+     target="_blank" rel="noopener"
+     class="cta-primary">
+    📅 Planifier mon échange gratuit
+  </a>
+
+  <div>
+    <a href="diagnostics/esg.html" class="cta-secondary">
+      Faire le diagnostic gratuit (5 min)
+    </a>
+  </div>
+</header>
+
+<main>
+
+<!-- CE QUE VOUS OBTENEZ -->
+<section class="section card">
+  <h2>Ce que vous obtenez en 30 minutes</h2>
+
+  <div class="grid">
+    <div><span>📊</span><p><strong>Lecture de vos scores</strong><br>ESG · AML · Digital · Crédit · Cyber</p></div>
+    <div><span>⚠️</span><p><strong>Points critiques</strong><br>Risques et écarts prioritaires</p></div>
+    <div><span>🧭</span><p><strong>Priorités d’action</strong><br>Claires, réalistes, hiérarchisées</p></div>
+    <div><span>🏦</span><p><strong>Lecture externe</strong><br>Attentes banques & partenaires</p></div>
+  </div>
+
+  <p style="margin-top:30px;font-size:0.9em;color:#555;">
+    ✔ Sans engagement · ✔ Échange confidentiel · ✔ Créneaux limités
+  </p>
+</section>
+
+<!-- CONTACT -->
+<section class="section card">
+  <h2>Une question précise ?</h2>
+  <p>
+    Laissez-nous un message. Nous vous répondons rapidement
+    avec une orientation claire et pragmatique.
+  </p>
+
+  <form action="mailto:masteryourmetrics@gmail.com" method="post" enctype="text/plain">
+    <input type="text" name="Société" placeholder="Nom de la société" required>
+    <input type="email" name="Email" placeholder="Votre e-mail professionnel" required>
+
+    <select name="Sujet">
+      <option value="">Choisir un sujet</option>
+      <option>Diagnostic & interprétation</option>
+      <option>ESG / Durabilité</option>
+      <option>AML / KYC</option>
+      <option>Digitalisation</option>
+      <option>Crédit / financement</option>
+      <option>Autre</option>
+    </select>
+
+    <textarea name="Message" rows="4"
+      placeholder="Décrivez brièvement votre besoin (2–5 lignes)"></textarea>
+
+    <button type="submit">📨 Envoyer le message</button>
+
+    <p style="font-size:0.85em;color:#666;margin-top:10px;">
+      En cliquant sur “Envoyer”, votre client mail s’ouvre avec un message prérempli.
+    </p>
+  </form>
+</section>
+
+<!-- FAQ -->
+<section class="section card">
+  <h2>FAQ</h2>
+
+  <details class="faq-item">
+    <summary>Le diagnostic est-il vraiment gratuit ?</summary>
+    <p>Oui. 100 % gratuit, sans engagement. Il fournit une première lecture structurée de votre situation.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Que se passe-t-il après le diagnostic ?</summary>
+    <p>Rien si vous le souhaitez. L’échange gratuit sert uniquement à interpréter les résultats.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Est-ce automatisé ou humain ?</summary>
+    <p>Le diagnostic est automatisé. L’analyse et les recommandations sont humaines.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Proposez-vous aussi l’opérationnel ?</summary>
+    <p>Oui. Nous travaillons par étapes : état des lieux → sprint → suivi.</p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Mes données sont-elles sécurisées ?</summary>
+    <p>Oui. Aucune revente, aucun partage. Usage strictement limité au diagnostic.</p>
+  </details>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final-cta">
+  <h2>Commencez par le diagnostic (5 minutes)</h2>
+  <p>
+    Un test rapide pour décider ensuite si un échange stratégique vaut la peine.
+  </p>
+
+  <a href="diagnostics/esg.html"
+     style="display:inline-block;background:white;color:#001f3f;
+            padding:18px 44px;border-radius:50px;
+            font-weight:bold;text-decoration:none;margin-top:25px;">
+    🚀 Accéder au diagnostic gratuit
+  </a>
+</section>
+
+</main>
+
+</body>
+</html>
