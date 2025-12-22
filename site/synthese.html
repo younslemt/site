@@ -163,6 +163,7 @@ footer {
 
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="https://vercel.com/insights/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body>
@@ -212,6 +213,10 @@ footer {
     Recevez une analyse personnalisée de vos résultats et
     des recommandations concrètes adaptées à votre situation.
   </p>
+<button onclick="generatePDF()"
+        style="background:#28a745;margin-bottom:10px;">
+  📄 Télécharger mon diagnostic (PDF)
+</button>
 
   <button onclick="sendReport()">
     📨 Envoyer ma scorecard
@@ -430,12 +435,57 @@ https://calendar.app.google/TWzExGsSew5rCkN77
     tryOpen(fullBody);
   }
 }
+ /* =========================
+   7) GÉNÉRATION PDF
+========================= */
+async function generatePDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  let y = 20;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.text("Master Your Metrics – Diagnostic de synthèse", 20, y);
+
+  y += 12;
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "normal");
+  doc.text(`Date : ${new Date().toLocaleDateString()}`, 20, y);
+
+  y += 8;
+  doc.text(`Score global : ${globalScore} / 100`, 20, y);
+
+  y += 12;
+  doc.setFont("helvetica", "bold");
+  doc.text("Scores par pilier", 20, y);
+
+  y += 8;
+  doc.setFont("helvetica", "normal");
+
+  Object.entries(scores).forEach(([key, value]) => {
+    doc.text(`• ${key} : ${value} / 100`, 25, y);
+    y += 7;
+  });
+
+  y += 10;
+  doc.setFont("helvetica", "bold");
+  doc.text("Lecture & priorités", 20, y);
+
+  y += 8;
+  doc.setFont("helvetica", "normal");
+  doc.text(interpretGlobal(globalScore), 20, y, { maxWidth: 170 });
+
+  doc.save("MasterYourMetrics_Diagnostic.pdf");
+}
+ 
 </script>
 
 
 
 </body>
 </html>
+
 
 
 
