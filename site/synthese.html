@@ -436,48 +436,120 @@ https://calendar.app.google/TWzExGsSew5rCkN77
   }
 }
  /* =========================
-   7) GÉNÉRATION PDF
+   7) GÉNÉRATION PDF – VERSION CORPORATE
 ========================= */
 async function generatePDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
+  const pageWidth = doc.internal.pageSize.getWidth();
   let y = 20;
 
+  /* ===== EN-TÊTE ===== */
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(18);
-  doc.text("Master Your Metrics – Diagnostic de synthèse", 20, y);
+  doc.setFontSize(20);
+  doc.text("Master Your Metrics", pageWidth / 2, y, { align: "center" });
 
-  y += 12;
+  y += 8;
   doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
-  doc.text(`Date : ${new Date().toLocaleDateString()}`, 20, y);
+  doc.text(
+    "Diagnostic de pilotage – Synthèse décisionnelle",
+    pageWidth / 2,
+    y,
+    { align: "center" }
+  );
 
-  y += 8;
-  doc.text(`Score global : ${globalScore} / 100`, 20, y);
+  y += 6;
+  doc.setFontSize(9);
+  doc.text(
+    `Émis le ${new Date().toLocaleDateString()}`,
+    pageWidth / 2,
+    y,
+    { align: "center" }
+  );
 
-  y += 12;
+  y += 14;
+
+  /* ===== SCORE GLOBAL ===== */
+  doc.setDrawColor(0);
+  doc.setFillColor(0, 116, 217);
+  doc.roundedRect(20, y, pageWidth - 40, 20, 4, 4, "F");
+
+  doc.setTextColor(255);
+  doc.setFontSize(16);
+  doc.setFont("helvetica", "bold");
+  doc.text(
+    `Score global : ${globalScore} / 100`,
+    pageWidth / 2,
+    y + 14,
+    { align: "center" }
+  );
+
+  doc.setTextColor(0);
+  y += 30;
+
+  /* ===== INTERPRÉTATION ===== */
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "bold");
+  doc.text("Lecture stratégique", 20, y);
+
+  y += 6;
+  doc.setFont("helvetica", "normal");
+  doc.text(interpretGlobal(globalScore), 20, y, { maxWidth: pageWidth - 40 });
+
+  y += 14;
+
+  /* ===== TABLEAU SCORES ===== */
   doc.setFont("helvetica", "bold");
   doc.text("Scores par pilier", 20, y);
-
   y += 8;
-  doc.setFont("helvetica", "normal");
 
-  Object.entries(scores).forEach(([key, value]) => {
-    doc.text(`• ${key} : ${value} / 100`, 25, y);
+  doc.setFont("helvetica", "normal");
+  const rows = [
+    ["ESG", scores.ESG],
+    ["AML / KYC", scores.AML],
+    ["Digitalisation", scores.Digital],
+    ["Crédit", scores.Credit],
+    ["Cybersécurité", scores.Cyber]
+  ];
+
+  rows.forEach(([label, value]) => {
+    doc.text(label, 25, y);
+    doc.text(`${value} / 100`, pageWidth - 30, y, { align: "right" });
     y += 7;
   });
 
   y += 10;
-  doc.setFont("helvetica", "bold");
-  doc.text("Lecture & priorités", 20, y);
 
-  y += 8;
+  /* ===== CONCLUSION ACTION ===== */
+  doc.setFont("helvetica", "bold");
+  doc.text("Orientation recommandée", 20, y);
+  y += 6;
+
   doc.setFont("helvetica", "normal");
-  doc.text(interpretGlobal(globalScore), 20, y, { maxWidth: 170 });
+  doc.text(
+    "Ce diagnostic met en évidence vos priorités immédiates. " +
+    "Un échange stratégique permet de transformer ces constats " +
+    "en plan d’actions concret, structuré et mesurable.",
+    20,
+    y,
+    { maxWidth: pageWidth - 40 }
+  );
+
+  /* ===== FOOTER ===== */
+  doc.setFontSize(8);
+  doc.setTextColor(120);
+  doc.text(
+    "Master Your Metrics – Diagnostic à usage décisionnel | www.master-metrics.vercel.app",
+    pageWidth / 2,
+    285,
+    { align: "center" }
+  );
 
   doc.save("MasterYourMetrics_Diagnostic.pdf");
 }
+
  
 </script>
 
@@ -485,6 +557,7 @@ async function generatePDF() {
 
 </body>
 </html>
+
 
 
 
