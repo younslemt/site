@@ -370,10 +370,13 @@ function formatAnswers(domainName, items) {
    5) INTERPRÉTATION GLOBALE
 ========================= */
 function interpretGlobal(score) {
-  if (score < 30) return "🔴 Fondations à renforcer rapidement (priorités + plan d’action).";
-  if (score < 70) return "🟠 Niveau intermédiaire (gains rapides possibles en 30 jours).";
-  return "🟢 Niveau solide (optimisation + valorisation auprès clients/banques).";
+  if (score < 30)
+    return "Fondations à renforcer rapidement. Priorites claires et plan d’action recommande.";
+  if (score < 70)
+    return "Niveau intermediaire. Des gains rapides sont possibles sur 30 a 60 jours.";
+  return "Niveau solide. Optimisation et valorisation aupres des partenaires recommandee.";
 }
+
 
 /* =========================
    6) ENVOI MAIL (mailto)
@@ -536,6 +539,43 @@ async function generatePDF() {
     y,
     { maxWidth: pageWidth - 40 }
   );
+y += 18;
+
+/* ===== CONTACT ===== */
+doc.setDrawColor(200);
+doc.line(20, y, pageWidth - 20, y);
+y += 8;
+
+doc.setFont("helvetica", "bold");
+doc.setFontSize(11);
+doc.text("Contact", 20, y);
+
+y += 6;
+doc.setFont("helvetica", "normal");
+doc.setFontSize(10);
+doc.text(
+  "Master Your Metrics\n" +
+  "Email : masteryourmetrics@gmail.com\n" +
+  "Plateforme : www.master-metrics.vercel.app",
+  20,
+  y
+);
+
+y += 18;
+doc.setFont("helvetica", "italic");
+doc.setFontSize(10);
+doc.setTextColor(80);
+
+doc.text(
+  "Ce diagnostic constitue une premiere base de travail. " +
+  "Un accompagnement structure permet de transformer ces constats " +
+  "en decisions concretes et mesurables.",
+  20,
+  y,
+  { maxWidth: pageWidth - 40 }
+);
+
+doc.setTextColor(0);
 
   /* ===== FOOTER ===== */
   doc.setFontSize(8);
@@ -557,6 +597,7 @@ async function generatePDF() {
 
 </body>
 </html>
+
 
 
 
