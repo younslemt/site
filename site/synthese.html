@@ -440,13 +440,26 @@ https://calendar.app.google/TWzExGsSew5rCkN77
 }
  /* =========================
    7) GÉNÉRATION PDF – VERSION CORPORATE
+   + QUESTIONNAIRE COMPLET
 ========================= */
 async function generatePDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
   const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
   let y = 20;
+
+  const marginLeft = 20;
+  const marginRight = 20;
+  const maxWidth = pageWidth - marginLeft - marginRight;
+
+  const addPageIfNeeded = (height = 10) => {
+    if (y + height > pageHeight - 20) {
+      doc.addPage();
+      y = 20;
+    }
+  };
 
   /* ===== EN-TÊTE ===== */
   doc.setFont("helvetica", "bold");
@@ -475,9 +488,8 @@ async function generatePDF() {
   y += 14;
 
   /* ===== SCORE GLOBAL ===== */
-  doc.setDrawColor(0);
   doc.setFillColor(0, 116, 217);
-  doc.roundedRect(20, y, pageWidth - 40, 20, 4, 4, "F");
+  doc.roundedRect(marginLeft, y, pageWidth - 40, 20, 4, 4, "F");
 
   doc.setTextColor(255);
   doc.setFontSize(16);
@@ -492,20 +504,22 @@ async function generatePDF() {
   doc.setTextColor(0);
   y += 30;
 
-  /* ===== INTERPRÉTATION ===== */
+  /* ===== LECTURE STRATÉGIQUE ===== */
+  addPageIfNeeded(20);
   doc.setFontSize(11);
   doc.setFont("helvetica", "bold");
-  doc.text("Lecture stratégique", 20, y);
+  doc.text("Lecture stratégique", marginLeft, y);
 
   y += 6;
   doc.setFont("helvetica", "normal");
-  doc.text(interpretGlobal(globalScore), 20, y, { maxWidth: pageWidth - 40 });
+  doc.text(interpretGlobal(globalScore), marginLeft, y, { maxWidth });
 
   y += 14;
 
-  /* ===== TABLEAU SCORES ===== */
+  /* ===== SCORES PAR PILIER ===== */
+  addPageIfNeeded(40);
   doc.setFont("helvetica", "bold");
-  doc.text("Scores par pilier", 20, y);
+  doc.text("Scores par pilier", marginLeft, y);
   y += 8;
 
   doc.setFont("helvetica", "normal");
@@ -518,16 +532,64 @@ async function generatePDF() {
   ];
 
   rows.forEach(([label, value]) => {
-    doc.text(label, 25, y);
-    doc.text(`${value} / 100`, pageWidth - 30, y, { align: "right" });
+    addPageIfNeeded(10);
+    doc.text(label, marginLeft + 5, y);
+    doc.text(`${value} / 100`, pageWidth - marginRight, y, { align: "right" });
     y += 7;
   });
 
+  y += 12;
+
+  /* =====================================================
+     QUESTIONNAIRE COMPLET – QUESTIONS + RÉPONSES
+  ===================================================== */
+  addPageIfNeeded(30);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(13);
+  doc.text("Détail du questionnaire", marginLeft, y);
   y += 10;
 
-  /* ===== CONCLUSION ACTION ===== */
+  const domains = [
+    { key: "ESG", label: "ESG" },
+    { key: "AML", label: "AML / KYC" },
+    { key: "Digital", label: "Digitalisation" },
+    { key: "Credit", label: "Crédit" },
+    { key: "Cyber", label: "Cybersécurité" }
+  ];
+
+  domains.forEach(domain => {
+    const answers = answersByDomain[domain.key];
+    if (!answers || answers.length === 0) return;
+
+    addPageIfNeeded(20);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text(domain.label, marginLeft, y);
+    y += 8;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+
+    answers.forEach((item, index) => {
+      const question = item.question || "";
+      const answer = item.answer || "";
+
+      const text = `${index + 1}. ${question}\n→ ${answer}`;
+      const textHeight = doc.getTextDimensions(text, { maxWidth }).h;
+
+      addPageIfNeeded(textHeight + 4);
+      doc.text(text, marginLeft + 5, y, { maxWidth });
+      y += textHeight + 6;
+    });
+
+    y += 4;
+  });
+
+  /* ===== ORIENTATION RECOMMANDÉE ===== */
+  addPageIfNeeded(30);
   doc.setFont("helvetica", "bold");
-  doc.text("Orientation recommandée", 20, y);
+  doc.setFontSize(11);
+  doc.text("Orientation recommandée", marginLeft, y);
   y += 6;
 
   doc.setFont("helvetica", "normal");
@@ -535,47 +597,48 @@ async function generatePDF() {
     "Ce diagnostic met en évidence vos priorités immédiates. " +
     "Un échange stratégique permet de transformer ces constats " +
     "en plan d’actions concret, structuré et mesurable.",
-    20,
+    marginLeft,
     y,
-    { maxWidth: pageWidth - 40 }
+    { maxWidth }
   );
-y += 18;
 
-/* ===== CONTACT ===== */
-doc.setDrawColor(200);
-doc.line(20, y, pageWidth - 20, y);
-y += 8;
+  y += 18;
 
-doc.setFont("helvetica", "bold");
-doc.setFontSize(11);
-doc.text("Contact", 20, y);
+  /* ===== CONTACT ===== */
+  addPageIfNeeded(30);
+  doc.setDrawColor(200);
+  doc.line(marginLeft, y, pageWidth - marginRight, y);
+  y += 8;
 
-y += 6;
-doc.setFont("helvetica", "normal");
-doc.setFontSize(10);
-doc.text(
-  "Master Your Metrics\n" +
-  "Email : masteryourmetrics@gmail.com\n" +
-  "Plateforme : www.master-metrics.vercel.app",
-  20,
-  y
-);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.text("Contact", marginLeft, y);
 
-y += 18;
-doc.setFont("helvetica", "italic");
-doc.setFontSize(10);
-doc.setTextColor(80);
+  y += 6;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.text(
+    "Master Your Metrics\n" +
+    "Email : masteryourmetrics@gmail.com\n" +
+    "Plateforme : www.master-metrics.vercel.app",
+    marginLeft,
+    y
+  );
 
-doc.text(
-  "Ce diagnostic constitue une premiere base de travail. " +
-  "Un accompagnement structure permet de transformer ces constats " +
-  "en decisions concretes et mesurables.",
-  20,
-  y,
-  { maxWidth: pageWidth - 40 }
-);
+  y += 18;
+  doc.setFont("helvetica", "italic");
+  doc.setFontSize(10);
+  doc.setTextColor(80);
+  doc.text(
+    "Ce diagnostic constitue une première base de travail. " +
+    "Un accompagnement structuré permet de transformer ces constats " +
+    "en décisions concrètes et mesurables.",
+    marginLeft,
+    y,
+    { maxWidth }
+  );
 
-doc.setTextColor(0);
+  doc.setTextColor(0);
 
   /* ===== FOOTER ===== */
   doc.setFontSize(8);
@@ -583,20 +646,20 @@ doc.setTextColor(0);
   doc.text(
     "Master Your Metrics – Diagnostic à usage décisionnel | www.master-metrics.vercel.app",
     pageWidth / 2,
-    285,
+    pageHeight - 10,
     { align: "center" }
   );
 
-  doc.save("MasterYourMetrics_Diagnostic.pdf");
+  doc.save("MasterYourMetrics_Diagnostic_Complet.pdf");
 }
 
- 
 </script>
 
 
 
 </body>
 </html>
+
 
 
 
