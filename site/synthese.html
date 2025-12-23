@@ -294,16 +294,16 @@ function normalizeText(text) {
 
   return text
     // remplacements explicites AVANT tout
-    .replace(/✅\s*/g, "OUI - ")
-    .replace(/⚠️\s*/g, "PARTIEL - ")
-    .replace(/❌\s*/g, "NON - ")
+    .replace(/✅\s*/g, "- ")
+    .replace(/⚠️\s*/g, "- ")
+    .replace(/❌\s*/g, "- ")
 
     // nettoyage caractères problématiques
     .replace(/[!’]/g, "")
-    .replace(/[’‘]/g, "'")
+    .replace(/[’‘]/g, "")
     .replace(/[“”]/g, '"')
-    .replace(/–/g, "-")
-    .replace(/…/g, "...")
+    .replace(/–/g, "")
+    .replace(/…/g, "")
 
     // normalisation accents (jsPDF safe)
     .normalize("NFD")
