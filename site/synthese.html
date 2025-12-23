@@ -299,8 +299,8 @@ function normalizeText(text) {
     .replace(/❌\s*/g, "- ")
 
     // nettoyage caractères problématiques
-    .replace(/[!’]/g, "")
-     .replace(/[!]/g, "")
+    .replace(/[!’]/g, ">")
+     .replace(/[!]/g, ">")
     .replace(/[’‘]/g, "")
     .replace(/[“”]/g, '"')
     .replace(/–/g, "")
