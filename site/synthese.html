@@ -300,6 +300,7 @@ function normalizeText(text) {
 
     // nettoyage caractères problématiques
     .replace(/[!’]/g, "")
+     .replace(/[!]/g, "")
     .replace(/[’‘]/g, "")
     .replace(/[“”]/g, '"')
     .replace(/–/g, "")
