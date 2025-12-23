@@ -196,12 +196,29 @@ document.getElementById("generalScore").innerHTML =
    NORMALISATION PDF
 ========================= */
 function normalizeText(text) {
-  return (text || "")
-    .replace(/✅/g,"OUI")
-    .replace(/⚠️/g,"PARTIEL")
-    .replace(/❌/g,"NON")
-    .normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  if (!text) return "";
+
+  return text
+    // remplacements explicites AVANT tout
+    .replace(/✅\s*/g, "OUI - ")
+    .replace(/⚠️\s*/g, "PARTIEL - ")
+    .replace(/❌\s*/g, "NON - ")
+
+    // nettoyage caractères problématiques
+    .replace(/[!’]/g, "")
+    .replace(/[’‘]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/–/g, "-")
+    .replace(/…/g, "...")
+
+    // normalisation accents (jsPDF safe)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+
+    // trim final
+    .trim();
 }
+
 /* =========================
    INTERPRÉTATION GLOBALE
 ========================= */
@@ -364,46 +381,53 @@ function generatePDF() {
     });
   });
 
-  /* =====================================================
-     PAGE FINALE — CONTACT
-  ===================================================== */
 
-  doc.addPage();
-  y = 50;
+/* =====================================================
+   PAGE FINALE — CONTACT (SÉCURISÉ)
+===================================================== */
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(16);
-  doc.text("Prochaine étape", margin, y);
+doc.addPage();
+y = 40;
 
-  y += 10;
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(11);
-  doc.text(
-    "Ce diagnostic constitue une base objective de discussion. " +
-    "Un échange structuré permet de transformer ces constats " +
-    "en plan d’actions concret, priorisé et mesurable.",
-    margin,
-    y,
-    { maxWidth }
-  );
+doc.setFont("helvetica", "bold");
+doc.setFontSize(16);
+doc.text("Prochaine etape", margin, y);
 
-  y += 30;
+y += 12;
+doc.setFont("helvetica", "normal");
+doc.setFontSize(11);
+doc.text(
+  "Ce diagnostic constitue une base objective de discussion. " +
+  "Un echange structure permet de transformer ces constats " +
+  "en plan d'actions concret, priorise et mesurable.",
+  margin,
+  y,
+  { maxWidth }
+);
 
-  doc.setFillColor(0, 116, 217);
-  doc.roundedRect(margin, y, maxWidth, 30, 6, 6, "F");
+y += 35;
 
-  doc.setTextColor(255);
-  doc.setFont("helvetica", "bold");
-  doc.text("Contact", margin + 10, y + 12);
+/* Bloc contact bien positionné */
+doc.setFillColor(0, 116, 217);
+doc.roundedRect(margin, y, maxWidth, 36, 6, 6, "F");
 
-  doc.setFont("helvetica", "normal");
-  doc.text(
-    "Master Your Metrics\nmasteryourmetrics@gmail.com\nwww.master-metrics.vercel.app",
-    margin + 10,
-    y + 22
-  );
+doc.setTextColor(255);
+doc.setFont("helvetica", "bold");
+doc.setFontSize(13);
+doc.text("Contact", margin + 10, y + 14);
 
-  doc.setTextColor(0);
+doc.setFont("helvetica", "normal");
+doc.setFontSize(11);
+doc.text(
+  "Master Your Metrics\n" +
+  "masteryourmetrics@gmail.com\n" +
+  "www.master-metrics.vercel.app",
+  margin + 10,
+  y + 26
+);
+
+doc.setTextColor(0);
+
 
   /* FOOTER */
   doc.setFontSize(8);
