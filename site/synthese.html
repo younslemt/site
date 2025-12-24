@@ -538,22 +538,61 @@ doc.setTextColor(0);
 }
 
 /* =========================
-   EMAIL
+   EMAIL – VERSION CTA CLIENT
 ========================= */
 function sendReport() {
+  const recipient = "masteryourmetrics@gmail.com";
+  const subject = "Votre scorecard – Prochaines étapes possibles";
+
   const body = `
+Bonjour,
+
+Vous venez de finaliser votre diagnostic Master Your Metrics.
+
+👉 Voici votre synthèse :
+
 Score global : ${globalScore}/100
 
-ESG : ${scores.ESG}
-AML : ${scores.AML}
-Digital : ${scores.Digital}
-Crédit : ${scores.Credit}
-Cyber : ${scores.Cyber}
-`;
-  window.location.href =
-    "mailto:masteryourmetrics@gmail.com" +
-    "?subject=Ma Scorecard Master Your Metrics" +
+• ESG : ${scores.ESG}/100
+• AML / KYC : ${scores.AML}/100
+• Digitalisation : ${scores.Digital}/100
+• Crédit : ${scores.Credit}/100
+• Cybersécurité : ${scores.Cyber}/100
+
+Lecture rapide :
+${interpretGlobal(globalScore)}
+
+Ce diagnostic met en évidence des leviers concrets d’amélioration à court terme.
+Dans de nombreux cas, des actions simples permettent déjà :
+- de renforcer la conformité,
+- d’améliorer la lisibilité pour les banques et partenaires,
+- et de sécuriser la croissance.
+
+📌 Prochaine étape recommandée (sans engagement) :
+Un échange stratégique de 30 minutes pour :
+• clarifier vos priorités,
+• identifier les actions à fort impact,
+• transformer ce diagnostic en plan concret.
+
+👉 Planifier un échange :
+https://calendar.app.google/TWzExGsSew5rCkN77
+
+Ou découvrir nos accompagnements :
+https://master-metrics.vercel.app/services.html
+
+Bien cordialement,
+
+Master Your Metrics
+masteryourmetrics@gmail.com
+https://master-metrics.vercel.app
+`.trim();
+
+  const url =
+    "mailto:" + recipient +
+    "?subject=" + encodeURIComponent(subject) +
     "&body=" + encodeURIComponent(body);
+
+  window.location.href = url;
 }
 </script>
 
