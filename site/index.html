@@ -213,7 +213,43 @@
   font-size: 0.9em;
   color: #666;
 }
+/* ======================================
+   HERO HEADER – IMAGE IA (SURCHARGE)
+====================================== */
+header {
+  position: relative;
+  background-image:
+    linear-gradient(
+      rgba(5, 20, 45, 0.78),
+      rgba(5, 20, 45, 0.88)
+    ),
+    url("bande.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
+/* Effet halo IA / intelligence */
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 65% 40%,
+      rgba(0, 200, 255, 0.18),
+      transparent 60%
+    );
+  pointer-events: none;
+}
+
+/* Assure que le contenu reste au-dessus */
+header h1,
+header p,
+header .cta-button {
+  position: relative;
+  z-index: 1;
+}
   </style>
 
   <script defer src="/_vercel/insights/script.js"></script>
