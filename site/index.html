@@ -236,7 +236,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         grid-template-columns: 1fr;
       }
     }
+/* =========================
+   SERVICES ACCESS – MOBILE FIX
+========================= */
 
+/* Empêche tout débordement horizontal (utile si un bloc dépasse) */
+html, body {
+  overflow-x: hidden;
+}
+
+/* La grille doit passer en 1 colonne sur mobile */
+@media (max-width: 900px) {
+  #services-access > div {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  /* Réduit padding du bloc "Notre méthode" pour mieux respirer */
+  #services-access > div > div:last-child {
+    padding: 26px !important;
+  }
+
+  /* Centrage visuel pour éviter l'effet "hors champ" */
+  #services-access h2 {
+    font-size: 2.0em !important;
+  }
+}
+
+/* Sur très petits écrans : encore plus compact */
+@media (max-width: 480px) {
+  #services-access {
+    padding: 56px 16px !important;
+  }
+
+  #services-access > div > div:last-child {
+    padding: 22px !important;
+    border-radius: 14px !important;
+  }
+}
     #scrollCTA {
       position: fixed;
       bottom: 28px;
