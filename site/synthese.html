@@ -333,16 +333,73 @@ function normalizeText(text) {
 }
 
 /* =========================
-   INTERPRÉTATION GLOBALE
+   INTERPRÉTATION GLOBALE (MODIFIÉ)
 ========================= */
 function interpretGlobal(score) {
   if (score < 30) {
-    return "Fondations a renforcer rapidement. Priorites claires et plan d'action recommande.";
+    return "Niveau de maturite faible. Les fondamentaux ne sont pas encore suffisamment formalises ou traces. Recommandation : concentrer l'effort sur 2 a 3 priorites critiques et produire des preuves simples (procedures, registres, plans).";
   }
   if (score < 70) {
-    return "Niveau intermediaire. Des gains rapides sont possibles sur 30 a 60 jours.";
+    return "Niveau de maturite intermediaire. Le dispositif existe mais manque souvent de coherence, de documentation ou de regularite. Recommandation : activer des quick wins sur 30 jours, puis structurer un plan 60-90 jours avec livrables exploitables.";
   }
-  return "Niveau solide. Optimisation et valorisation aupres des partenaires recommandees.";
+  return "Niveau de maturite solide. L'objectif devient l'optimisation, la standardisation et la valorisation (banques, clients, partenaires). Recommandation : renforcer la gouvernance, automatiser le suivi et preparer des elements de preuve reutilisables.";
+}
+
+/* =========================
+   QUICK WINS (AJOUTÉ) - PDF UNIQUEMENT
+========================= */
+function quickWinsFromScores(scores) {
+  // Prend les 2 domaines les plus faibles et propose des actions concretes "30 jours"
+  const ranked = Object.entries(scores)
+    .sort((a, b) => a[1] - b[1])
+    .slice(0, 2)
+    .map(([k]) => k);
+
+  const wins = {
+    ESG: [
+      "Formaliser une politique ESG simple (1 page) + une liste de preuves disponibles",
+      "Identifier 3 indicateurs de pilotage (energie, deplacements, achats) et un suivi mensuel",
+      "Preparer une reponse type aux demandes banques/clients (engagements + preuves)"
+    ],
+    AML: [
+      "Mettre a jour le scoring risque client et documenter la logique (simple et defendable)",
+      "Verifier l'exhaustivite KYC sur les dossiers a risque et tracer les controles",
+      "Creer un registre de controles (revues, alertes, decisions) reutilisable en audit"
+    ],
+    Digital: [
+      "Cartographier 5 processus internes (factures, relances, onboarding client) et supprimer les doublons",
+      "Mettre en place un tableau de bord simple (delais, charge, erreurs, encours)",
+      "Standardiser 3 modeles (emails, checklists, dossiers) pour gagner du temps et reduire les erreurs"
+    ],
+    Credit: [
+      "Construire une lecture simple : marge, BFR, tresorerie, capacite de remboursement",
+      "Mettre en forme un narratif bancaire (activite, risques, actions, chiffres) sur 1 page",
+      "Lister 3 leviers court terme (cash, stock, delais paiement) et suivre chaque semaine"
+    ],
+    Cyber: [
+      "Activer MFA sur les comptes critiques + politique mots de passe minimale",
+      "Verifer sauvegardes : frequence, restauration test, responsabilites",
+      "Sensibilisation 15 minutes : phishing + procedure interne en cas de doute"
+    ]
+  };
+
+  const mapLabel = {
+    ESG: "ESG",
+    AML: "AML / KYC",
+    Digital: "Digitalisation",
+    Credit: "Credit",
+    Cyber: "Cybersecurite"
+  };
+
+  const out = [];
+  ranked.forEach((domain) => {
+    const list = wins[domain] || [];
+    out.push(`Quick wins - ${mapLabel[domain] || domain} (30 jours)`);
+    list.slice(0, 3).forEach((w) => out.push(`- ${w}`));
+    out.push(""); // ligne vide
+  });
+
+  return out.join("\n");
 }
 
 /* =========================
@@ -420,7 +477,27 @@ function generatePDF() {
     { maxWidth }
   );
 
-  y += 20;
+  /* ===== AJOUT QUICK WINS (MINIMAL) ===== */
+  y += 10;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.text("Quick wins (30 jours)", margin, y);
+  y += 7;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+
+  const qwText = normalizeText(quickWinsFromScores(scores));
+  const qwLines = doc.splitTextToSize(qwText, maxWidth);
+
+  newPageIfNeeded(qwLines.length * 5 + 6);
+
+  doc.text(qwLines, margin, y);
+  y += qwLines.length * 5 + 8;
+  /* ===== FIN AJOUT QUICK WINS ===== */
+
+  y += 10;
 
   /* =====================================================
      SCORES PAR PILIER
