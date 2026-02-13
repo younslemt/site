@@ -307,30 +307,38 @@ document.getElementById("generalScore").innerHTML =
 /* =========================
    NORMALISATION PDF
 ========================= */
+<script>
 function normalizeText(text) {
   if (!text) return "";
 
-  return text
-    // remplacements explicites AVANT tout
+  return String(text)
+    // remplace les puces/emoji par des puces texte
     .replace(/✅\s*/g, "- ")
     .replace(/⚠️\s*/g, "- ")
     .replace(/❌\s*/g, "- ")
+    .replace(/👉\s*/g, "- ")
+    .replace(/✔️\s*/g, "- ")
+    .replace(/⭐/g, "*")
+    .replace(/☆/g, "*")
 
-    // nettoyage caractères problématiques
-    .replace(/[!’]/g, ">")
-     .replace(/[!]/g, ">")
-    .replace(/[’‘]/g, "")
+    // apostrophes/quotes compatibles
+    .replace(/[’‘]/g, "'")
     .replace(/[“”]/g, '"')
-    .replace(/–/g, "")
-    .replace(/…/g, "")
+    .replace(/…/g, "...")
+    .replace(/–/g, "-")
+    .replace(/—/g, "-")
 
-    // normalisation accents (jsPDF safe)
+    // supprime emojis restants (safe)
+    .replace(/[\u{1F300}-\u{1FAFF}]/gu, "")
+
+    // normalise accents si besoin (optionnel mais safe)
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
 
-    // trim final
+    .replace(/\s+/g, " ")
     .trim();
 }
+</script>
 
 /* =========================
    INTERPRÉTATION GLOBALE
@@ -348,130 +356,242 @@ function interpretGlobal(score) {
 /* =========================
    PDF COMPLET
 ========================= */
+<script>
 function generatePDF() {
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
 
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
-  const margin = 20;
+  const margin = 16;
   const maxWidth = pageWidth - margin * 2;
-  let y = 20;
 
-  const newPageIfNeeded = (h = 10) => {
-    if (y + h > pageHeight - 20) {
+  let y = 18;
+
+  const addFooter = () => {
+    const pageCount = doc.internal.getNumberOfPages();
+    const current = doc.internal.getCurrentPageInfo().pageNumber;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(130);
+
+    doc.text(
+      "Document confidentiel — usage decisionnel",
+      margin,
+      pageHeight - 10
+    );
+
+    doc.text(
+      `Page ${current} / ${pageCount}`,
+      pageWidth - margin,
+      pageHeight - 10,
+      { align: "right" }
+    );
+
+    doc.setTextColor(0);
+  };
+
+  const newPageIfNeeded = (neededHeight = 10) => {
+    if (y + neededHeight > pageHeight - 18) {
+      addFooter();
       doc.addPage();
-      y = 20;
+      y = 18;
     }
   };
 
-  /* =====================================================
-     PAGE 1 — COUVERTURE / SYNTHÈSE
-  ===================================================== */
+  // ----------------------------
+  // DATA
+  // ----------------------------
+  const scoresLocal = {
+    ESG: Number(localStorage.getItem("scoreESG")) || 0,
+    AML: Number(localStorage.getItem("scoreAML")) || 0,
+    Digital: Number(localStorage.getItem("scoreDigital")) || 0,
+    Credit: Number(localStorage.getItem("scoreCredit")) || 0,
+    Cyber: Number(localStorage.getItem("scoreCyber")) || 0
+  };
 
-  // Bandeau haut
+  const answersByDomainLocal = {
+    ESG: JSON.parse(localStorage.getItem("answersESG") || "[]"),
+    AML: JSON.parse(localStorage.getItem("answersAML") || "[]"),
+    Digital: JSON.parse(localStorage.getItem("answersDigital") || "[]"),
+    Credit: JSON.parse(localStorage.getItem("answersCredit") || "[]"),
+    Cyber: JSON.parse(localStorage.getItem("answersCyber") || "[]")
+  };
+
+  const globalScoreLocal = Math.round(
+    (scoresLocal.ESG + scoresLocal.AML + scoresLocal.Digital + scoresLocal.Credit + scoresLocal.Cyber) / 5
+  );
+
+  const interpretGlobalLocal = (score) => {
+    if (score < 30) return "Fondations a renforcer rapidement. Priorites claires et plan d'action recommande.";
+    if (score < 70) return "Niveau intermediaire. Des gains rapides sont possibles sur 30 a 60 jours.";
+    return "Niveau solide. Optimisation et valorisation aupres des partenaires recommandees.";
+  };
+
+  // Top 3 priorités = 3 scores les plus faibles
+  const priorities = Object.entries(scoresLocal)
+    .sort((a, b) => a[1] - b[1])
+    .slice(0, 3)
+    .map(([k, v]) => ({ domain: k, score: v }));
+
+  const domainLabels = {
+    ESG: "ESG",
+    AML: "AML / KYC",
+    Digital: "Digitalisation",
+    Credit: "Credit",
+    Cyber: "Cybersecurite"
+  };
+
+  const domainActions = {
+    ESG: [
+      "Formaliser une politique ESG simple (1 page) + preuves",
+      "Mettre en place un mini-plan d'actions (30-90 jours)",
+      "Preparer reponses aux demandes clients/banques"
+    ],
+    AML: [
+      "Revoir scoring risques clients + preuves KYC",
+      "Mettre a jour procedures + registre controles",
+      "Preparations controles/audits (ITAA/banque)"
+    ],
+    Digital: [
+      "Cartographier process et outils (etat des lieux)",
+      "Prioriser 3 gains rapides (temps / erreurs / qualite)",
+      "Tableau de bord / suivi activite et risques"
+    ],
+    Credit: [
+      "Lecture ratios + axes d'amelioration",
+      "Preparation dossier bancaire (narratif + chiffres)",
+      "Plan court terme pour solidite (cash / marge / BFR)"
+    ],
+    Cyber: [
+      "Hygiene de base (MFA, sauvegardes, mises a jour)",
+      "Sensibilisation equipe + checklists",
+      "Plan de reponse incident (simple et utilisable)"
+    ]
+  };
+
+  const drawScoreBar = (label, value, colorRGB) => {
+    newPageIfNeeded(16);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
+    doc.text(label, margin, y);
+
+    // fond barre
+    const barX = margin + 55;
+    const barY = y - 5;
+    const barW = maxWidth - 55;
+    const barH = 6;
+
+    doc.setFillColor(220);
+    doc.roundedRect(barX, barY, barW, barH, 2, 2, "F");
+
+    // remplissage
+    const fillW = (barW * Math.max(0, Math.min(100, value))) / 100;
+    doc.setFillColor(colorRGB[0], colorRGB[1], colorRGB[2]);
+    doc.roundedRect(barX, barY, fillW, barH, 2, 2, "F");
+
+    // valeur
+    doc.setFont("helvetica", "bold");
+    doc.text(`${value}/100`, margin + maxWidth, y, { align: "right" });
+
+    y += 12;
+  };
+
+  // ----------------------------
+  // PAGE 1 - COUVERTURE
+  // ----------------------------
   doc.setFillColor(0, 58, 112);
-  doc.rect(0, 0, pageWidth, 45, "F");
+  doc.rect(0, 0, pageWidth, 38, "F");
 
   doc.setTextColor(255);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(22);
-  doc.text("Master Your Metrics", pageWidth / 2, 25, { align: "center" });
+  doc.setFontSize(18);
+  doc.text("Master Your Metrics", pageWidth / 2, 18, { align: "center" });
 
-  doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
-  doc.text(
-    "Diagnostic de pilotage — Synthèse décisionnelle",
-    pageWidth / 2,
-    35,
-    { align: "center" }
-  );
+  doc.setFontSize(10);
+  doc.text("Diagnostic — Synthese decisionnelle", pageWidth / 2, 28, { align: "center" });
 
   doc.setTextColor(0);
-  y = 60;
+  y = 52;
 
-  // Carte Score global
+  // Score global box
   doc.setFillColor(245, 247, 250);
-  doc.roundedRect(margin, y, maxWidth, 32, 6, 6, "F");
+  doc.roundedRect(margin, y, maxWidth, 26, 4, 4, "F");
 
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.text("Score global", margin + 10, y + 14);
-
-  doc.setFontSize(22);
-  doc.text(`${globalScore} / 100`, pageWidth - margin - 10, y + 18, {
-    align: "right"
-  });
-
-  y += 45;
-
-  // Lecture stratégique
   doc.setFontSize(13);
-  doc.setFont("helvetica", "bold");
-  doc.text("Lecture stratégique", margin, y);
+  doc.text("Score global", margin + 8, y + 11);
 
+  doc.setFontSize(20);
+  doc.text(`${globalScoreLocal} / 100`, margin + maxWidth - 8, y + 15, { align: "right" });
+
+  y += 38;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(13);
+  doc.text("Lecture strategique", margin, y);
   y += 8;
+
   doc.setFont("helvetica", "normal");
   doc.setFontSize(11);
-  doc.text(
-    normalizeText(interpretGlobal(globalScore)),
-    margin,
-    y,
-    { maxWidth }
-  );
+  doc.text(normalizeText(interpretGlobalLocal(globalScoreLocal)), margin, y, { maxWidth });
+  y += 16;
 
-  y += 20;
+  // Priorités Top 3
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(13);
+  doc.text("Priorites (Top 3)", margin, y);
+  y += 8;
 
-  /* =====================================================
-     SCORES PAR PILIER
-  ===================================================== */
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(11);
 
+  priorities.forEach((p, idx) => {
+    const label = domainLabels[p.domain] || p.domain;
+    doc.text(`${idx + 1}. ${label} (${p.score}/100)`, margin, y);
+    y += 6;
+
+    const actions = (domainActions[p.domain] || []).slice(0, 2);
+    actions.forEach(a => {
+      doc.setFontSize(10);
+      doc.text(`- ${normalizeText(a)}`, margin + 4, y);
+      y += 5;
+      doc.setFontSize(11);
+    });
+
+    y += 3;
+  });
+
+  y += 6;
+
+  // Scores par pilier + barres
   doc.setFont("helvetica", "bold");
   doc.setFontSize(13);
   doc.text("Scores par pilier", margin, y);
   y += 10;
 
-  const pillars = [
-    ["ESG", scores.ESG],
-    ["AML / KYC", scores.AML],
-    ["Digitalisation", scores.Digital],
-    ["Crédit", scores.Credit],
-    ["Cybersécurité", scores.Cyber]
-  ];
+  drawScoreBar("ESG", scoresLocal.ESG, [46, 204, 64]);
+  drawScoreBar("AML/KYC", scoresLocal.AML, [255, 133, 27]);
+  drawScoreBar("Digital", scoresLocal.Digital, [127, 219, 255]);
+  drawScoreBar("Credit", scoresLocal.Credit, [177, 13, 201]);
+  drawScoreBar("Cyber", scoresLocal.Cyber, [255, 65, 54]);
 
-  pillars.forEach(([label, value]) => {
-    newPageIfNeeded(14);
-
-    // fond ligne
-    doc.setFillColor(245, 247, 250);
-    doc.roundedRect(margin, y - 6, maxWidth, 12, 4, 4, "F");
-
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(11);
-    doc.text(label, margin + 6, y + 2);
-
-    doc.setFont("helvetica", "bold");
-    doc.text(`${value} / 100`, pageWidth - margin - 6, y + 2, {
-      align: "right"
-    });
-
-    y += 16;
-  });
-
-  /* =====================================================
-     QUESTIONNAIRE COMPLET
-  ===================================================== */
-
-  Object.entries(answersByDomain).forEach(([domain, answers]) => {
+  // ----------------------------
+  // PAGES - QUESTIONNAIRE
+  // ----------------------------
+  Object.entries(answersByDomainLocal).forEach(([domain, answers]) => {
     if (!answers || answers.length === 0) return;
 
+    addFooter();
     doc.addPage();
-    y = 30;
+    y = 18;
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
-    doc.text(domain, margin, y);
-
+    doc.text(domainLabels[domain] || domain, margin, y);
     y += 10;
 
     doc.setFont("helvetica", "normal");
@@ -487,73 +607,61 @@ function generatePDF() {
       newPageIfNeeded(h + 10);
 
       doc.setFillColor(250, 250, 250);
-      doc.roundedRect(margin, y - 4, maxWidth, h + 6, 4, 4, "F");
+      doc.roundedRect(margin, y - 4, maxWidth, h + 6, 3, 3, "F");
 
       doc.text(block, margin + 4, y, { maxWidth });
-      y += h + 12;
+      y += h + 10;
     });
   });
 
+  // ----------------------------
+  // PAGE FINALE - CONTACT
+  // ----------------------------
+  addFooter();
+  doc.addPage();
+  y = 22;
 
-/* =====================================================
-   PAGE FINALE — CONTACT (SÉCURISÉ)
-===================================================== */
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.text("Prochaine etape", margin, y);
+  y += 10;
 
-doc.addPage();
-y = 40;
-
-doc.setFont("helvetica", "bold");
-doc.setFontSize(16);
-doc.text("Prochaine etape", margin, y);
-
-y += 12;
-doc.setFont("helvetica", "normal");
-doc.setFontSize(11);
-doc.text(
-  "Ce diagnostic constitue une base objective de discussion. " +
-  "Un echange structure permet de transformer ces constats " +
-  "en plan d'actions concret, priorise et mesurable.",
-  margin,
-  y,
-  { maxWidth }
-);
-
-y += 35;
-
-/* Bloc contact bien positionné */
-doc.setFillColor(0, 116, 217);
-doc.roundedRect(margin, y, maxWidth, 36, 6, 6, "F");
-
-doc.setTextColor(255);
-doc.setFont("helvetica", "bold");
-doc.setFontSize(13);
-doc.text("Contact", margin + 10, y + 14);
-
-doc.setFont("helvetica", "normal");
-doc.setFontSize(11);
-doc.text(
-  "Master Your Metrics\n" +
-  "contact@masteryourmetrics.be\n" +
-  "www.masteryourmetrics.be",
-  margin + 10,
-  y + 26
-);
-
-doc.setTextColor(0);
-
-
-  /* FOOTER */
-  doc.setFontSize(8);
-  doc.setTextColor(130);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(11);
   doc.text(
-    "Document confidentiel — usage décisionnel",
-    pageWidth / 2,
-    pageHeight - 10,
-    { align: "center" }
+    normalizeText(
+      "Ce diagnostic est une base objective. Un echange structure permet de transformer ces constats en plan d'actions concret, priorise et mesurable."
+    ),
+    margin,
+    y,
+    { maxWidth }
   );
+
+  y += 22;
+
+  doc.setFillColor(0, 116, 217);
+  doc.roundedRect(margin, y, maxWidth, 34, 5, 5, "F");
+
+  doc.setTextColor(255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.text("Contact", margin + 10, y + 12);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.text(
+    "Master Your Metrics\ncontact@masteryourmetrics.be\nwww.masteryourmetrics.be",
+    margin + 10,
+    y + 22
+  );
+
+  doc.setTextColor(0);
+
+  addFooter();
 
   doc.save("MasterYourMetrics_Diagnostic_Executive.pdf");
 }
+</script>
 
 /* =========================
    EMAIL – VERSION CTA CLIENT
