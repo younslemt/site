@@ -22,20 +22,63 @@
   <!-- =========================
        SEO STRATÉGIQUE
   ========================= -->
-  <title>Sprints opérationnels ESG, AML/KYC & Digital pour PME et fiduciaires | Master Your Metrics</title>
-  <meta name="description" content="Sprints courts et opérationnels en ESG, AML/KYC, digitalisation, finance et cybersécurité. Des livrables concrets, des prix clairs et des résultats mesurables pour PME et fiduciaires.">
+  <title>Services AML/KYC, ESG & Business Optimization | Master Your Metrics</title>
+
+  <meta name="description" content="Master Your Metrics accompagne les fiduciaires, PME et dirigeants en Belgique via des sprints opérationnels AML/KYC, ESG et Business Optimization. Plateforme KYC/KYT, formation, livrables concrets et dispositif défendable en cas de contrôle.">
+
+  <meta name="keywords" content="
+  services AML KYC fiduciaires,
+  conformité AML Belgique,
+  sprint AML KYC,
+  plateforme KYC KYT,
+  ESG PME Belgique,
+  business optimization PME,
+  digitalisation cybersécurité finance,
+  accompagnement fiduciaires ITAA,
+  Master Your Metrics
+  ">
+
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.masteryourmetrics.be/services.html">
+
+  <!-- =========================
+       OPEN GRAPH
+  ========================= -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Master Your Metrics – Services AML/KYC, ESG & Business Optimization">
+  <meta property="og:description" content="Sprints opérationnels pour fiduciaires et PME : AML/KYC, ESG et optimisation des processus. Plateforme, formation, preuves et accompagnement.">
+  <meta property="og:url" content="https://www.masteryourmetrics.be/services.html">
+  <meta property="og:site_name" content="Master Your Metrics">
+  <meta property="og:image" content="https://masteryourmetrics.be/assets/og-cover.jpg">
+
+  <!-- =========================
+       FAVICON
+  ========================= -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/favicon.png">
 
   <!-- =========================
        STYLE
   ========================= -->
   <style>
+    :root {
+      --bg-main: #f4f6f8;
+      --bg-dark: #001f3f;
+      --bg-dark-2: #003a70;
+      --primary: #0074D9;
+      --primary-dark: #005fa3;
+      --accent: #28a745;
+      --text-main: #333;
+      --text-dark: #001f3f;
+      --card-bg: #ffffff;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f6f8;
+      background-color: var(--bg-main);
       margin: 0;
-      color: #333;
+      color: var(--text-main);
     }
 
     header {
@@ -48,6 +91,7 @@
     header h1 {
       font-size: 2.7em;
       margin-bottom: 15px;
+      line-height: 1.15;
     }
 
     header p {
@@ -55,6 +99,7 @@
       max-width: 950px;
       margin: 0 auto;
       opacity: 0.95;
+      line-height: 1.65;
     }
 
     main {
@@ -70,13 +115,26 @@
     .section h2 {
       font-size: 2.2em;
       margin-bottom: 20px;
-      color: #001f3f;
+      color: var(--text-dark);
     }
 
     .section p {
       font-size: 1.1em;
       line-height: 1.7;
       max-width: 900px;
+    }
+
+    .intro-highlight {
+      background: white;
+      border-left: 6px solid var(--primary);
+      padding: 28px 32px;
+      border-radius: 12px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+      margin-top: 30px;
+    }
+
+    .intro-highlight strong {
+      color: var(--text-dark);
     }
 
     .cards {
@@ -86,19 +144,14 @@
       margin-top: 40px;
     }
 
-    .card-link {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
     .card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 14px;
       padding: 35px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.08);
       transition: all 0.25s ease;
       height: 100%;
+      box-sizing: border-box;
     }
 
     .card:hover {
@@ -109,6 +162,7 @@
     .card h3 {
       margin-top: 0;
       color: #003a70;
+      font-size: 1.35em;
     }
 
     .card ul {
@@ -116,11 +170,26 @@
       line-height: 1.6;
     }
 
+    .card li {
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #eef6ff;
+      color: #003a70;
+      font-weight: bold;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.85em;
+      margin-bottom: 15px;
+    }
+
     .price {
       margin-top: 20px;
       font-weight: bold;
       font-size: 1.1em;
-      color: #0074D9;
+      color: var(--primary);
     }
 
     .price small {
@@ -128,6 +197,87 @@
       font-weight: normal;
       color: #555;
       margin-top: 6px;
+      line-height: 1.45;
+    }
+
+    .module-card {
+      border-top: 5px solid var(--primary);
+    }
+
+    .module-card.aml {
+      border-top-color: #ff9f43;
+    }
+
+    .module-card.esg {
+      border-top-color: #28a745;
+    }
+
+    .module-card.optimization {
+      border-top-color: #0074D9;
+    }
+
+    .platform-block {
+      background: linear-gradient(135deg, #0b1c2d, #003a70);
+      color: white;
+      border-radius: 18px;
+      padding: 45px;
+      margin-top: 40px;
+      box-shadow: 0 14px 32px rgba(0,0,0,0.18);
+    }
+
+    .platform-block h3 {
+      margin-top: 0;
+      font-size: 1.8em;
+    }
+
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .platform-item {
+      background: rgba(255,255,255,0.1);
+      padding: 25px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+
+    .platform-item h4 {
+      margin-top: 0;
+      color: white;
+    }
+
+    .platform-item p {
+      font-size: 0.98em;
+      line-height: 1.6;
+      margin-bottom: 0;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .offer-table {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+      margin-top: 35px;
+    }
+
+    .offer {
+      background: white;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .offer h3 {
+      margin-top: 0;
+      color: #003a70;
+    }
+
+    .offer strong {
+      color: #0074D9;
+      font-size: 1.25em;
     }
 
     .full-width-cta {
@@ -137,6 +287,7 @@
       color: white;
       padding: 90px 20px;
       text-align: center;
+      box-sizing: border-box;
     }
 
     .full-width-cta h2 {
@@ -148,17 +299,38 @@
       font-size: 1.25em;
       max-width: 900px;
       margin: 0 auto 40px auto;
+      line-height: 1.6;
     }
 
     .cta-btn {
       display: inline-block;
-      background: #28a745;
+      background: var(--accent);
       color: white;
       padding: 20px 42px;
       font-size: 1.3em;
       border-radius: 10px;
       text-decoration: none;
       font-weight: bold;
+      transition: all 0.25s ease;
+      box-shadow: 0 10px 26px rgba(40,167,69,0.32);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(40,167,69,0.42);
+    }
+
+    .secondary-btn {
+      display: inline-block;
+      background: white;
+      color: #003a70;
+      padding: 16px 34px;
+      font-size: 1.05em;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-left: 12px;
+      margin-top: 15px;
     }
 
     footer {
@@ -167,6 +339,33 @@
       font-size: 0.9em;
       color: #666;
     }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 70px 20px;
+      }
+
+      header h1 {
+        font-size: 2.1em;
+      }
+
+      header p {
+        font-size: 1.08em;
+      }
+
+      .section h2 {
+        font-size: 1.8em;
+      }
+
+      .platform-block {
+        padding: 30px 22px;
+      }
+
+      .secondary-btn {
+        margin-left: 0;
+        display: block;
+      }
+    }
   </style>
 
 </head>
@@ -174,13 +373,13 @@
 <body>
 
 <header>
-  <h1>Sprints opérationnels ESG, AML/KYC & Digital pour PME et fiduciaires</h1>
+  <h1>Rendre simples les sujets complexes de conformité, de risque et de pilotage</h1>
   <p>
-    De l’analyse à l’exécution, nous transformons vos constats réglementaires
-    en <strong>actions concrètes, documentées et mesurables</strong>.
+    Master Your Metrics accompagne les fiduciaires, PME et dirigeants dans la structuration
+    de leurs obligations AML/KYC, ESG et Business Optimization.
     <br><br>
-    Pensé pour les <strong>dirigeants de PME, associés de fiduciaires</strong>
-    et structures sans équipe conformité dédiée.
+    Notre approche combine <strong>conseil, formation, outils opérationnels et plateforme de suivi</strong>
+    pour transformer vos obligations en processus simples, traçables et défendables.
   </p>
 </header>
 
@@ -190,18 +389,27 @@
      POSITIONNEMENT
 ========================= -->
 <section class="section">
-  <h2>Pourquoi nos sprints font la différence</h2>
+  <h2>Une approche pensée pour les professionnels qui doivent agir vite</h2>
+
   <p>
-    La conformité n’est plus une option, mais elle ne doit pas devenir un frein.
-    Nos sprints sont conçus pour produire des résultats rapides,
-    exploitables et crédibles auprès des banques, clients et régulateurs.
+    Les obligations réglementaires, la pression documentaire et les attentes des partenaires
+    exigent aujourd’hui plus qu’une simple procédure. Les dirigeants doivent pouvoir démontrer,
+    expliquer et piloter leurs dispositifs internes avec clarté.
   </p>
 
+  <div class="intro-highlight">
+    <p>
+      <strong>Notre conviction :</strong> la conformité ne doit pas être un poids administratif.
+      Elle doit devenir un cadre de travail clair, simple à utiliser, utile pour les équipes
+      et crédible en cas de contrôle.
+    </p>
+  </div>
+
   <ul>
-    <li>Moins de stress lors des contrôles et audits</li>
-    <li>Dossiers prêts à être démontrés à tout moment</li>
-    <li>Temps opérationnel réduit sur la conformité</li>
-    <li>Vision claire des priorités réelles</li>
+    <li>Structurer les obligations sans complexifier inutilement l’organisation</li>
+    <li>Centraliser les documents, preuves, décisions et actions à suivre</li>
+    <li>Former les dirigeants et équipes aux bons réflexes opérationnels</li>
+    <li>Produire des livrables exploitables, documentés et réutilisables</li>
   </ul>
 </section>
 
@@ -210,121 +418,235 @@
 ========================= -->
 <section class="section">
   <h2>Notre méthode d’intervention</h2>
+
   <p>
-    Chaque accompagnement suit une logique simple et éprouvée :
-    comprendre votre situation, prioriser les risques, puis agir de manière ciblée.
-    Aucun sprint n’est lancé sans diagnostic préalable.
+    Chaque mission suit une logique claire : comprendre votre situation,
+    prioriser les risques, mettre en place les bons outils, puis rendre votre organisation autonome.
+    Nous privilégions les dispositifs simples, utiles et réellement applicables.
   </p>
 
   <div class="cards">
     <div class="card">
-      <h3>1️⃣ Diagnostic d’orientation</h3>
+      <span class="badge">Étape 1</span>
+      <h3>Diagnostic d’orientation</h3>
       <ul>
-        <li>Analyse rapide de votre situation</li>
+        <li>Compréhension rapide de votre situation</li>
         <li>Identification des priorités réelles</li>
-        <li>Orientation vers le sprint le plus utile</li>
+        <li>Clarification des enjeux réglementaires et opérationnels</li>
       </ul>
       <div class="price">
         Diagnostic exploratoire gratuit
-        <small>(sans livrable – 15 à 30 min)</small>
+        <small>Échange de 15 à 30 minutes pour cadrer le besoin.</small>
       </div>
     </div>
 
     <div class="card">
-      <h3>2️⃣ Sprint opérationnel</h3>
+      <span class="badge">Étape 2</span>
+      <h3>Sprint opérationnel</h3>
       <ul>
-        <li>Objectif clair et borné</li>
-        <li>Livrables concrets et réutilisables</li>
-        <li>Délais courts (2 à 4 semaines)</li>
+        <li>Mission courte, structurée et orientée livrables</li>
+        <li>Mise en place d’outils, procédures et preuves</li>
+        <li>Restitution claire et plan d’actions priorisé</li>
       </ul>
       <div class="price">
-        Dès 1.250 € HT
-        <small>inclut analyse, livrables et restitution</small>
+        Dès 1.250 € HTVA
+        <small>Selon périmètre, taille du cabinet et niveau de structuration attendu.</small>
       </div>
     </div>
 
     <div class="card">
-      <h3>3️⃣ Suivi & pilotage</h3>
+      <span class="badge">Étape 3</span>
+      <h3>Autonomie & suivi</h3>
       <ul>
-        <li>Mise à jour continue des documents</li>
-        <li>Anticipation des évolutions réglementaires</li>
-        <li>Crédibilité renforcée dans la durée</li>
+        <li>Formation des dirigeants et équipes</li>
+        <li>Suivi des actions dans la plateforme</li>
+        <li>Possibilité d’accompagnement ponctuel ou annuel</li>
       </ul>
       <div class="price">
-        Abonnement ou accompagnement continu
-        <small>selon périmètre et besoins</small>
+        Support ou licence annuelle
+        <small>Pour maintenir le dispositif dans le temps.</small>
       </div>
     </div>
   </div>
 </section>
 
 <!-- =========================
-     SPRINTS
+     3 PÔLES
 ========================= -->
 <section class="section">
-  <h2>Nos sprints par domaine</h2>
+  <h2>Nos 3 pôles d’accompagnement</h2>
+
+  <p>
+    Nous avons structuré notre offre autour de trois pôles complémentaires.
+    L’objectif est de couvrir les priorités essentielles des fiduciaires et PME :
+    conformité, durabilité et optimisation opérationnelle.
+  </p>
 
   <div class="cards">
 
-    <a href="sprint-esg.html" class="card-link">
-      <div class="card">
-        <h3>🌱 Sprint ESG</h3>
-        <ul>
-          <li>Structuration ESG pragmatique</li>
-          <li>Réponses aux demandes banques et clients</li>
-          <li>Préparation CSRD et exigences futures</li>
-        </ul>
-        <div class="price">Dès 1.500 € HT</div>
+    <div class="card module-card aml">
+      <span class="badge">Pôle 1</span>
+      <h3>🔐 AML / KYC</h3>
+      <p>
+        Structurer un dispositif AML/KYC clair, traçable et défendable,
+        adapté aux réalités opérationnelles des fiduciaires.
+      </p>
+      <ul>
+        <li>Scoring de risque client</li>
+        <li>Dossiers KYC structurés</li>
+        <li>Revue périodique et vigilance continue</li>
+        <li>KYT : identification des transactions atypiques</li>
+        <li>Preuves, procédures et audit trail</li>
+      </ul>
+      <div class="price">
+        Sprint AML/KYC
+        <small>Mise en place d’un dispositif minimum défendable et exploitable.</small>
       </div>
-    </a>
+    </div>
 
-    <a href="sprint-aml-kyc.html" class="card-link">
-      <div class="card">
-        <h3>💼 Sprint AML / KYC</h3>
-        <ul>
-          <li>Revue du dispositif existant</li>
-          <li>Procédures, scoring et preuves</li>
-          <li>Préparation audits et contrôles</li>
-        </ul>
-        <div class="price">Dès 1.250 € HT</div>
+    <div class="card module-card esg">
+      <span class="badge">Pôle 2</span>
+      <h3>🌱 ESG</h3>
+      <p>
+        Aider les dirigeants à structurer une démarche ESG pragmatique,
+        compréhensible et utile pour leurs clients, banques et partenaires.
+      </p>
+      <ul>
+        <li>Diagnostic ESG simplifié</li>
+        <li>Priorités environnementales, sociales et gouvernance</li>
+        <li>Préparation aux attentes clients et bancaires</li>
+        <li>Plan d’actions progressif</li>
+        <li>Documentation et éléments de preuve</li>
+      </ul>
+      <div class="price">
+        Sprint ESG
+        <small>Structuration progressive, sans lourdeur ni surpromesse.</small>
       </div>
-    </a>
+    </div>
 
-    <a href="sprint-digitalisation.html" class="card-link">
-      <div class="card">
-        <h3>💻 Sprint Digitalisation</h3>
-        <ul>
-          <li>Analyse de maturité digitale</li>
-          <li>Optimisation des outils internes</li>
-          <li>Automatisations ciblées</li>
-        </ul>
-        <div class="price">Dès 1.250 € HT</div>
+    <div class="card module-card optimization">
+      <span class="badge">Pôle 3</span>
+      <h3>🚀 Business Optimization</h3>
+      <p>
+        Regrouper digitalisation, cybersécurité et pilotage financier
+        dans une logique d’efficacité, de maîtrise des risques et de performance.
+      </p>
+      <ul>
+        <li>Optimisation des processus internes</li>
+        <li>Digitalisation des tâches répétitives</li>
+        <li>Cybersécurité et bonnes pratiques utilisateurs</li>
+        <li>Suivi financier, ratios et tableaux de bord</li>
+        <li>Amélioration de la lisibilité pour banques et partenaires</li>
+      </ul>
+      <div class="price">
+        Sprint Business Optimization
+        <small>Un pôle transversal pour renforcer efficacité, sécurité et pilotage.</small>
       </div>
-    </a>
+    </div>
 
-    <a href="sprint-credit-ratios-financiers.html" class="card-link">
-      <div class="card">
-        <h3>📊 Sprint Crédit & ratios financiers</h3>
-        <ul>
-          <li>Lecture financière claire</li>
-          <li>Dossiers bancaires renforcés</li>
-          <li>Amélioration du profil de financement</li>
-        </ul>
-        <div class="price">Dès 1.250 € HT</div>
-      </div>
-    </a>
+  </div>
+</section>
 
-    <a href="sprint-cybersecurite.html" class="card-link">
-      <div class="card">
-        <h3>🔐 Sprint Cybersécurité</h3>
-        <ul>
-          <li>Réduction du risque humain</li>
-          <li>Bonnes pratiques applicables</li>
-          <li>Plan de réponse aux incidents</li>
-        </ul>
-        <div class="price">Dès 1.250 € HT</div>
+<!-- =========================
+     PLATEFORME
+========================= -->
+<section class="section">
+  <h2>Une plateforme pour structurer, suivre et prouver</h2>
+
+  <p>
+    Au-delà de l’accompagnement, Master Your Metrics met à disposition une plateforme
+    permettant de suivre les sprints, centraliser les documents et donner aux clients
+    une vision claire de l’avancement.
+  </p>
+
+  <div class="platform-block">
+    <h3>AML Master Suite</h3>
+    <p>
+      Une solution opérationnelle combinant KYC Master, KYT Master, tableau de bord,
+      suivi des tâches, dépôt documentaire et formation.
+    </p>
+
+    <div class="platform-grid">
+      <div class="platform-item">
+        <h4>KYC Master</h4>
+        <p>
+          Structuration des dossiers clients, scoring de risque, revue périodique
+          et centralisation documentaire.
+        </p>
       </div>
-    </a>
+
+      <div class="platform-item">
+        <h4>KYT Master</h4>
+        <p>
+          Identification des transactions atypiques, documentation des justifications
+          et traçabilité des décisions.
+        </p>
+      </div>
+
+      <div class="platform-item">
+        <h4>Dashboard & suivi</h4>
+        <p>
+          Vision consolidée des risques, avancement du sprint, tâches à réaliser
+          et preuves disponibles.
+        </p>
+      </div>
+
+      <div class="platform-item">
+        <h4>Formation & autonomie</h4>
+        <p>
+          Supports de formation, tests, bonnes pratiques et accompagnement des dirigeants
+          pour une utilisation autonome.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     FORMULES
+========================= -->
+<section class="section">
+  <h2>Des formats simples et évolutifs</h2>
+
+  <p>
+    Nous privilégions une approche progressive : commencer par un sprint ciblé,
+    installer les bons outils, puis maintenir le dispositif dans le temps si nécessaire.
+  </p>
+
+  <div class="offer-table">
+
+    <div class="offer">
+      <h3>Sprint de structuration</h3>
+      <p>
+        Diagnostic, priorisation, livrables, outils et restitution.
+      </p>
+      <strong>Dès 1.250 € HTVA</strong>
+      <p>
+        Idéal pour démarrer rapidement avec un cadre clair et des résultats visibles.
+      </p>
+    </div>
+
+    <div class="offer">
+      <h3>Formation & autonomie</h3>
+      <p>
+        Formation dirigeants et équipes, cas pratiques, test et support opérationnel.
+      </p>
+      <strong>Sur devis ou forfait</strong>
+      <p>
+        Pour installer des réflexes homogènes et réduire la dépendance à une personne clé.
+      </p>
+    </div>
+
+    <div class="offer">
+      <h3>Plateforme & suivi</h3>
+      <p>
+        Accès aux outils, dashboard, documents, tâches et suivi du dispositif.
+      </p>
+      <strong>Licence ou accompagnement annuel</strong>
+      <p>
+        Pour maintenir une conformité structurée et pilotable dans le temps.
+      </p>
+    </div>
 
   </div>
 </section>
@@ -335,14 +657,31 @@
 <section class="section">
   <h2>Questions fréquentes</h2>
 
-  <p><strong>Ces sprints sont-ils adaptés à une petite structure ?</strong><br>
-  Oui. Ils sont conçus pour des PME et fiduciaires sans équipe conformité interne.</p>
+  <p>
+    <strong>Ces services sont-ils adaptés à une petite fiduciaire ?</strong><br>
+    Oui. Notre approche est pensée pour les structures qui n’ont pas d’équipe conformité dédiée
+    mais qui doivent malgré tout disposer d’un dispositif clair, documenté et défendable.
+  </p>
 
-  <p><strong>Est-ce obligatoire réglementairement ?</strong><br>
-  Pas toujours, mais cela permet d’anticiper les exigences et d’éviter des corrections coûteuses.</p>
+  <p>
+    <strong>Est-ce un audit réglementaire ?</strong><br>
+    Non. Nous intervenons comme partenaire méthodologique et opérationnel.
+    Le but est de structurer vos processus, vos outils et vos preuves, sans nous substituer
+    à vos responsabilités réglementaires.
+  </p>
 
-  <p><strong>Travaillez-vous avec des fiduciaires ?</strong><br>
-  Oui, directement ou via leurs clients PME.</p>
+  <p>
+    <strong>La plateforme peut-elle être utilisée sans vous ?</strong><br>
+    Oui. Elle est conçue pour permettre une utilisation autonome après le sprint.
+    Nous formons les dirigeants et les équipes afin que le cabinet puisse suivre son dispositif
+    dans la durée.
+  </p>
+
+  <p>
+    <strong>Que se passe-t-il après le sprint ?</strong><br>
+    Le cabinet peut poursuivre de manière autonome, demander un accompagnement ponctuel
+    ou mettre en place une revue annuelle afin de maintenir le dispositif à jour.
+  </p>
 </section>
 
 </main>
@@ -351,15 +690,24 @@
      CTA FINAL
 ========================= -->
 <section class="full-width-cta">
-  <h2>Passez du diagnostic à l’action</h2>
+  <h2>Passez d’une obligation à un système pilotable</h2>
   <p>
-    En 30 minutes gratuites, nous analysons votre situation,
-    identifions vos priorités et définissons le sprint le plus pertinent.
+    En 30 minutes, nous analysons votre situation, identifions vos priorités
+    et voyons si un sprint Master Your Metrics peut vous apporter une valeur concrète.
   </p>
+
   <a href="https://calendar.app.google/4E79ZUbDgHx2AMGe6"
      target="_blank"
+     rel="noopener"
      class="cta-btn">
     📅 Réserver mon entretien gratuit
+  </a>
+
+  <a href="https://sprint-master.netlify.app"
+     target="_blank"
+     rel="noopener"
+     class="secondary-btn">
+    🔐 Accéder à l’espace client
   </a>
 </section>
 
